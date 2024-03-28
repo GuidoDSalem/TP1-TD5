@@ -2,7 +2,7 @@ import numpy as np
 class Result:
 
     def __init__(self):
-        self.__globalResult = {}
+        self.__globalResult:dict = {}
         self.__m = 0
         self.__n = 0
         self.__dataName = ""
@@ -18,8 +18,8 @@ class Result:
         self.__dataName = dataName_
         self.__algoName = algoName_
 
-    def setSolutions(self,puntos:list[tuple[int,int]],bestError_:int)->bool:
-        if(len(puntos != self.__m)):
+    def setSolutions(self,bestError_:int,puntos:list[tuple[int,int]])->bool:
+        if len(puntos) != self.__m:
             return False
         if (bestError_ < 0):
             return False
@@ -33,8 +33,16 @@ class Result:
         """
         Guarda Internamente en el globalResult el resultado de esta iteracion: name,m,n,puntos y best result
         """
-        dataKey = self.__dataName[:-4] # Ej: titanium
-        experimentKey = str(self.__m) + "_" + self.__n # Ej: 5_12
+        dataKey = self.__dataName[:-5] # Ej: titanium
+        experimentKey: str = f"{self.__m}_{self.__n}" # Ej: 5_12
+
+        if dataKey not in self.__globalResult:
+            self.__globalResult[dataKey] = {}
+        if self.__algoName not in self.__globalResult[dataKey]:
+            self.__globalResult[dataKey][self.__algoName] = {}
+        if experimentKey not in self.__globalResult[dataKey][self.__algoName]:
+            self.__globalResult[dataKey][self.__algoName][experimentKey] = {"bestError": None, "solution": []}
+
         self.__globalResult[dataKey][self.__algoName][experimentKey]["bestError"] = self.__bestError
         self.__globalResult[dataKey][self.__algoName][experimentKey]["solution"] = self.__sol
 

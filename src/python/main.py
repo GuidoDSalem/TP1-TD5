@@ -4,6 +4,7 @@ import os
 from algorithms.fuerzaBruta import fuerzaBruta
 from algorithms.backTracking import backTracking
 from algorithms.dinamicAlgoritm import dinamicAlgoritm
+from Result import Result
 
 BIG_NUMBER = 1e10 # Revisar si es necesario.
 
@@ -14,11 +15,13 @@ def main():
 	# Path a los datos json
 	dataPath = "data/"
 	# Datos
-	listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance"]
+	listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
 
+	# VALORES DE EXPERIMENTO
 	ms = [2,3,5,9,12]
 	ns = [2,3,5,9,12]
 
+	
 
 
 	# Por cada lista de Datos:
@@ -26,18 +29,34 @@ def main():
 		path = dataPath + dataName
 
 		# Cargamos los Datos
-		with open(filename) as f:
+		with open(path) as f:
 			instance = json.load(f)
+
+			result:Result = Result()
+			
 
 			for i in ms:
 				for j in ns:
 
-					grid_x = np.linspace(min(instance["x"]), max(instance["x"]), num=i, endpoint=True)
-					grid_y = np.linspace(min(instance["y"]), max(instance["y"]), num=j, endpoint=True)
+					result.setMN(i,j)
 
-					res_fuerzaBruta = fuerzaBruta(i, j, instance)
-					res_backTracking = backTracking(i, j, instance)
-					res_dinamicAlgoritm = dinamicAlgoritm(i, j, instance)
+					result.setNames(dataName,"FuerzaBurta")
+					bestError,solutions = fuerzaBruta(i, j, instance)
+					result.setSolutions(bestError,solutions)
+					result.saveState()
+
+					# result.setNames(dataName,"BackTracking")
+					# bestError,solutions = backTracking(i, j, instance)
+					# result.setSolutions(bestError,solutions)
+					# result.saveState()
+
+
+					# result.setNames(dataName,"DinamicAlgorithm")
+					# bestError,solutions = backTracking(i, j, instance)
+					# result.setSolutions(bestError,solutions)
+					# result.saveState()
+
+			result.saveInFile()
 
 
 
