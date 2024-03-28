@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import os
 
 BIG_NUMBER = 1e10 # Revisar si es necesario.
 
@@ -7,7 +8,11 @@ def main():
 
 	# Ejemplo para leer una instancia con json
 	instance_name = "titanium.json"
-	filename = "../../data/" + instance_name
+	# filename = "../../data/" + instance_name
+	filename = "data/" + instance_name
+	print(os.getcwd())
+
+	
 	with open(filename) as f:
 		instance = json.load(f)
 	
