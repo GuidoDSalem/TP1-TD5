@@ -4,8 +4,61 @@ import os
 
 BIG_NUMBER = 1e10 # Revisar si es necesario.
 
+def fuerzaBruta(Xs:int, Ys:int, datos):
+	pass
+def backTracking(Xs:int, Ys:int, datos):
+	pass
+def dinamicAlgoritm(Xs:int, Ys:int, datos):
+	pass
+
+def saveResults(resultado):
+	pass
+
+
 def main():
 
+	# Json: "n" = cantidad de puntos, "x" = Lista de Cordenadas x, "y" = Lista de Coordenadas y
+
+	# Path a los datos json
+	dataPath = "data/"
+	# Datos
+	listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance"]
+
+	ms = [2,3,5,9,12]
+	ns = [2,3,5,9,12]
+
+
+
+	# Por cada lista de Datos:
+	for dataName in listaDeDatos:
+		path = dataPath + dataName
+
+		# Cargamos los Datos
+		with open(filename) as f:
+			instance = json.load(f)
+
+			for i in ms:
+				for j in ns:
+
+					grid_x = np.linspace(min(instance["x"]), max(instance["x"]), num=i, endpoint=True)
+					grid_y = np.linspace(min(instance["y"]), max(instance["y"]), num=j, endpoint=True)
+
+					res_fuerzaBruta = fuerzaBruta(i, j, instance)
+					res_backTracking = backTracking(i, j, instance)
+					res_dinamicAlgoritm = dinamicAlgoritm(i, j, instance)
+
+					saveResults()
+
+
+
+
+
+
+
+
+"""
+
+############################  Original  ##########################
 	# Ejemplo para leer una instancia con json
 	instance_name = "titanium.json"
 	# filename = "../../data/" + instance_name
@@ -17,8 +70,11 @@ def main():
 		instance = json.load(f)
 	
 	K = instance["n"]
+	# Discreciones en X
 	m = 6
+	# Discreciones en Y
 	n = 6
+
 	N = 5
 	
 	# Ejemplo para definir una grilla de m x n.
@@ -52,7 +108,7 @@ def main():
 	# Se guarda el archivo en formato JSON
 	with open('solution_' + instance_name, 'w') as f:
 		json.dump(solution, f)
-
+"""
 	
 if __name__ == "__main__":
 	main()
