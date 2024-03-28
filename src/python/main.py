@@ -1,19 +1,11 @@
 import json
 import numpy as np
 import os
+from algorithms.fuerzaBruta import fuerzaBruta
+from algorithms.backTracking import backTracking
+from algorithms.dinamicAlgoritm import dinamicAlgoritm
 
 BIG_NUMBER = 1e10 # Revisar si es necesario.
-
-def fuerzaBruta(Xs:int, Ys:int, datos):
-	pass
-def backTracking(Xs:int, Ys:int, datos):
-	pass
-def dinamicAlgoritm(Xs:int, Ys:int, datos):
-	pass
-
-def saveResults(resultado):
-	pass
-
 
 def main():
 
@@ -46,8 +38,6 @@ def main():
 					res_fuerzaBruta = fuerzaBruta(i, j, instance)
 					res_backTracking = backTracking(i, j, instance)
 					res_dinamicAlgoritm = dinamicAlgoritm(i, j, instance)
-
-					saveResults()
 
 
 
