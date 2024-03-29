@@ -25,6 +25,8 @@ def main():
 
 
 	# Por cada lista de Datos:
+	result:Result = Result()
+	
 	for dataName in listaDeDatos:
 		path = dataPath + dataName
 
@@ -32,17 +34,14 @@ def main():
 		with open(path) as f:
 			instance = json.load(f)
 
-			result:Result = Result()
-			
-
 			for i in ms:
 				for j in ns:
 
 					result.setMN(i,j)
 
 					result.setNames(dataName,"FuerzaBurta")
-					bestError,solutions = fuerzaBruta(i, j, instance)
-					result.setSolutions(bestError,solutions)
+					bestError,solutions,time = fuerzaBruta(i, j, instance)
+					result.setSolutions(bestError,solutions,time)
 					result.saveState()
 
 					# result.setNames(dataName,"BackTracking")
@@ -56,7 +55,7 @@ def main():
 					# result.setSolutions(bestError,solutions)
 					# result.saveState()
 
-			result.saveInFile()
+	result.saveInFile()
 
 
 

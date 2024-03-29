@@ -9,6 +9,7 @@ class Result:
         self.__algoName = ""
         self.__sol = []
         self.__bestError = 100000000
+        self.__time = 2222222222
 
     def setMN(self,m_:int,n_:int):
         self.__m = m_
@@ -18,7 +19,7 @@ class Result:
         self.__dataName = dataName_
         self.__algoName = algoName_
 
-    def setSolutions(self,bestError_:int,puntos:list[tuple[int,int]])->bool:
+    def setSolutions(self,bestError_:int,puntos:list[tuple[int,int]],time_:int)->bool:
         if len(puntos) != self.__m:
             return False
         if (bestError_ < 0):
@@ -26,6 +27,7 @@ class Result:
         
         self.__sol = puntos
         self.__bestError = bestError_
+        self.__time = time_
 
         return True
         
@@ -45,6 +47,7 @@ class Result:
 
         self.__globalResult[dataKey][self.__algoName][experimentKey]["bestError"] = self.__bestError
         self.__globalResult[dataKey][self.__algoName][experimentKey]["solution"] = self.__sol
+        self.__globalResult[dataKey][self.__algoName][experimentKey]["time"] = self.__time
 
         
 
