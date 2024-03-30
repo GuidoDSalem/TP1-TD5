@@ -4,6 +4,7 @@ import os
 
 from algorithms.fuerzaBruta import fuerzaBruta
 from algorithms.backTracking import backTracking
+
 from algorithms.dinamicAlgoritm import dinamicAlgoritm
 from Result import Result
 
@@ -16,11 +17,12 @@ def main():
 	# Path a los datos json
 	dataPath = "data/"
 	# Datos
-	listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
-
+	#listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
+	listaDeDatos = ["toy_instance.json"]
+ 
 	# VALORES DE EXPERIMENTO
-	ms = [2,3,5,9,12]
-	ns = [2,3,5,9,12]
+	ms = [2]
+	ns = [2]
 
 	
 

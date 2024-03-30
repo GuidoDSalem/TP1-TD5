@@ -1,20 +1,20 @@
 import numpy as np
 import time
-from Core import *
+import numpy as np
 
 def fuerzaBrutaRecursiva(xs:list,ys:list,i,j,datos):
     #Caso Base
-    if(i == len(xs)):
-        return 0
+    #if(i == len(xs)):
+    #    return 0
     
 
     #Paso recursivo
-    bestError = 10000000000
-    for y in range(len(ys)):
-        error = fuerzaBrutaRecursiva(xs,ys,i+1,y,datos)
-        errorActual = errorAB(xs[i],ys[j],xs[i+1],y,datos)
-        if(error + errorActual  < bestError):
-            bestError = error + errorActual
+    #bestError = 10000000000
+    #for y in range(len(ys)):
+      #  error = fuerzaBrutaRecursiva(xs,ys,i+1,y,datos)
+       # errorActual = errorAB(xs[i],ys[j],xs[i+1],y,datos)
+       # if(error + errorActual  < bestError):
+       #     bestError = error + errorActual
     
     
 
@@ -32,7 +32,7 @@ def fuerzaBruta(Xs:int, Ys:int, datos):
 
 
 
-    bestError = fuerzaBrutaRecursiva(grid_x,grid_y,0,0)
+    bestError = fuerzaBrutaRecursiva(grid_x,grid_y,0,0, datos)
 
     end = time.time()
 
