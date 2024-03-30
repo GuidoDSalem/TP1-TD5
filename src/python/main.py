@@ -1,6 +1,7 @@
 import json
 import numpy as np
 import os
+
 from algorithms.fuerzaBruta import fuerzaBruta
 from algorithms.backTracking import backTracking
 from algorithms.dinamicAlgoritm import dinamicAlgoritm

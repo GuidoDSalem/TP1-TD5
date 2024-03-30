@@ -23,7 +23,9 @@ def calculateFunctionError(breakPoints:list,data)->float:
     return errorAcumulado
         
 def error(m,x1,y1,xd,yd):
+    
     """
+    Dado una recta, calcula el error de un punto con la recta
     yPred = (m (xd - x1)) + y1 , m = (y2-y1)/(x2-x1)
     """
     yPred = m * (xd - x1) + y1
@@ -31,15 +33,31 @@ def error(m,x1,y1,xd,yd):
 
 
 def pendiente(x1,y1,x2,y2):
-    return (y2-y1)/(x2-x1)
+    try:
+        m =  (y2-y1)/(x2-x1)
+    except ZeroDivisionError:
+        raise ValueError("Los dos puntos tienen la misma X -> No tiene pendiente!! ")
+    return m
+    
 
 def errorAB(xa,ya,xb,yb,datos):
-    m = (yb - ya)/(xb - xa)
+    """
+    Dado un conjunto de datos, calcula el error de los datos que este entre A y B
+    Pre: los datos deben estar ordenados
+
+    Returns:
+        float: _description_
+    """
+    m = pendiente(xa,xb,ya,yb)
     i = 0
     errorAcumulado = 0
-
-    while(xa < datos[i].x  and datos[i].x < xb):
-        errorAcumulado += error(m,xa,ya,datos[i].x,datos[i].y)
+    # Esto se podria reemplazar por una busqueda binaria para hacerlo mas eficiente
+    while(xa <= datos[i].x  and datos[i].x < xb):
         i+=1
+    
+    while(datos[i].x < xb):
+       errorAcumulado += error(m,xa,ya,datos[i].x,datos[i].y)
+       i+=1 
+
     return errorAcumulado
 
