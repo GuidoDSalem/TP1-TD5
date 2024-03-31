@@ -29,6 +29,7 @@ def error(m,x1,y1,xd,yd):
     yPred = (m (xd - x1)) + y1 , m = (y2-y1)/(x2-x1)
     """
     yPred = m * (xd - x1) + y1
+    print(f"|Ypred - Y| = |{yPred} - {yd}| = {np.absolute(yPred - yd)}")
     return np.absolute(yPred - yd)
 
 
@@ -36,11 +37,13 @@ def pendiente(x1,y1,x2,y2):
     try:
         m =  (y2-y1)/(x2-x1)
     except ZeroDivisionError:
+        print(x2,x1)
         raise ValueError("Los dos puntos tienen la misma X -> No tiene pendiente!! ")
     return m
     
 
 def errorAB(xa,ya,xb,yb,datos):
+    
     """
     Dado un conjunto de datos, calcula el error de los datos que este entre A y B
     Pre: los datos deben estar ordenados
@@ -48,16 +51,17 @@ def errorAB(xa,ya,xb,yb,datos):
     Returns:
         float: _description_
     """
-    m = pendiente(xa,xb,ya,yb)
+
+    m = pendiente(xa,ya,xb,yb)
     i = 0
     errorAcumulado = 0
     # Esto se podria reemplazar por una busqueda binaria para hacerlo mas eficiente
-    # while(xa <= datos[i].x  and datos[i].x < xb):
-    #     i+=1
-    
-    # while(datos[i].x < xb):
-    #    errorAcumulado += error(m,xa,ya,datos[i].x,datos[i].y)
-    #    i+=1 
+    while  datos["x"][i] < xa:
+        i+=1
+    print(i)
+    while(datos["x"][i] < xb):
+       errorAcumulado += error(m,xa,ya,datos["x"][i],datos["y"][i])
+       i+=1 
 
     return errorAcumulado
 

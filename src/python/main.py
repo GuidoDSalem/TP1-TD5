@@ -1,7 +1,5 @@
 import json
 import numpy as np
-import os
-
 from algorithms.fuerzaBruta import fuerzaBruta
 from algorithms.backTracking import backTracking
 
@@ -59,7 +57,6 @@ def main():
 					# result.saveState()
 
 	result.saveInFile()
-	print("AAA")
 
 
 
