@@ -21,8 +21,8 @@ def main():
 	listaDeDatos = ["toy_instance.json"]
  
 	# VALORES DE EXPERIMENTO
-	ms = [2]
-	ns = [2]
+	ms = [2,3]
+	ns = [2,3]
 
 	
 
@@ -59,6 +59,7 @@ def main():
 					# result.saveState()
 
 	result.saveInFile()
+	print("AAA")
 
 
 

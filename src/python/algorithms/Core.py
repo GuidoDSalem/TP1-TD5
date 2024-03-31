@@ -52,12 +52,12 @@ def errorAB(xa,ya,xb,yb,datos):
     i = 0
     errorAcumulado = 0
     # Esto se podria reemplazar por una busqueda binaria para hacerlo mas eficiente
-    while(xa <= datos[i].x  and datos[i].x < xb):
-        i+=1
+    # while(xa <= datos[i].x  and datos[i].x < xb):
+    #     i+=1
     
-    while(datos[i].x < xb):
-       errorAcumulado += error(m,xa,ya,datos[i].x,datos[i].y)
-       i+=1 
+    # while(datos[i].x < xb):
+    #    errorAcumulado += error(m,xa,ya,datos[i].x,datos[i].y)
+    #    i+=1 
 
     return errorAcumulado
 
