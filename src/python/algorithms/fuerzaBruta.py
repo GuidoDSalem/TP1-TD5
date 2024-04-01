@@ -3,31 +3,33 @@ import time
 import numpy as np
 from algorithms.Core import *
 
-def fuerzaBrutaRecursiva(gridX,gridY,xs:list,ys:list,res:list,datos):
+def fuerzaBrutaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
 
     #Caso Base
-    if(len(gridX)-1 == len(xs)):
+    if(len(gridX) == len(xs)):
+        print(f"XY: {ys}")
         errorBP = errorBreakPoints(xs,ys,datos)
-        return errorBP
+        if(errorBP < bestError):
+            bestError = errorBP
+            res.clear()
+            res.extend(ys)
+            print(f"RES: {res},ERROR: {errorBP}")
+
+        return bestError
     
     #Caso recursivo
     i = len(xs)
-    bestError = 100000000
-    mejorY = gridY[0]
+    xs.append(gridX[i])
+    currentBestError = bestError
     for j in gridY:
-        xs.append(gridX[i+1])
         ys.append(j)
-        error = fuerzaBrutaRecursiva(gridX,gridY,xs,ys,res,datos)
-        xs.pop()
+        error = fuerzaBrutaRecursiva(gridX,gridY,xs,ys,res,currentBestError,datos)
+        if(error < currentBestError):
+            currentBestError = error
         ys.pop()
-        if(error < bestError):
-            bestError = error
-            mejorY = j
-    res.append(mejorY)
+    xs.pop()
 
-    print(f"Best Error: {bestError}")
-    print(f"Res: {res}")
-    return bestError
+    return currentBestError
 
 
     # errorTotal = 0
@@ -58,11 +60,16 @@ def fuerzaBruta(Xs:int, Ys:int, datos):
     gridY = np.linspace(min(datos["y"]), max(datos["y"]), num=Xs, endpoint=True)
 
     funcionYs = []
+    bestError = 1000000001
 
-    bestError = fuerzaBrutaRecursiva(gridX,gridY,[],[],funcionYs,datos)
+    bestError = fuerzaBrutaRecursiva(gridX,gridY,[],[],funcionYs,bestError,datos)
 
     end = time.time()
 
     totalTime = (end - start) * 1000
 
-    return bestError,funcionYs,np.round(totalTime,decimals=2)
+    print(f"\nGridY: {gridY}")
+    print(f"\n\nTIEMPO: {totalTime}, FUNCION:{funcionYs}\n")
+    plot_puntos_y_linea(datos,gridX,funcionYs)
+
+    return np.round(bestError,decimals=2),funcionYs,np.round(totalTime,decimals=2)

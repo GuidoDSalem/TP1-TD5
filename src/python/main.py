@@ -16,11 +16,11 @@ def main():
 	dataPath = "data/"
 	# Datos
 	# listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
-	listaDeDatos = ["titanium.json"]
+	listaDeDatos = ["optimistic_instance.json"]
  
 	# VALORES DE EXPERIMENTO
-	ms = [2,3]
-	ns = [2,3]
+	ms = [7]
+	ns = [5]
 
 	
 

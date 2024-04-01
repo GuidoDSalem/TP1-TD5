@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 def calculateFunctionError(breakPoints:list,data)->float:
     """
@@ -60,7 +61,6 @@ def errorAB(xa,ya,xb,yb,datos):
         return 0
     while  datos["x"][i] < xa:
         i+=1
-    print(i)
     while(datos["x"][i] < xb):
        errorAcumulado += error(m,xa,ya,datos["x"][i],datos["y"][i])
        i+=1 
@@ -73,4 +73,25 @@ def errorBreakPoints(listaX,listaY,datos):
     for i in range(len(listaX) - 1):
         errorTotal = errorAB(listaX[i],listaY[i],listaX[i+1],listaY[i+1],datos)
     return errorTotal
+
+
+def plot_puntos_y_linea(puntos, linea_x, linea_y):
+    """
+    Grafica puntos y una línea basados en las coordenadas proporcionadas.
+
+    :param puntos: Un diccionario con listas de coordenadas 'x' y 'y', y un contador 'n' de puntos.
+    :param linea_x: Una lista de coordenadas 'x' para la línea.
+    :param linea_y: Una lista de coordenadas 'y' para la línea.
+    """
+    # Graficar los puntos
+    plt.scatter(puntos['x'], puntos['y'], color='red', label='Puntos')
+
+    # Graficar la línea
+    plt.plot(linea_x, linea_y, color='blue', label='Línea')
+
+    # Añadir leyenda
+    plt.legend()
+
+    # Mostrar el gráfico
+    plt.show()
 
