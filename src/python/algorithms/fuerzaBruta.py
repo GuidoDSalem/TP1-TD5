@@ -7,8 +7,9 @@ def fuerzaBrutaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
 
     #Caso Base
     if(len(gridX) == len(xs)):
-        print(f"XY: {ys}")
+        
         errorBP = errorBreakPoints(xs,ys,datos)
+        # print(f"XY: {ys}, Error: {np.round(errorBP,decimals=2)}")
         if(errorBP < bestError):
             bestError = errorBP
             res.clear()
@@ -57,7 +58,7 @@ def fuerzaBruta(Xs:int, Ys:int, datos):
 	
 
     gridX = np.linspace(min(datos["x"]), max(datos["x"]), num=Xs, endpoint=True)
-    gridY = np.linspace(min(datos["y"]), max(datos["y"]), num=Xs, endpoint=True)
+    gridY = np.linspace(min(datos["y"]), max(datos["y"]), num=Ys, endpoint=True)
 
     funcionYs = []
     bestError = 1000000001
@@ -70,6 +71,6 @@ def fuerzaBruta(Xs:int, Ys:int, datos):
 
     print(f"\nGridY: {gridY}")
     print(f"\n\nTIEMPO: {totalTime}, FUNCION:{funcionYs}\n")
-    plot_puntos_y_linea(datos,gridX,funcionYs)
+    plot_puntos_y_linea(datos,gridX,funcionYs,Xs,Ys)
 
     return np.round(bestError,decimals=2),funcionYs,np.round(totalTime,decimals=2)

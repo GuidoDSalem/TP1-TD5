@@ -75,7 +75,7 @@ def errorBreakPoints(listaX,listaY,datos):
     return errorTotal
 
 
-def plot_puntos_y_linea(puntos, linea_x, linea_y):
+def plot_puntos_y_linea(puntos, linea_x, linea_y,m,n):
     """
     Grafica puntos y una línea basados en las coordenadas proporcionadas.
 
@@ -84,10 +84,22 @@ def plot_puntos_y_linea(puntos, linea_x, linea_y):
     :param linea_y: Una lista de coordenadas 'y' para la línea.
     """
     # Graficar los puntos
+    # Generar grilla de puntos usando numpy.linspace
+    x_grilla = np.linspace(min(puntos['x']), max(puntos['x']), m)
+    y_grilla = np.linspace(min(puntos['y']), max(puntos['y']), n)
+    X, Y = np.meshgrid(x_grilla, y_grilla)
+
+    # Graficar la grilla de puntos
+    plt.scatter(X, Y, color='gray', s=2, label='Grilla')  # s es el tamaño de los puntos
+
+    # Graficar los puntos
     plt.scatter(puntos['x'], puntos['y'], color='red', label='Puntos')
 
     # Graficar la línea
     plt.plot(linea_x, linea_y, color='blue', label='Línea')
+
+    # Graficar puntos amarillos en los extremos de la línea
+    plt.scatter(linea_x, linea_y, color='yellow', label='Puntos de Unión', zorder=5)
 
     # Añadir leyenda
     plt.legend()

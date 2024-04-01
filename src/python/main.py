@@ -19,8 +19,8 @@ def main():
 	listaDeDatos = ["optimistic_instance.json"]
  
 	# VALORES DE EXPERIMENTO
-	ms = [7]
-	ns = [5]
+	ms = [5]
+	ns = [8]
 
 	
 
