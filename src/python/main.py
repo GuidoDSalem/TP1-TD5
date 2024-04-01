@@ -15,8 +15,8 @@ def main():
 	# Path a los datos json
 	dataPath = "data/"
 	# Datos
-	#listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
-	listaDeDatos = ["toy_instance.json"]
+	# listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
+	listaDeDatos = ["titanium.json"]
  
 	# VALORES DE EXPERIMENTO
 	ms = [2,3]

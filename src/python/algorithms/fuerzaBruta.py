@@ -3,24 +3,50 @@ import time
 import numpy as np
 from algorithms.Core import *
 
-def fuerzaBrutaRecursiva(xs:list,ys:list,i,j,datos):
-    # Caso Base
-    if(i == len(xs)):
-       return 0
-    
+def fuerzaBrutaRecursiva(gridX,gridY,xs:list,ys:list,res:list,datos):
 
-    # Paso recursivo
-    bestError = 10000000000
-    # for y in range(len(ys)):
-    #    error = fuerzaBrutaRecursiva(xs,ys,i+1,y,datos)
-    #    errorActual = errorAB(xs[i],ys[j],xs[i+1],y,datos)
-    #    if(error + errorActual  < bestError):
-    #        bestError = error + errorActual
+    #Caso Base
+    if(len(gridX)-1 == len(xs)):
+        errorBP = errorBreakPoints(xs,ys,datos)
+        return errorBP
     
-    
+    #Caso recursivo
+    i = len(xs)
+    bestError = 100000000
+    mejorY = gridY[0]
+    for j in gridY:
+        xs.append(gridX[i+1])
+        ys.append(j)
+        error = fuerzaBrutaRecursiva(gridX,gridY,xs,ys,res,datos)
+        xs.pop()
+        ys.pop()
+        if(error < bestError):
+            bestError = error
+            mejorY = j
+    res.append(mejorY)
+
+    print(f"Best Error: {bestError}")
+    print(f"Res: {res}")
+    return bestError
 
 
-    return np.random.randint(100)# bestError
+    # errorTotal = 0
+    # best_ys = []
+    # for i in range(len(xs)-1):
+    #     bestError = 1000000000000
+
+    #     for ja in range(len(ys)):
+    #         for jb in range(len(ys)):
+    #             error = errorAB(xs[i],ys[ja],xs[i+1],ys[jb],datos)
+    #             if(error < bestError):
+    #                 bestError = error
+
+    #     print(bestError)
+    #     errorTotal += bestError
+
+
+
+    return np.round(errorTotal,decimals=2)# bestError
 
 
 
@@ -28,15 +54,15 @@ def fuerzaBruta(Xs:int, Ys:int, datos):
     start = time.time()
 	
 
-    grid_x = np.linspace(min(datos["x"]), max(datos["x"]), num=Xs, endpoint=True)
-    grid_y = np.linspace(min(datos["y"]), max(datos["y"]), num=Xs, endpoint=True)
+    gridX = np.linspace(min(datos["x"]), max(datos["x"]), num=Xs, endpoint=True)
+    gridY = np.linspace(min(datos["y"]), max(datos["y"]), num=Xs, endpoint=True)
 
+    funcionYs = []
 
-
-    bestError = fuerzaBrutaRecursiva(grid_x,grid_y,0,0, datos)
+    bestError = fuerzaBrutaRecursiva(gridX,gridY,[],[],funcionYs,datos)
 
     end = time.time()
 
-    totalTime = int((end - start) * 1000)
+    totalTime = (end - start) * 1000
 
-    return bestError,np.random.randint(5,size=Xs),totalTime
+    return bestError,funcionYs,np.round(totalTime,decimals=2)
