@@ -52,10 +52,10 @@ def main():
 					# result.saveState()
 
 
-					# result.setNames(dataName,"DinamicAlgorithm")
-					# bestError,solutions = backTracking(i, j, instance)
-					# result.setSolutions(bestError,solutions)
-					# result.saveState()
+					result.setNames(dataName,"DinamicAlgorithm")
+					bestError,solutions,time = dinamicAlgoritm(i, j, instance)
+					result.setSolutions(bestError,solutions,time)
+					result.saveState()
 
 	result.saveInFile()
 
