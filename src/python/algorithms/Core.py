@@ -1,27 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
-def calculateFunctionError(breakPoints:list,data)->float:
-    """
-    Dado una lista de puntos que son los que une y define a la funcion que estamos diseniando
-    calcula el error de las predicciones de los datos para esa funcion
-
-    Pre: Los datos estan ordenados segun la variable x, para todo i en BP: breakPoints[0].x <data[i].x < breakPoints[-1].x, |breakPoints| >= 2
-    Post: -
-    """
-    i = 0
-    errorAcumulado = 0
-    m = pendiente(breakPoints[i].x,breakPoints[i].y,breakPoints[i+1].x,breakPoints[i+1].y)
-    for dataX,dataY in data:
-
-        while not ((breakPoints[i] < dataX) and (dataX <= breakPoints[i+1])):
-
-            i += 1
-            m = pendiente(breakPoints[i].x,breakPoints[i].y,breakPoints[i+1].x,breakPoints[i+1].y)
-
-        errorAcumulado += error(m,breakPoints[i],breakPoints[i+1],dataX,dataY)
-    
-    return errorAcumulado
         
 def error(m,x1,y1,xd,yd):
     
@@ -31,6 +9,8 @@ def error(m,x1,y1,xd,yd):
     """
     yPred = m * (xd - x1) + y1
     # print(f"|Ypred - Y| = |{yPred} - {yd}| = {np.absolute(yPred - yd)}")
+
+    
     return np.absolute(yPred - yd)
 
 
@@ -71,7 +51,7 @@ def errorAB(xa,ya,xb,yb,datos):
 def errorBreakPoints(listaX,listaY,datos):
     errorTotal = 0
     for i in range(len(listaX) - 1):
-        errorTotal = errorAB(listaX[i],listaY[i],listaX[i+1],listaY[i+1],datos)
+        errorTotal += errorAB(listaX[i],listaY[i],listaX[i+1],listaY[i+1],datos)
     return errorTotal
 
 
@@ -99,7 +79,7 @@ def plot_puntos_y_linea(puntos, linea_x, linea_y,m,n):
     plt.plot(linea_x, linea_y, color='blue', label='Línea')
 
     # Graficar puntos amarillos en los extremos de la línea
-    plt.scatter(linea_x, linea_y, color='yellow', label='Puntos de Unión', zorder=5)
+    plt.scatter(linea_x, linea_y, color='yellow',s=10, label='Puntos de Unión', zorder=5)
 
     # Añadir leyenda
     plt.legend()

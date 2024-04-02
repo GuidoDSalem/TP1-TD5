@@ -9,12 +9,14 @@ def fuerzaBrutaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
     if(len(gridX) == len(xs)):
         
         errorBP = errorBreakPoints(xs,ys,datos)
+        errorActual = errorBreakPoints(xs,res,datos)
         # print(f"XY: {ys}, Error: {np.round(errorBP,decimals=2)}")
-        if(errorBP < bestError):
-            bestError = errorBP
+        if(errorBP < errorActual):
+            # bestError = errorBP
             res.clear()
             res.extend(ys)
             print(f"RES: {res},ERROR: {errorBP}")
+            bestError = errorBP
 
         return bestError
     
@@ -33,26 +35,6 @@ def fuerzaBrutaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
     return currentBestError
 
 
-    # errorTotal = 0
-    # best_ys = []
-    # for i in range(len(xs)-1):
-    #     bestError = 1000000000000
-
-    #     for ja in range(len(ys)):
-    #         for jb in range(len(ys)):
-    #             error = errorAB(xs[i],ys[ja],xs[i+1],ys[jb],datos)
-    #             if(error < bestError):
-    #                 bestError = error
-
-    #     print(bestError)
-    #     errorTotal += bestError
-
-
-
-    return np.round(errorTotal,decimals=2)# bestError
-
-
-
 def fuerzaBruta(Xs:int, Ys:int, datos):
     start = time.time()
 	
@@ -61,6 +43,8 @@ def fuerzaBruta(Xs:int, Ys:int, datos):
     gridY = np.linspace(min(datos["y"]), max(datos["y"]), num=Ys, endpoint=True)
 
     funcionYs = []
+    for i in range(len(gridX)):
+        funcionYs.append(gridY[-1])
     bestError = 1000000001
 
     bestError = fuerzaBrutaRecursiva(gridX,gridY,[],[],funcionYs,bestError,datos)
