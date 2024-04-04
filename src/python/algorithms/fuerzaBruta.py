@@ -4,7 +4,7 @@ import numpy as np
 from algorithms.Core import *
 
 def fuerzaBrutaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
-
+    
     #Caso Base
     if(len(gridX) == len(xs)):
         
@@ -53,8 +53,10 @@ def fuerzaBruta(Xs:int, Ys:int, datos):
 
     totalTime = (end - start) * 1000
 
+    plot_puntos_y_linea(datos,gridX,funcionYs,Xs,Ys,"FuerzaBurta",bestError,totalTime)
+
     print(f"\nGridY: {gridY}")
     print(f"\n\nTIEMPO: {totalTime}, FUNCION:{funcionYs}\n")
-    plot_puntos_y_linea(datos,gridX,funcionYs,Xs,Ys)
+    
 
     return np.round(bestError,decimals=2),funcionYs,np.round(totalTime,decimals=2)

@@ -55,7 +55,7 @@ def errorBreakPoints(listaX,listaY,datos):
     return errorTotal
 
 
-def plot_puntos_y_linea(puntos, linea_x, linea_y,m,n):
+def plot_puntos_y_linea(puntos, linea_x, linea_y,m,n,algo,error,tiempo):
     """
     Grafica puntos y una línea basados en las coordenadas proporcionadas.
 
@@ -83,6 +83,8 @@ def plot_puntos_y_linea(puntos, linea_x, linea_y,m,n):
 
     # Añadir leyenda
     plt.legend()
+
+    plt.title(f"{algo}:Error{np.round(error)},Tiempo:{np.round(tiempo,decimals=1)}  M:{m}, N:{n}")
 
     # Mostrar el gráfico
     plt.show()

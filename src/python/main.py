@@ -5,6 +5,7 @@ from algorithms.backTracking import backTracking
 
 from algorithms.dinamicAlgoritm import dinamicAlgoritm
 from Result import Result
+import os
 
 BIG_NUMBER = 1e10 # Revisar si es necesario.
 
@@ -13,14 +14,15 @@ def main():
 	# Json: "n" = cantidad de puntos, "x" = Lista de Cordenadas x, "y" = Lista de Coordenadas y
 
 	# Path a los datos json
-	dataPath = "data/"
+	dataPath = "c:/Users/guido/Desktop/GS/DI_TELLA/Cuatrimestre/a3s1/TD5/TPS/TP1-TD5/data/"
+	print(os.curdir)
 
 	# Datos
 	# listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
 	listaDeDatos = ["optimistic_instance.json"]
  
 	# VALORES DE EXPERIMENTO
-	ms = [7]
+	ms = [6]
 	ns = [4]
 
 	
@@ -43,6 +45,7 @@ def main():
 
 					result.setNames(dataName,"FuerzaBurta")
 					bestError,solutions,time = fuerzaBruta(i, j, instance)
+					# plot_puntos_y_linea(datos,gridX,funcionYs,i,j,"FuerzaBurta",bestError,time)
 					result.setSolutions(bestError,solutions,time)
 					result.saveState()
 
@@ -88,7 +91,7 @@ def main():
 	N = 5
 	
 	# Ejemplo para definir una grilla de m x n.
-	grid_x = np.linspace(min(instance["x"]), max(instance["x"]), num=m, endpoint=True)
+	grid_x = np.linspace(min(instance["x"]), max(instance["x"], num=m, endpoint=True)
 	grid_y = np.linspace(min(instance["y"]), max(instance["y"]), num=n, endpoint=True)
 
 

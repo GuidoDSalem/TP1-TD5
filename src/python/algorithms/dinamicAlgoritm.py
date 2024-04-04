@@ -42,8 +42,10 @@ def dinamicAlgoritm(Xs:int, Ys:int, datos):
 
     end = time.time()
 
-    plot_puntos_y_linea(datos,gridX,function,Xs,Ys)
+    
     totalTime = (end - start) * 1000
+
+    plot_puntos_y_linea(datos,gridX,function,Xs,Ys,"Dinamico",bestError,totalTime)
 
     return np.round(bestError,decimals=2),function,np.round(totalTime,decimals=2)
 

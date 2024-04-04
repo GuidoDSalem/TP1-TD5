@@ -5,7 +5,8 @@ from algorithms.Core import *
 
 
 def backTrackingRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
-
+    if(errorBreakPoints(xs,ys,datos) > errorBreakPoints(gridX,res,datos)):
+        return errorBreakPoints(xs,ys,datos)
     #Caso Base
     if(len(gridX) == len(xs)):
         
@@ -48,7 +49,7 @@ def backTracking(Xs:int, Ys:int, datos):
         funcionYs.append(gridY[-1])
     bestError = 1000000001
 
-    bestError = fuerzaBrutaRecursiva(gridX,gridY,[],[],funcionYs,bestError,datos)
+    bestError = backTrackingRecursiva(gridX,gridY,[],[],funcionYs,bestError,datos)
 
     end = time.time()
 
