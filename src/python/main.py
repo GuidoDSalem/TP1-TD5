@@ -43,11 +43,11 @@ def main():
 
 					result.setMN(i,j)
 
-					result.setNames(dataName,"FuerzaBurta")
-					bestError,solutions,time = fuerzaBruta(i, j, instance)
-					# plot_puntos_y_linea(datos,gridX,funcionYs,i,j,"FuerzaBurta",bestError,time)
-					result.setSolutions(bestError,solutions,time)
-					result.saveState()
+					# result.setNames(dataName,"FuerzaBurta")
+					# bestError,solutions,time = fuerzaBruta(i, j, instance)
+					# # plot_puntos_y_linea(datos,gridX,funcionYs,i,j,"FuerzaBurta",bestError,time)
+					# result.setSolutions(bestError,solutions,time)
+					# result.saveState()
 
 					# result.setNames(dataName,"BackTracking")
 					# bestError,solutions = backTracking(i, j, instance)
