@@ -3,13 +3,30 @@ import time
 import numpy as np
 from algorithms.Core import *
 
+
 def dinamicAlgoritm(Xs:int, Ys:int, datos):
 
     start = time.time()
 
+    ##xs cantidiad de oclumnas y Ys cantidad de filas 
     gridX = np.linspace(min(datos["x"]), max(datos["x"]), num=Xs, endpoint=True)
     gridY = np.linspace(min(datos["y"]), max(datos["y"]), num=Ys, endpoint=True)
-
+    
+    filas = len(gridY)
+    columnas = len(gridX)
+    
+    matriz = CrearMatriz(filas, columnas, -1)
+    
+    
+    for col in gridX:
+        for fil in gridY:
+            if matriz[fil][col] == -1:
+                matriz[fil][col] = errorAB(fil, col, fil+1, col+1, datos)
+            else:
+                errorNew = errorAB(fil, col, fil+1, col+1, datos)
+                if matriz[fil][col] > errorNew:
+                    matriz[fil][col] = errorNew
+                
     # PRIMER TRAMO
     bestError = 100000000
     function = np.zeros(len(gridX))
@@ -18,6 +35,7 @@ def dinamicAlgoritm(Xs:int, Ys:int, datos):
     for ya in gridY:
         for yb in gridY:
             error = errorAB(gridX[0],ya,gridX[1],yb,datos)
+           
             if(error < bestError):
                 bestError = error
                 function[0] = ya

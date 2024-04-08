@@ -89,3 +89,14 @@ def plot_puntos_y_linea(puntos, linea_x, linea_y,m,n,algo,error,tiempo):
     # Mostrar el gráfico
     plt.show()
 
+def CrearMatriz(filas, columnas, valor_inicial):
+    """
+    Dada una cantidad de filas y columnas devuelvue una matriz de esas dnmensiones inicializada con 0
+    Pre: filas y columnas mas grande que 0 
+
+    Returns:
+        list: la matriz creada
+    """
+    
+    matrix = np.full((filas, columnas), -1)
+    return matrix
