@@ -29,11 +29,11 @@ def fuerzaBrutaDinamicaRecursiva(gridX,gridY,xs:list,ys:list,res:list,mat_res,be
     for j in gridY:
         ys.append(j)
         # Caso hay valor en mar_res
-        if(mat_res[len(xs)][indexJ] != -1):
-            return mat_res[i][indexJ]
+        if(mat_res[i-1][indexJ] != -1):
+            return mat_res[i-1][indexJ][0]
         else:
             error = fuerzaBrutaDinamicaRecursiva(gridX,gridY,xs,ys,res,mat_res,currentBestError,datos)
-            mat_res[i-1][indexJ]
+            mat_res[i-1][indexJ] = (error,ys)
             indexJ += 1
             if(error < currentBestError):
                 currentBestError = error
