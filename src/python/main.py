@@ -43,7 +43,7 @@ def main():
 					result.setMN(i,j)
 
 					#fuerza bruta 
-					#result.setNames(dataName,"FuerzaBurta")
+					#result.setNames(dataName,"FuerzaBruta")
 					#bestError,solutions,time = fuerzaBruta(i,j,k_breakpoints,instance)
 					#result.setSolutions(bestError,solutions,time)
 					#result.saveState()
