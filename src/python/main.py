@@ -15,17 +15,17 @@ def main():
 	# Json: "n" = cantidad de puntos, "x" = Lista de Cordenadas x, "y" = Lista de Coordenadas y
 
 	# Path a los datos json
-	dataPath = "c:/Users/guido/Desktop/GS/DI_TELLA/Cuatrimestre/a3s1/TD5/TPS/TP1-TD5/data/"
+	dataPath = "data/"
 	print(os.curdir)
 
 	# Datos
-	# listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
-	listaDeDatos = ["optimistic_instance.json"]
+	listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
+	#listaDeDatos = ["optimistic_instance.json"]
  
 	# VALORES DE EXPERIMENTO
 	ms = [6]
 	ns = [6]
-	k_breakpoints = 4
+	k_breakpoints = 6
 
 	# Por cada lista de Datos:
 	result:Result = Result()

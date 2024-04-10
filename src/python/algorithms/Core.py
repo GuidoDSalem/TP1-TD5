@@ -99,21 +99,21 @@ def plot_coordenadas_y_linea(puntos,coordenadas,m:int,n:int,algo,error,tiempo):
     # Añadir leyenda
     plt.legend()
 
-    plt.title(f"{algo}:Error{np.round(error)},Tiempo:{np.round(tiempo,decimals=1)}  M:{m}, N:{n}")
+    plt.title(f"{algo} Error:{np.round(error)},  Tiempo:{np.round(tiempo,decimals=1)}  M:{m}, N:{n}")
 
     # Mostrar el gráfico
     plt.show()
 
 def CrearMatriz(filas, columnas, valor_inicial):
     """
-    Dada una cantidad de filas y columnas devuelvue una matriz de esas dnmensiones inicializada con 0
+    Dada una cantidad de filas y columnas devuelvue una matriz de esas dnmensiones inicializada con valor inicial
     Pre: filas y columnas mas grande que 0 
 
     Returns:
         list: la matriz creada
     """
     
-    matrix = np.full((filas, columnas), -1)
+    matrix = np.full((filas, columnas), valor_inicial)
     return matrix
 
 def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo):
