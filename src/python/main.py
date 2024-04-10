@@ -1,8 +1,8 @@
 import json
 import numpy as np
-from algorithms.fuerzaBruta import fuerzaBruta#,fuerzaBruta2
+from algorithms.fuerzaBruta import fuerzaBruta
 
-# from algorithms.backTracking import backTracking
+from algorithms.backTracking import backTracking
 
 # from algorithms.dinamicAlgoritm import dinamicAlgoritm
 from Result import Result
@@ -42,15 +42,17 @@ def main():
 
 					result.setMN(i,j)
 
-					result.setNames(dataName,"FuerzaBurta")
-					bestError,solutions,time = fuerzaBruta(i,j,k_breakpoints,instance)
+					#fuerza bruta 
+					#result.setNames(dataName,"FuerzaBurta")
+					#bestError,solutions,time = fuerzaBruta(i,j,k_breakpoints,instance)
+					#result.setSolutions(bestError,solutions,time)
+					#result.saveState()
+					
+					#backtracking
+					result.setNames(dataName,"BackTracking")
+					bestError,solutions,time = backTracking(i, j,k_breakpoints, instance)
 					result.setSolutions(bestError,solutions,time)
 					result.saveState()
-
-					# result.setNames(dataName,"BackTracking")
-					# bestError,solutions = backTracking(i, j, instance)
-					# result.setSolutions(bestError,solutions)
-					# result.saveState()
 
 
 					# result.setNames(dataName,"DinamicAlgorithm")
