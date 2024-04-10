@@ -1,9 +1,10 @@
 import json
 import numpy as np
-from algorithms.fuerzaBruta import fuerzaBruta
-from algorithms.backTracking import backTracking
+from algorithms.fuerzaBruta import fuerzaBruta#,fuerzaBruta2
 
-from algorithms.dinamicAlgoritm import dinamicAlgoritm
+# from algorithms.backTracking import backTracking
+
+# from algorithms.dinamicAlgoritm import dinamicAlgoritm
 from Result import Result
 import os
 
@@ -23,10 +24,8 @@ def main():
  
 	# VALORES DE EXPERIMENTO
 	ms = [6]
-	ns = [4]
-
-	
-
+	ns = [6]
+	k_breakpoints = 4
 
 	# Por cada lista de Datos:
 	result:Result = Result()
@@ -44,8 +43,7 @@ def main():
 					result.setMN(i,j)
 
 					result.setNames(dataName,"FuerzaBurta")
-					bestError,solutions,time = fuerzaBruta(i, j, instance)
-					# plot_puntos_y_linea(datos,gridX,funcionYs,i,j,"FuerzaBurta",bestError,time)
+					bestError,solutions,time = fuerzaBruta(i,j,k_breakpoints,instance)
 					result.setSolutions(bestError,solutions,time)
 					result.saveState()
 
@@ -55,10 +53,10 @@ def main():
 					# result.saveState()
 
 
-					result.setNames(dataName,"DinamicAlgorithm")
-					bestError,solutions,time = dinamicAlgoritm(i, j, instance)
-					result.setSolutions(bestError,solutions,time)
-					result.saveState()
+					# result.setNames(dataName,"DinamicAlgorithm")
+					# bestError,solutions,time = dinamicAlgoritm(i, j, instance)
+					# result.setSolutions(bestError,solutions,time)
+					# result.saveState()
 
 	result.saveInFile()
 
