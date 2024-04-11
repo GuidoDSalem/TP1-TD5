@@ -7,7 +7,7 @@ def dinamicAlgoritm(Xs:int, Ys:int, datos):
 
     start = time.time()
 
-    ##xs cantidiad de oclumnas y Ys cantidad de filas 
+    ##xs cantidiad de columnas y Ys cantidad de filas 
     gridX = np.linspace(min(datos["x"]), max(datos["x"]), num=Xs, endpoint=True)
     gridY = np.linspace(min(datos["y"]), max(datos["y"]), num=Ys, endpoint=True)
 

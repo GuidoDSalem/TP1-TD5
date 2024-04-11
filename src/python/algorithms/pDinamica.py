@@ -2,7 +2,7 @@ import numpy as np
 import time
 from algorithms.Core import *
 
-def backTracking(n:int, m:int,k:int, datos):
+def pDinamica(n:int, m:int,k:int, datos):
    
     start = time.time()
 	
@@ -40,7 +40,7 @@ def backTracking(n:int, m:int,k:int, datos):
         
         errorActual = 100000000000001
         
-        errorActual = backTrackingRecursiva(subGridX,gridY,[],[],res, errorActual, datos)
+        errorActual = pDinamicaRecursiva(subGridX,gridY,[],[],res, errorActual, datos)
         
         #si otra subgrilla tiene un mejor error guarda esa 
         if(errorActual < bestError):
@@ -63,7 +63,7 @@ def backTracking(n:int, m:int,k:int, datos):
 
 
 
-def backTrackingRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
+def pDinamicaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
     #poda de optamilidad: si la rama que se esta calculando es mas grande que el mejor reusltado hasta ahora, descartala 
     if(errorBreakPoints(xs,ys,datos) > errorBreakPoints(gridX,res,datos)):
         return errorBreakPoints(xs,ys,datos)
@@ -91,7 +91,7 @@ def backTrackingRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
     currentBestError = bestError
     for j in gridY:
         ys.append(j)
-        error = backTrackingRecursiva(gridX,gridY,xs,ys,res,currentBestError,datos)
+        error = pDinamicaRecursiva(gridX,gridY,xs,ys,res,currentBestError,datos)
         if(error < currentBestError):
             currentBestError = error
         ys.pop()

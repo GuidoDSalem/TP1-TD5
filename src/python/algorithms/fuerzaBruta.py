@@ -11,7 +11,7 @@ def fuerzaBruta(m,n,k,datos):
     gridX:list = np.linspace(min(datos["x"]), max(datos["x"]), num=m, endpoint=True)
     gridY:list = np.linspace(min(datos["y"]), max(datos["y"]), num=n, endpoint=True)
     
-    #sacamos el primer y ultimo elemento de la grilla x para trabajr unicamente con las columnas del medio
+    #sacamos el primer y ultimo elemento de la grilla x para trabajar unicamente con las columnas del medio
     conjunto_medio:list = gridX[1:-1]
 
     # creamos una lista que va a contener todas las combinaciones posibles de como separar las columnas del medio dado k-2
@@ -54,7 +54,7 @@ def fuerzaBruta(m,n,k,datos):
     totalTime = (end - start) * 1000
 
 
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"FuerzaBurta",bestError,totalTime)
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"FuerzaBruta",bestError,totalTime)
 
     print(f"\nGridY: {gridY}")
     print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestRes}\n")
