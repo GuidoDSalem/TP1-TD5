@@ -19,8 +19,6 @@ float errorBreakPoints(vector<int> listaX,vector<int> listaY,datos);
 
 void pepe();
 
-list:list 
-
 void plot_puntos_y_linea(data,vector<int> linea_x,vector<int> linea_y,int m,int n,string algo,float error,float tiempo);
 
 void listasCombinatorias(vector<int> list,vector<int> subconjuntos,vector<int> lista_subconjuntos,int k);
