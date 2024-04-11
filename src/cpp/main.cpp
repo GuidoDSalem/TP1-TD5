@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include "include/json.hpp"
+#include "include/Core.hpp"
 
 // Para libreria de JSON.
 using namespace nlohmann;
@@ -14,6 +15,8 @@ int main(int argc, char** argv) {
     json instance;
     input >> instance;
     input.close();
+
+    printJson(instance);
 
     int K = instance["n"];
     int m = 6;
