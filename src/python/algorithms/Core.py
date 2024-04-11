@@ -99,7 +99,7 @@ def plot_coordenadas_y_linea(puntos,coordenadas,m:int,n:int,algo,error,tiempo):
     # Añadir leyenda
     plt.legend()
 
-    plt.title(f"{algo} Error:{np.round(error)},  Tiempo:{np.round(tiempo,decimals=1)}  M:{m}, N:{n}")
+    plt.title(f"{algo} Error: {np.round(error)},  Tiempo:{np.round(tiempo,decimals=1)}  M:{m}, N:{n}")
 
     # Mostrar el gráfico
     plt.show()
@@ -146,7 +146,7 @@ def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo):
     # Añadir leyenda
     plt.legend()
 
-    plt.title(f"{algo}:Error{np.round(error)},Tiempo:{np.round(tiempo,decimals=1)}  M:{m}, N:{n}")
+    plt.title(f"{algo} Error: {np.round(error)},Tiempo:{np.round(tiempo,decimals=1)}  M:{m}, N:{n}")
 
     # Mostrar el gráfico
     plt.show()
