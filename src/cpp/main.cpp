@@ -18,6 +18,20 @@ int main(int argc, char** argv) {
 
     printJson(instance);
 
+    float a = 2.3;
+    float b = 4.4;
+    float c = 5.5;
+    float d = 6.6;
+    vector<float> vector;
+
+    printJson(instance);
+    std::cout << std::endl<< "__________________" << std::endl;
+    linspace(&vector, a, d, 4);
+    // float pendiente(float x1, float y1, float x2, float y2);
+    // float error(float m, float x1, float y1, float xd, float yd);
+    // float errorAB(float xa, float ya, float xb, float yb, const json &data);
+    void pepe();
+
     int K = instance["n"];
     int m = 6;
     int n = 6;
