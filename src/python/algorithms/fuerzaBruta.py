@@ -27,13 +27,13 @@ def fuerzaBruta(m,n,k,datos):
 
     for i in range(k):
         bestRes.append(gridY[-1])
-   
+    
     
     #con cada subgrilla probamos fuerza bruta recursiva que recursivamente recorre todas las posibles combinaciones y devuelve el mejor error de esa subgrillaa
     for subGridX in listas_medio:
         print(subGridX)
         res = []
-       
+        
         #esto lo hice porque la lista estba vacia para darles valores inciales porque 
         #sino en la priemra iteracion no podia iterar sobre valoers vacios por eso daba el lsit index out of range [1]
         for i in range(len(subGridX)):
@@ -54,7 +54,7 @@ def fuerzaBruta(m,n,k,datos):
     totalTime = (end - start) * 1000
 
 
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"FuerzaBruta",bestError,totalTime)
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"Back Tracking",bestError,totalTime)
 
     print(f"\nGridY: {gridY}")
     print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestRes}\n")
