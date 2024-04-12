@@ -38,7 +38,7 @@ float min(const json &data, const string s){
     return minimo;
 }
 float max(const json &data, const string s){
-    float maximo = 100000001;
+    float maximo;
     for (int i = 0; i < data[s].size(); i++)
     {
         if (data[s][i] > maximo)
@@ -46,6 +46,7 @@ float max(const json &data, const string s){
             maximo = data[s][i];
         }
     }
+    return maximo;
 }
 void printVector(vector<float> *v)
 {
@@ -139,4 +140,19 @@ float errorBreakPoint(vector<float> &xs, vector<float> &ys, const json &data){
 void pepe()
 {
     int x = 3;
+}
+
+void listasCombinatorias(const vector<int>& lista, vector<int>& subconjuntos, vector<vector<int>>& lista_subconjuntos, int k) {
+    if (k == 0) {
+        lista_subconjuntos.push_back(subconjuntos);
+        return;
+    }
+    if (lista.empty()) {
+        return;
+    }
+
+    subconjuntos.push_back(lista[0]);
+    listasCombinatorias(vector<int>(lista.begin() + 1, lista.end()), subconjuntos, lista_subconjuntos, k - 1);
+    subconjuntos.pop_back();
+    listasCombinatorias(vector<int>(lista.begin() + 1, lista.end()), subconjuntos, lista_subconjuntos, k);
 }

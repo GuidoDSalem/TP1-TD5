@@ -22,6 +22,6 @@ float error(float m,float x1,float y1,float xd, float yd);
 float errorAB(float xa,float ya, float xb, float yb,const json &data);
 float errorBreakPoint(vector<float> &xs,vector<float> &ys, const json &data);
 void pepe();
-
+void listasCombinatorias(const vector<int>& lista, vector<int>& subconjuntos, vector<vector<int>>& lista_subconjuntos, int k);
 
 #endif//CORE
