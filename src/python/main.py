@@ -1,11 +1,9 @@
 import json
 import numpy as np
 from algorithms.fuerzaBruta import fuerzaBruta
-from algorithms.fuerzaBruta_v3 import fuerzaBrutaV3
-
 from algorithms.backTracking import backTracking
+from algorithms.programacionDin import pDinamica
 
-# from algorithms.dinamicAlgoritm import dinamicAlgoritm
 from Result import Result
 import os
 
@@ -21,12 +19,11 @@ def main():
 
 	# Datos
 	listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
-	#listaDeDatos = ["optimistic_instance.json"]
 
 	# VALORES DE EXPERIMENTO
-	ms = [6]
-	ns = [6]
-	k_breakpoints = 4
+	ms = [3] #cantidad de columnas
+	ns = [6] #cantidad de filas
+	k_breakpoints = 3
 
 	# Por cada lista de Datos:
 	result:Result = Result()
@@ -43,15 +40,9 @@ def main():
 
 					result.setMN(i,j)
 
-					# fuerza bruta 
+	 			    #fuerza bruta 
 					result.setNames(dataName,"FuerzaBruta")
 					bestError,solutions,time = fuerzaBruta(i,j,k_breakpoints,instance)
-					result.setSolutions(bestError,solutions,time)
-					result.saveState()
-
-	 			    #fuerza bruta 3
-					result.setNames(dataName,"FuerzaBruta3")
-					bestError,solutions,time = fuerzaBrutaV3(i,j,k_breakpoints,instance)
 					result.setSolutions(bestError,solutions,time)
 					result.saveState()
 					
@@ -61,9 +52,9 @@ def main():
 					# result.setSolutions(bestError,solutions,time)
 					# result.saveState()
 
-
-					# result.setNames(dataName,"DinamicAlgorithm")
-					# bestError,solutions,time = dinamicAlgoritm(i, j, instance)
+					#programacion dinamica
+					# result.setNames(dataName,"ProgramacionDinamica")
+					# bestError,solutions,time = pDinamica(i, j, instance)
 					# result.setSolutions(bestError,solutions,time)
 					# result.saveState()
 
