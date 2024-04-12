@@ -83,14 +83,7 @@ float error(float m, float x1, float y1, float xd, float yd)
 {
     float y_pred = m * (xd - x1) + y1;
     float res = yd - y_pred;
-    if (res > 0)
-    {
-        return res;
-    }
-    else
-    {
-        return res * -1;
-    }
+    return abs(res);
 }
 float errorAB(float xa, float ya, float xb, float yb, const json &data)
 {
