@@ -28,7 +28,25 @@ float max(vector<float> &v){
     }
     return mayor;
 }
-
+float min(const json &data, const string s){
+    float minimo = 100000001;
+    for(int i=0;i<data[s].size();i++){
+        if(data[s][i] < minimo){
+            minimo = data[s][i];
+        }
+    }
+    return minimo;
+}
+float max(const json &data, const string s){
+    float maximo = 100000001;
+    for (int i = 0; i < data[s].size(); i++)
+    {
+        if (data[s][i] > maximo)
+        {
+            maximo = data[s][i];
+        }
+    }
+}
 void printVector(vector<float> *v)
 {
     std::cout << "VECTOR: [";

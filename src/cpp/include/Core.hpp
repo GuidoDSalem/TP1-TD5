@@ -12,6 +12,8 @@ using namespace std;
 void printJson(json &data);
 float min(vector<float> &v);
 float max(vector<float> &v);
+float min(const json &data,const string s);
+float max(const json &data, const string s);
 void printVector(vector<float> *v);
 void printVector(vector<float> *v,string msg);
 void linspace(vector<float> *v, float min, float max, int m);
