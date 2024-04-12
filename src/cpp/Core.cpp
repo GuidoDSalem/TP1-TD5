@@ -5,7 +5,7 @@ void printJson(json &data){
     std::cout<<"Y: "<< data["y"] <<"\n"<<std::endl;
 };
 
-void printVector(vector<float> *v,string msg = ''){
+void printVector(vector<float> *v){
 
     for(int i=0; i< v->size(); i++){
 
