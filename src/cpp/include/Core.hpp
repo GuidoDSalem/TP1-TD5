@@ -18,6 +18,7 @@ void linspace(vector<float> *v, float min, float max, int m);
 float pendiente(float x1, float y1, float x2, float y2);
 float error(float m,float x1,float y1,float xd, float yd);
 float errorAB(float xa,float ya, float xb, float yb,const json &data);
+float errorBreakPoint(vector<float> &xs,vector<float> &ys, const json &data);
 void pepe();
 
 

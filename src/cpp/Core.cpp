@@ -7,7 +7,6 @@ void printJson(json &data)
     std::cout << "Y: " << data["y"] << "\n"
               << std::endl;
 };
-
 float min(vector<float> &v){
     float menor = 100000000;
     for(int i=0;i<v.size();i++){
@@ -18,7 +17,6 @@ float min(vector<float> &v){
     return menor;
 
 }
-
 float max(vector<float> &v){
     float mayor = 100000000;
     for (int i = 0; i < v.size(); i++)
@@ -52,7 +50,6 @@ void printVector(vector<float> *v, string msg)
     std::cout << "]";
     std::cout << endl;
 }
-
 void linspace(vector<float> *v, float min, float max, int m){
 
     if (min == max){
@@ -115,6 +112,19 @@ float errorAB(float xa, float ya, float xb, float yb, const json &data)
 
     return errorAcumulado;
 }
+
+float errorBreakPoint(vector<float> &xs, vector<float> &ys, const json &data){
+    float errorAcumulado = 0;
+
+    for(int i=0; i < xs.size() - 1; i++){
+        errorAcumulado += errorAB(xs[i],ys[i],xs[i+1],ys[i+1],data);
+    }
+
+
+
+    return errorAcumulado;
+}
+
 void pepe()
 {
     int x = 3;
