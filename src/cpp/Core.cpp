@@ -6,7 +6,8 @@ void printJson(json &data)
               << std::endl;
     std::cout << "Y: " << data["y"] << "\n"
               << std::endl;
-};
+}
+
 float min(vector<float> &v){
     float menor = 100000000;
     for(int i=0;i<v.size();i++){
@@ -17,6 +18,7 @@ float min(vector<float> &v){
     return menor;
 
 }
+
 float max(vector<float> &v){
     float mayor = 100000000;
     for (int i = 0; i < v.size(); i++)
@@ -28,6 +30,7 @@ float max(vector<float> &v){
     }
     return mayor;
 }
+
 float min(const json &data, const string s){
     float minimo = 100000001;
     for(int i=0;i<data[s].size();i++){
@@ -37,8 +40,9 @@ float min(const json &data, const string s){
     }
     return minimo;
 }
+
 float max(const json &data, const string s){
-    float maximo = 100000001;
+    float maximo = -100000001;
     for (int i = 0; i < data[s].size(); i++)
     {
         if (data[s][i] > maximo)
@@ -46,9 +50,10 @@ float max(const json &data, const string s){
             maximo = data[s][i];
         }
     }
+    return maximo;
 }
-void printVector(vector<float> *v)
-{
+
+void printVector(vector<float> *v){
     std::cout << "VECTOR: [";
     for (int i = 0; i < v->size(); i++)
     {
@@ -57,15 +62,15 @@ void printVector(vector<float> *v)
     std::cout << "]";
     std::cout << endl;
 }
-
 void printVector(vector<float> *v, string msg)
 {
     std::cout << "VECTOR-" << msg << ": [";
-    for (int i = 0; i < v->size(); i++)
+    for (int i = 0; i < v->size()-1; i++)
     {
         std::cout << (*v)[i] << ", ";
     }
-    std::cout << "]";
+    std::cout<<(*v)[v->size()-1];
+    std::cout << " ]";
     std::cout << endl;
 }
 void linspace(vector<float> *v, float min, float max, int m){
@@ -79,10 +84,11 @@ void linspace(vector<float> *v, float min, float max, int m){
     for (int i = 0; i < m; i++)
     {
         v->push_back(min + dif * i);
+        
     }
 }
-void printBreakPoints(vector<float> xs, vector<float> ys)
-{
+
+void printBreakPoints(vector<float> xs, vector<float> ys){
     std::cout << "BREAK POINTS: ";
     for (int i = 0; i < xs.size() - 1; i++)
     {
@@ -90,18 +96,18 @@ void printBreakPoints(vector<float> xs, vector<float> ys)
     }
     std::cout << "[" << xs[xs.size()] << "," << ys[ys.size()] << "]" << std::endl;
 }
-float pendiente(float x1, float y1, float x2, float y2)
-{
+
+float pendiente(float x1, float y1, float x2, float y2){
     return (y2 - y1) / (x2 - x1);
 }
-float error(float m, float x1, float y1, float xd, float yd)
-{
+
+float error(float m, float x1, float y1, float xd, float yd){
     float y_pred = m * (xd - x1) + y1;
     float res = yd - y_pred;
     return abs(res);
 }
-float errorAB(float xa, float ya, float xb, float yb, const json &data)
-{
+
+float errorAB(float xa, float ya, float xb, float yb, const json &data){
 
     int i = 0;
     if (data["x"][i] > xb)
@@ -130,8 +136,6 @@ float errorBreakPoint(vector<float> &xs, vector<float> &ys, const json &data){
     for(int i=0; i < xs.size() - 1; i++){
         errorAcumulado += errorAB(xs[i],ys[i],xs[i+1],ys[i+1],data);
     }
-
-
 
     return errorAcumulado;
 }
