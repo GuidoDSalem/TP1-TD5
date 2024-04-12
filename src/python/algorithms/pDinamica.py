@@ -2,7 +2,26 @@ import numpy as np
 import time
 from algorithms.Core import *
 
-def pDinamica(n:int, m:int,k:int, datos):
+def errorBreakPoints_dinamico(listaX,listaY,datos):
+    errorTotal = 0
+    error_actual = 0
+    puntos = []
+    for i in range(len(listaX) - 1):
+        puntos.append((listaX[i],listaY[i]))
+        puntos.append((listaX[i+1],listaY[i+1]))
+        clave = (puntos[0],puntos[1])
+        if (clave in DiccionarioDeErrores): # Si ya tengo el error entre estos dos puntos almacenado en mi diccionario, es decir ya lo calculé antes...
+            error_actual = DiccionarioDeErrores[clave]
+        else:
+            error_actual = errorAB(listaX[i],listaY[i],listaX[i+1],listaY[i+1],datos)
+            nueva_clave = clave
+            DiccionarioDeErrores[nueva_clave] = error_actual # defino nueva clave en mi diccionario, una que no habia calculado antes
+        errorTotal += error_actual
+        puntos.clear()
+
+    return errorTotal
+
+def pDinamica(m:int,n:int,k:int, datos):
    
     start = time.time()
 	
@@ -24,6 +43,10 @@ def pDinamica(n:int, m:int,k:int, datos):
     bestSubGridX =  [] 
     bestError = 100000000000001
 
+    # Creo la matriz (variable global) con -1's en todas sus posiciones
+    global DiccionarioDeErrores
+    DiccionarioDeErrores = dict()
+   
     for i in range(k):
         bestRes.append(gridY[-1])
    
@@ -53,7 +76,7 @@ def pDinamica(n:int, m:int,k:int, datos):
     totalTime = (end - start) * 1000
 
 
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"FuerzaBruta",bestError,totalTime)
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"ProgramacionDinamica",bestError,totalTime)
 
     print(f"\nGridY: {gridY}")
     print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestRes}\n")
@@ -64,26 +87,28 @@ def pDinamica(n:int, m:int,k:int, datos):
 
 
 def pDinamicaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
-    #poda de optamilidad: si la rama que se esta calculando es mas grande que el mejor reusltado hasta ahora, descartala 
+
+    #poda de optamalidad: si la rama que se esta calculando es mas grande que el mejor reusltado hasta ahora, descartala 
     if(errorBreakPoints(xs,ys,datos) > errorBreakPoints(gridX,res,datos)):
         return errorBreakPoints(xs,ys,datos)
     
     #Caso Base
     if(len(gridX) == len(xs)):
         
-        errorBP = errorBreakPoints(xs,ys,datos)
-        
-        errorActual = errorBreakPoints(xs,res,datos)
+        errorBP = errorBreakPoints_dinamico(xs,ys,datos)
+            
+        errorActual = errorBreakPoints_dinamico(xs,res,datos)
         
         # print(f"XY: {ys}, Error: {np.round(errorBP,decimals=2)}")
         if(errorBP < errorActual):
             # bestError = errorBP
             res.clear()
             res.extend(ys)
+            errorActual = errorBP
             print(f"RES: {res},ERROR: {errorBP}")
             bestError = errorBP
 
-        return bestError
+        return bestError 
     
     #Caso recursivo
     i = len(xs)
@@ -92,6 +117,7 @@ def pDinamicaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
     for j in gridY:
         ys.append(j)
         error = pDinamicaRecursiva(gridX,gridY,xs,ys,res,currentBestError,datos)
+        # m[posicion] = error
         if(error < currentBestError):
             currentBestError = error
         ys.pop()
