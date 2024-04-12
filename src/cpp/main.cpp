@@ -22,11 +22,25 @@ int main(int argc, char** argv) {
     float b = 4.4;
     float c = 5.5;
     float d = 6.6;
-    vector<float> vector;
+    vector<float> vector1;
+    vector1.push_back(a);
+    vector1.push_back(b);
+    vector1.push_back(c);
+    vector1.push_back(d);
+    printVector(&vector1);
+    printVector(&vector1,"AAA");
+
+    vector<float> gridX;
+    linspace(&gridX, min(vector1), max(vector1), 5);
+    printVector(&gridX,"gridX");
+
+    vector<float> vectorLinspace;
+    linspace(&vectorLinspace, 0, 5, 5);
+    printVector(&vectorLinspace,"LinspaceX");
 
     printJson(instance);
     std::cout << std::endl<< "__________________" << std::endl;
-    linspace(&vector, a, d, 4);
+
     // float pendiente(float x1, float y1, float x2, float y2);
     // float error(float m, float x1, float y1, float xd, float yd);
     // float errorAB(float xa, float ya, float xb, float yb, const json &data);
