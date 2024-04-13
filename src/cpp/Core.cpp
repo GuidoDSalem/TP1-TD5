@@ -110,21 +110,31 @@ float error(float m, float x1, float y1, float xd, float yd){
 float errorAB(float xa, float ya, float xb, float yb, const json &data){
 
     int i = 0;
-    if (data["x"][i] > xb)
-    {
-        return (float)100000001;
+    if(xa > xb){
+        std::cout<<"ERROR errorAB: Xa > Xb -> Noesto no puede pasar";
+        return -100000;
     }
-
+    // i = 0
+    float errorAcumulado = 0;
     float m = pendiente(xa, ya, xb, yb);
 
-    while (xa > data["x"][i])
-    {
-        i++;
+    if (data["x"][i] < xa){
+
+        while (data["x"][i] < xa)
+        {
+            i++;
+        }
+        
     }
-    float errorAcumulado = 0;
+    // i = 0
+    else if (data["x"][i] > xb){
+        return 0;
+    }
+
     while (data["x"][i] < xb && i < data["x"].size())
     {
         errorAcumulado += error(m, xa, ya, data["x"][i], data["y"][i]);
+        i++;
     }
 
     return errorAcumulado;

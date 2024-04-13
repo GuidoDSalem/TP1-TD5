@@ -19,7 +19,7 @@ int main(int argc, char** argv) {
     input.close();
 
     Resultado res = Resultado();
-    fuerzaBruta(res ,5 ,5 ,3,data);
+    fuerzaBruta(res ,6 ,6 ,5,data);
 
         // float pendiente(float x1, float y1, float x2, float y2);
         // float error(float m, float x1, float y1, float xd, float yd);

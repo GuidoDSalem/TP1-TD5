@@ -12,7 +12,7 @@ float fuerzaBrutaRecursiva(
 {
 
     //CASOS BASE
-    std::cout<<"k: "<<k<<endl;
+
     if( k == 0 ){
         if(xs[0] != gridX[0]){
             return 100000001;
@@ -27,13 +27,17 @@ float fuerzaBrutaRecursiva(
             }
         }
 
-        float error = 52;//errorBreakPoint(xs,ys,datos);
+        float error = errorBreakPoint(xs,ys,datos);
+
         if(error < bestError_){
-            std::cout<<"ERROR: "<<error<<endl;
+            std::cout<<"ERROR: "<<error;
+            printVector(&ys, " - BEST YS: ");
+            res = ys;
+            
             
 
 
-            return 10;
+            return error;
         }
         return bestError_;
     }
@@ -47,7 +51,6 @@ float fuerzaBrutaRecursiva(
         xs.push_back(gridX[i]);
         for(int j=0; j< gridY.size();j++){
             //TODO
-            std::cout<<i<<"  "<<j<<endl;
             ys.push_back(gridY[j]);
             error = fuerzaBrutaRecursiva(gridX,gridY,xs,ys,res,bestError,k-1,datos);
 
@@ -63,8 +66,6 @@ float fuerzaBrutaRecursiva(
 
     return bestError;
 
-
-    return 5;
 }
 
 void fuerzaBruta(Resultado &res, int m, int n,int k, const json &data){
@@ -73,8 +74,8 @@ void fuerzaBruta(Resultado &res, int m, int n,int k, const json &data){
     std::vector<float> grillaX;
     std:vector<float> grillaY;
 
-    linspace(&grillaX,min(data,"x"),max(data,"x"),k);
-    linspace(&grillaY, min(data, "y"), max(data, "y"), k);
+    linspace(&grillaX,min(data,"x"),max(data,"x"),m);
+    linspace(&grillaY, min(data, "y"), max(data, "y"), n);
 
     vector<float> xs;
     vector<float> ys;
@@ -94,5 +95,6 @@ void fuerzaBruta(Resultado &res, int m, int n,int k, const json &data){
     double duracion = (double)duration_cast<duration<double>>(fin - inicio).count();
     res.time = duracion;
 
-    std::cout<<"BEST_ERROR: "<<123<<"  TIME: "<<duracion<<endl;
+    std::cout << "BEST_ERROR: " << bestError << "  TIME: " << duracion << endl;
+    printVector(&result);
 }
