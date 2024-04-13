@@ -3,19 +3,22 @@
 #include <fstream>
 #include "include/json.hpp"
 #include "include/Core.hpp"
+#include "include/backTracking.hpp"
 
 // Para libreria de JSON.
 using namespace nlohmann;
 
+using namespace std;
+
 int main(int argc, char** argv) {
-    std::string instance_name = "../../data/titanium.json";
+    std::string instance_name = "../../data/toy_instance.json";
     std::cout << "Reading file " << instance_name << std::endl;
     std::ifstream input(instance_name);
 
     json instance;
     input >> instance;
     input.close();
-
+    std::cout << std::endl<< "________instance__________" << std::endl;
     printJson(instance);
 
     float a = 2.3;
@@ -39,7 +42,15 @@ int main(int argc, char** argv) {
     printVector(&vectorLinspace,"LinspaceX");
 
     printJson(instance);
-    std::cout << std::endl<< "__________________" << std::endl;
+    std::cout << std::endl<< "________error bp__________" << std::endl;
+    
+
+    std::cout << std::endl<< "________bt__________" << std::endl;
+
+
+    ResultT_bt result_bt = backTracking(6,6,4,instance);
+    printResult(result_bt);
+
 
     // float pendiente(float x1, float y1, float x2, float y2);
     // float error(float m, float x1, float y1, float xd, float yd);

@@ -9,6 +9,12 @@
 using namespace nlohmann;
 using namespace std;
 
+struct ResultT_bt {
+    float roundedBestError;
+    vector<float> bestRes;
+    float roundedTotalTime;
+};
+
 void printJson(json &data);
 float min(vector<float> &v);
 float max(vector<float> &v);
@@ -16,12 +22,13 @@ float min(const json &data,const string s);
 float max(const json &data, const string s);
 void printVector(vector<float> *v);
 void printVector(vector<float> *v,string msg);
+void printResult(const ResultT_bt& result);
 void linspace(vector<float> *v, float min, float max, int m);
 float pendiente(float x1, float y1, float x2, float y2);
 float error(float m,float x1,float y1,float xd, float yd);
 float errorAB(float xa,float ya, float xb, float yb,const json &data);
-float errorBreakPoint(vector<float> &xs,vector<float> &ys, const json &data);
+float errorBreakPoint(const vector<float> &xs,const vector<float> &ys, const json &data);
 void pepe();
-void listasCombinatorias(const vector<int>& lista, vector<int>& subconjuntos, vector<vector<int>>& lista_subconjuntos, int k);
+void listasCombinatorias(const vector<float>& lista, vector<float>& subconjuntos, vector<vector<float>>& lista_subconjuntos, int k);
 
 #endif//CORE

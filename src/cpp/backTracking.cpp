@@ -1,30 +1,27 @@
 #include "include/backTracking.hpp"
 
-struct Result {
-    float roundedBestError;
-    vector<float> bestRes;
-    float roundedTotalTime;
-};
 
-
-Result backTracking(int m, int n,const json &data){
+ResultT_bt backTracking(int m, int n, int k ,const json &data){
     //empezar el tiempo:
-    auto start = chrono::steady_clock::now();
-
+    auto start = std::chrono::steady_clock::now();
+    
     //creamos grilla de datos 
     vector<float> gridX;
     vector<float> gridY;
-    linspace(gridX, min(data,x), max(data, x), m);
-    linspace(gridY, min(data,y), max(data, y), m);
+    linspace(&gridX, min(data,"x"), max(data, "x"), m);
+    linspace(&gridY, min(data,"y"), max(data, "y"), n);
 
     //sacamos el primer y ultimo elemento de la grilla x para trabajr unicamente con las columnas del medio
     vector<float> conjunto_medio = gridX;
-    conjunto_medio.erase(conjunto_medio.begin());
-    conjunto_medio.pop_back();
-
+    if (!conjunto_medio.empty()) {
+        conjunto_medio.erase(conjunto_medio.begin());
+        conjunto_medio.pop_back();
+    }
+   
     //creamos una lista que va a contener todas las combinaciones posibles de como separar las columnas del medio dado k-2
     vector<vector<float>> listas_medio;
-    listasCombinatorias(conjunto_medio, vector<float>(), listas_medio, k-2);
+    vector<float> subconjunto;
+    listasCombinatorias(conjunto_medio, subconjunto, listas_medio, k-2);
 
     //agregamos el primer y ultimo elemento de la lista
     for (auto& lista : listas_medio) {
@@ -32,19 +29,20 @@ Result backTracking(int m, int n,const json &data){
         lista.push_back(gridX.back());
     }
 
-    vector<float> bestRes;
     vector<float> bestSubGridX;
     double bestError = 100000000000001;
 
 
-    vector<int> bestRes(k, gridY.back()); 
+    vector<float> bestRes(k, gridY.back()); 
 
     //con cada subgrilla probamos fuerza bruta recursiva que recursivamente recorre todas las posibles combinaciones y devuelve el mejor error de esa subgrillaa
     for (const auto& subGridX : listas_medio) {
         
-        vector<int> res(subGridX.size(), gridY[0]); 
+        vector<float> res(subGridX.size(), gridY[0]); 
+        vector<float> resX;
+        vector<float> resY;
 
-        double errorActual = backTrackingRecursiva(subGridX, gridY, vector<int>(), vector<int>(), res, bestError, data);
+        double errorActual = backTrackingRecursiva(subGridX, gridY, resX, resY, res, bestError, data);
 
         if (errorActual < bestError) {
             bestSubGridX = subGridX;
@@ -53,21 +51,63 @@ Result backTracking(int m, int n,const json &data){
         }
     }
 
-    auto end = chrono::steady_clock::now();
+    auto end = std::chrono::steady_clock::now();
 
-    auto totalTime = chrono::duration_cast<chrono::milliseconds>(end - start);
+    auto totalTime =std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 
-    auto milliseconds = duration.count();
 
     cout << "GridY: " << endl;
-    printVector(gridY);
-    cout << "Tiempo: " << milliseconds << ", Function: " << bestRes << endl;
+    printVector(&gridY);
+    cout << "Tiempo: " << totalTime << endl;
+    cout << ", Function: " << endl;
+    printVector(&bestRes);
 
-    Result result = {(round(bestError * 100) / 100), bestRes, (round(totalTime * 100) / 100)};
-    
+    ResultT_bt result = {static_cast<float>(round(bestError * 100) / 100), bestRes, static_cast<float>(round(totalTime * 100) / 100)};
+
     return result;
 };
 
-float backTrackingRecursiva(vector<float> gridX, vector<float> gridY, vector<float> resX, vector<float> resY, vector<float> bestResY, float bestError, const json &data){
+float backTrackingRecursiva(const vector<float> gridX, const vector<float> gridY, vector<float> resX, vector<float> resY, vector<float> bestResY, float bestError, const json &datos){    
+    // Poda de optimalidad
+    if (errorBreakPoint(resX, resY, datos) > errorBreakPoint(gridX, bestResY, datos)) {
+        return errorBreakPoint(resX, resY, datos);
+    }
 
-};
+    // Caso Base
+    if (gridX.size() == resX.size()) {
+        float errorBP = errorBreakPoint(resX, resY, datos);
+        
+        // errorActual calculation can be skipped as it is already calculated
+
+        if (errorBP < bestError) {
+            bestResY.clear();
+            bestResY = resY;
+            std::cout << "RES: ";
+            for (const auto& elem : bestResY) {
+                std::cout << elem << " ";
+            }
+            std::cout << ", ERROR: " << errorBP << std::endl;
+            bestError = errorBP;
+        }
+
+        return bestError;
+    }
+
+    // Caso recursivo
+    size_t i = resX.size();
+    resX.push_back(gridX[i]);
+    float currentBestError = bestError;
+    
+    for (const auto& j : gridY) {
+        resY.push_back(j);
+        float error = backTrackingRecursiva(gridX, gridY, resX, resY, bestResY, currentBestError, datos);
+        if (error < currentBestError) {
+            currentBestError = error;
+        }
+        resY.pop_back();
+    }
+
+    resX.pop_back();
+
+    return currentBestError;
+}

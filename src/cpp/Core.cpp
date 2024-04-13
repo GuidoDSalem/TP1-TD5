@@ -69,6 +69,22 @@ void printVector(vector<float> *v, string msg)
     std::cout << "]";
     std::cout << endl;
 }
+
+
+
+
+void printResult(const ResultT_bt& result) {
+    std::cout << "Best Error: " << result.roundedBestError << std::endl;
+    
+    std::cout << "Res: ";
+    for (const auto& value : result.bestRes) {
+        std::cout << value << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Total Time: " << result.roundedTotalTime << std::endl;
+}
+
 void linspace(vector<float> *v, float min, float max, int m){
 
     if (min == max){
@@ -125,7 +141,10 @@ float errorAB(float xa, float ya, float xb, float yb, const json &data)
     return errorAcumulado;
 }
 
-float errorBreakPoint(vector<float> &xs, vector<float> &ys, const json &data){
+float errorBreakPoint(const vector<float> &xs,const vector<float> &ys, const json &data){
+    if (xs.size() != ys.size()) {
+        return -1;
+    }
     float errorAcumulado = 0;
 
     for(int i=0; i < xs.size() - 1; i++){
@@ -142,7 +161,7 @@ void pepe()
     int x = 3;
 }
 
-void listasCombinatorias(const vector<int>& lista, vector<int>& subconjuntos, vector<vector<int>>& lista_subconjuntos, int k) {
+void listasCombinatorias(const vector<float>& lista, vector<float>& subconjuntos, vector<vector<float>>& lista_subconjuntos, int k) {
     if (k == 0) {
         lista_subconjuntos.push_back(subconjuntos);
         return;
@@ -152,7 +171,8 @@ void listasCombinatorias(const vector<int>& lista, vector<int>& subconjuntos, ve
     }
 
     subconjuntos.push_back(lista[0]);
-    listasCombinatorias(vector<int>(lista.begin() + 1, lista.end()), subconjuntos, lista_subconjuntos, k - 1);
+    listasCombinatorias(vector<float>(lista.begin() + 1, lista.end()), subconjuntos, lista_subconjuntos, k - 1);
     subconjuntos.pop_back();
-    listasCombinatorias(vector<int>(lista.begin() + 1, lista.end()), subconjuntos, lista_subconjuntos, k);
+    listasCombinatorias(vector<float>(lista.begin() + 1, lista.end()), subconjuntos, lista_subconjuntos, k);
 }
+
