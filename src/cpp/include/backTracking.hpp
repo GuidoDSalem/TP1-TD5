@@ -12,8 +12,12 @@
 #include "Resultado.hpp"
 #include "Core.hpp"
 
+using namespace nlohmann;
+using namespace std;
+using namespace std::chrono;
 
-ResultT_bt backTracking(int m, int n, int k, const json &data);
+
+Result_bt backTracking(int m, int n, int k, const json &data);
 float backTrackingRecursiva(const vector<float> &gridX, const vector<float> &gridY, vector<float> &resX, vector<float> &resY, vector<float> &bestResY, float &bestError, const json &datos);
 
 

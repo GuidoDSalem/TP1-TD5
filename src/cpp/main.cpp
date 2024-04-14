@@ -11,7 +11,7 @@ using namespace nlohmann;
 using namespace std;
 
 int main(int argc, char** argv) {
-    std::string instance_name = "../../data/toy_instance.json";
+    std::string instance_name = "../../data/titanium.json";
     std::cout << "Reading file " << instance_name << std::endl;
     std::ifstream input(instance_name);
 
@@ -34,8 +34,9 @@ int main(int argc, char** argv) {
     printVector(&vector1,"AAA");
 
     printJson(instance);
+
     /*
-    std::cout << std::endl<< "________error bp__________" << std::endl;
+    std::cout << std::endl<< "________errorbp_____test_____" << std::endl;
     //copiamos los x values del json , al pedo guido puso dos nombres de fucniones iguales pero ahc ebasicamente esto de una
     vector<float> x_values = getJsonValues(instance,"x");
     vector<float> y_values = getJsonValues(instance,"y");
@@ -59,12 +60,15 @@ int main(int argc, char** argv) {
 
     cout << error <<endl;
 
-*/
+    */
      
-    std::cout << std::endl<< "________bt__________" << std::endl;
+    std::cout << std::endl<< "________bt____test______" << std::endl;
+    int m = 6;
+    int n = 6;
+    int k = 6;
 
-
-    ResultT_bt result_bt = backTracking(6,6,4,instance);
+    Result_bt result_bt = backTracking(m,n,k,instance);
+    cout << "BACKTRACKING ASNWER:" << endl;
     printResult(result_bt);
 
 
@@ -74,8 +78,7 @@ int main(int argc, char** argv) {
     void pepe();
 
     int K = instance["n"];
-    int m = 6;
-    int n = 6;
+    
     int N = 5;
 
     std::cout << K << std::endl;

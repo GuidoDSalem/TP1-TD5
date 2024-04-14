@@ -90,16 +90,21 @@ void printVector(vector<float> *v, string msg)
 
 
 
-void printResult(const ResultT_bt& result) {
-    std::cout << "Best Error: " << result.roundedBestError << std::endl;
-    
-    std::cout << "Res: ";
-    for (const auto& value : result.bestRes) {
-        std::cout << value << " ";
+void printResult(const Result_bt& result) {
+    std::cout << "Best Error: " << result.BestError << std::endl;
+    std::cout << "ResX: [ ";
+    for (const auto& value : result.bestSubGrid) {
+        std::cout << value << ", ";
     }
-    std::cout << std::endl;
+    std::cout<< "]" << std::endl;
 
-    std::cout << "Total Time: " << result.roundedTotalTime << std::endl;
+    std::cout << "ResY: [ ";
+    for (const auto& value : result.bestRes) {
+        std::cout << value << ", ";
+    }
+    std::cout << "]" << std::endl;
+
+    std::cout << "Total Time: " << result.TotalTime << std::endl;
 }
 
 void linspace(std::vector<float>& v, float min, float max, int m)
@@ -147,19 +152,19 @@ float errorAB(float xa, float ya, float xb, float yb, const json &data){
     // i = 0
     float errorAcumulado = 0;
     float m = pendiente(xa, ya, xb, yb);
+
     if (i == data["x"].size()) {
             return errorAcumulado;
      }
+
     if (data["x"][i] < xa){
 
         while (i < data["x"].size() && data["x"][i] < xa)
         {
             i++;
         }
-        
-    }
-    // i = 0
-    else if (data["x"][i] > xb){
+    // i = 0    
+    }else if (data["x"][i] > xb){
         return 0;
     }
 

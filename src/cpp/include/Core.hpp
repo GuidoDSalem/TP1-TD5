@@ -9,10 +9,11 @@
 using namespace nlohmann;
 using namespace std;
 
-struct ResultT_bt {
-    float roundedBestError;
+struct Result_bt {
+    float BestError;
+    vector<float> bestSubGrid;
     vector<float> bestRes;
-    float roundedTotalTime;
+    float TotalTime;
 };
 
 void printJson(json &data);
@@ -23,7 +24,7 @@ float minJson(const json &data,const string s);
 float maxJson(const json &data, const string s);
 void printVector(vector<float> *v);
 void printVector(vector<float> *v,string msg);
-void printResult(const ResultT_bt& result);
+void printResult(const Result_bt& result);
 void linspace(vector<float>& v, float min, float max, int m);
 float pendiente(float x1, float y1, float x2, float y2);
 float error(float m,float x1,float y1,float xd, float yd);
