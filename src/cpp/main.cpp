@@ -33,18 +33,34 @@ int main(int argc, char** argv) {
     printVector(&vector1);
     printVector(&vector1,"AAA");
 
+    printJson(instance);
+    /*
+    std::cout << std::endl<< "________error bp__________" << std::endl;
+    //copiamos los x values del json , al pedo guido puso dos nombres de fucniones iguales pero ahc ebasicamente esto de una
+    vector<float> x_values = getJsonValues(instance,"x");
+    vector<float> y_values = getJsonValues(instance,"y");
+
+    //hacemos un grid de 6x6
     vector<float> gridX;
-    linspace(&gridX, min(vector1), max(vector1), 5);
+    linspace(gridX, minJson(instance,"x"), maxJson(instance,"x"), 6);
     printVector(&gridX,"gridX");
 
-    vector<float> vectorLinspace;
-    linspace(&vectorLinspace, 0, 5, 5);
-    printVector(&vectorLinspace,"LinspaceX");
+    vector<float> gridY;
+    linspace(gridY, minJson(instance,"y"), maxJson(instance,"y"), 6);
+    printVector(&gridY,"gridY");
 
-    printJson(instance);
-    std::cout << std::endl<< "________error bp__________" << std::endl;
+    //depsues que tenemos el grid artificialmente hacemos los breakpoints, que en python nos dieron error 0
     
+    vector<float> ys = {0.0 , 0.6, 1.2, 3.0, 3.0, 0.0};
+    
+    vector<float> xs = {0.0, 0.6, 1.2, 1.8, 2.4, 3.0};
+   
+    float error = errorBreakPoint(xs,ys,instance);
 
+    cout << error <<endl;
+
+*/
+     
     std::cout << std::endl<< "________bt__________" << std::endl;
 
 

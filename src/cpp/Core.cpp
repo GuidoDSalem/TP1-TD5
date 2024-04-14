@@ -7,6 +7,16 @@ void printJson(json &data)
     std::cout << "Y: " << data["y"] << "\n"
               << std::endl;
 };
+
+vector<float> getJsonValues(const json& data, const string& key){
+    vector<float> values;
+    for (const auto& value : data[key])
+    {
+        values.push_back(value);
+    }
+    return values;
+}
+
 float min(vector<float> &v){
     float menor = 100000000;
     for(int i=0;i<v.size();i++){
@@ -28,21 +38,27 @@ float max(vector<float> &v){
     }
     return mayor;
 }
-float min(const json &data, const string s){
-    float minimo = 100000001;
-    for(int i=0;i<data[s].size();i++){
-        if(data[s][i] < minimo){
+float minJson(const json &data, const string s){
+    if (data[s].empty()) { 
+        throw std::invalid_argument("No hay nada");
+    }
+
+    float minimo = data[s][0]; 
+    for (size_t i = 1; i < data[s].size(); i++) { 
+        if (data[s][i] < minimo) {
             minimo = data[s][i];
         }
     }
     return minimo;
 }
-float max(const json &data, const string s){
-    float maximo;
-    for (int i = 0; i < data[s].size(); i++)
-    {
-        if (data[s][i] > maximo)
-        {
+float maxJson(const json &data, const string s){
+    if (data[s].empty()) { 
+        throw std::invalid_argument("No hay nada");
+    }
+
+    float maximo = data[s][0]; 
+    for (size_t i = 1; i < data[s].size(); i++) { 
+        if (data[s][i] > maximo) {
             maximo = data[s][i];
         }
     }
@@ -51,10 +67,11 @@ float max(const json &data, const string s){
 void printVector(vector<float> *v)
 {
     std::cout << "VECTOR: [";
-    for (int i = 0; i < v->size(); i++)
+    for (int i = 0; i < v->size()-1; i++)
     {
         std::cout << (*v)[i] << ", ";
     }
+     std::cout << v->back(); 
     std::cout << "]";
     std::cout << endl;
 }
@@ -85,17 +102,18 @@ void printResult(const ResultT_bt& result) {
     std::cout << "Total Time: " << result.roundedTotalTime << std::endl;
 }
 
-void linspace(vector<float> *v, float min, float max, int m){
-
-    if (min == max){
-        std::cout << "ERROR-linspace: Min == MAX -> esto no puede pasar"<<endl;
+void linspace(std::vector<float>& v, float min, float max, int m)
+{
+    if (min == max)
+    {
+        std::cout << "ERROR-linspace: Min == MAX -> esto no puede pasar" << std::endl;
         return;
     }
-    float dif = max - min;
-    dif = dif / (m - 1);
+
+    float dif = (max - min) / (m - 1);
     for (int i = 0; i < m; i++)
     {
-        v->push_back(min + dif * i);
+        v.push_back(min + dif * i);
     }
 }
 void printBreakPoints(vector<float> xs, vector<float> ys)
@@ -107,54 +125,63 @@ void printBreakPoints(vector<float> xs, vector<float> ys)
     }
     std::cout << "[" << xs[xs.size()] << "," << ys[ys.size()] << "]" << std::endl;
 }
-float pendiente(float x1, float y1, float x2, float y2)
-{
+
+float pendiente(float x1, float y1, float x2, float y2){
     return (y2 - y1) / (x2 - x1);
 }
-float error(float m, float x1, float y1, float xd, float yd)
-{
+
+float error(float m, float x1, float y1, float xd, float yd){
     float y_pred = m * (xd - x1) + y1;
     float res = yd - y_pred;
     return abs(res);
 }
-float errorAB(float xa, float ya, float xb, float yb, const json &data)
-{
+
+float errorAB(float xa, float ya, float xb, float yb, const json &data){
 
     int i = 0;
-    if (data["x"][i] > xb)
-    {
-        return (float)100000001;
+    if(xa > xb){
+        std::cout<<"ERROR errorAB: Xa > Xb -> Noesto no puede pasar";
+        return -100000;
     }
-
-    float m = pendiente(xa, ya, xb, yb);
-
-    while (xa > data["x"][i])
-    {
-        i++;
-    }
+    
+    // i = 0
     float errorAcumulado = 0;
+    float m = pendiente(xa, ya, xb, yb);
+    if (i == data["x"].size()) {
+            return errorAcumulado;
+     }
+    if (data["x"][i] < xa){
+
+        while (i < data["x"].size() && data["x"][i] < xa)
+        {
+            i++;
+        }
+        
+    }
+    // i = 0
+    else if (data["x"][i] > xb){
+        return 0;
+    }
+
     while (data["x"][i] < xb && i < data["x"].size())
     {
         errorAcumulado += error(m, xa, ya, data["x"][i], data["y"][i]);
+        i++;
     }
 
     return errorAcumulado;
 }
 
 float errorBreakPoint(const vector<float> &xs,const vector<float> &ys, const json &data){
-    if (xs.size() != ys.size()) {
-        return -1;
-    }
     float errorAcumulado = 0;
 
     for(int i=0; i < xs.size() - 1; i++){
         errorAcumulado += errorAB(xs[i],ys[i],xs[i+1],ys[i+1],data);
     }
 
-
-
     return errorAcumulado;
 }
+
 
 void pepe()
 {
