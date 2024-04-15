@@ -16,7 +16,7 @@ using namespace nlohmann;
 using namespace std;
 
 int main(int argc, char** argv) {
-    std::string instance_name = "../../data/titanium.json";
+    std::string instance_name = "../../data/optimistic_instance.json";
     std::cout << "Reading file " << instance_name << std::endl;
     std::ifstream input(instance_name);
     std::cout<<"START..."<<endl;
@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
     input.close();
 
     Resultado res = Resultado();
-    fuerzaBruta(res ,6 ,6 ,5,data);
+    fuerzaBruta(res ,6 ,6 ,4,data);
 
         // float pendiente(float x1, float y1, float x2, float y2);
         // float error(float m, float x1, float y1, float xd, float yd);

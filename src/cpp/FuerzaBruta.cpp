@@ -33,6 +33,10 @@ float fuerzaBrutaRecursiva(
             std::cout<<"ERROR: "<<error;
             printVector(&ys, " - BEST YS: ");
             res = ys;
+            res.clear();
+            for(int i=0;i < ys.size();i++){
+                res.push_back(ys[i]);
+            }
             
             
 
@@ -93,8 +97,11 @@ void fuerzaBruta(Resultado &res, int m, int n,int k, const json &data){
 
     auto fin = high_resolution_clock::now();
     double duracion = (double)duration_cast<duration<double>>(fin - inicio).count();
-    res.time = duracion;
+    
 
     std::cout << "BEST_ERROR: " << bestError << "  TIME: " << duracion << endl;
+    res.time = duracion;
+    res.bestError = bestError;
+
     printVector(&result);
 }
