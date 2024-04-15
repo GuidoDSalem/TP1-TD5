@@ -112,7 +112,7 @@ float errorAB(float xa, float ya, float xb, float yb, const json &data){
     int i = 0;
     if(xa > xb){
         std::cout<<"ERROR errorAB: Xa > Xb -> Noesto no puede pasar";
-        return -100000;
+        return 100000001;
     }
     // i = 0
     float errorAcumulado = 0;
