@@ -4,7 +4,7 @@ from algorithms.fuerzaBruta import fuerzaBruta
 from algorithms.fuerzaBruta_v3 import fuerzaBrutaV3
 
 from algorithms.backTracking import backTracking
-from algorithms.pDinamica import pDinamica
+#from algorithms.pDinamica import pDinamica
 
 # from algorithms.dinamicAlgoritm import dinamicAlgoritm
 from Result import Result
@@ -44,13 +44,13 @@ def main():
 
 					result.setMN(i,j)
 
-					# fuerza bruta 
-					result.setNames(dataName,"FuerzaBruta")
-					bestError,solutions,time = fuerzaBruta(i,j,k_breakpoints,instance)
-					result.setSolutions(bestError,solutions,time)
-					result.saveState()
+					# # fuerza bruta 
+					# result.setNames(dataName,"FuerzaBruta")
+					# bestError,solutions,time = fuerzaBruta(i,j,k_breakpoints,instance)
+					# result.setSolutions(bestError,solutions,time)
+					# result.saveState()
 
-	 			    #fuerza bruta 3
+	 			    # #fuerza bruta 3
 					result.setNames(dataName,"FuerzaBruta3")
 					bestError,solutions,time = fuerzaBrutaV3(i,j,k_breakpoints,instance)
 					result.setSolutions(bestError,solutions,time)
@@ -62,17 +62,11 @@ def main():
 					# result.setSolutions(bestError,solutions,time)
 					# result.saveState()
 
-
+					#programacion dinamica
 					# result.setNames(dataName,"DinamicAlgorithm")
-					# bestError,solutions,time = dinamicAlgoritm(i, j, instance)
+					# bestError,solutions,time = pDinamica(i, j, k_breakpoints,instance)
 					# result.setSolutions(bestError,solutions,time)
 					# result.saveState()
-
-					#programacion dinamica
-					result.setNames(dataName,"DinamicAlgorithm")
-					bestError,solutions,time = pDinamica(i, j, k_breakpoints,instance)
-					result.setSolutions(bestError,solutions,time)
-					result.saveState()
 
 	result.saveInFile()
 

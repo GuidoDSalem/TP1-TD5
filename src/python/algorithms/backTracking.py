@@ -52,7 +52,7 @@ def backTracking(m:int,n:int,k:int, datos):
     totalTime = (end - start) * 1000
 
 
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"FuerzaBruta",bestError,totalTime)
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"Backtracking",bestError,totalTime)
 
     print(f"\nGridY: {gridY}")
     print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestRes}\n")
@@ -72,7 +72,7 @@ def backTrackingRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
         
         errorBP = errorBreakPoints(xs,ys,datos)
         
-        errorActual = errorBreakPoints(xs,res,datos) #ESTO LO PUEDO EVITAR PORQUE YA LO CALCULE
+        errorActual = errorBreakPoints(xs,res,datos) 
         
         # print(f"XY: {ys}, Error: {np.round(errorBP,decimals=2)}")
         if(errorBP < errorActual):
