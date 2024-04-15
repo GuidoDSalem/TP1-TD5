@@ -6,6 +6,9 @@ from algorithms.fuerzaBruta_v3 import fuerzaBrutaV3
 from algorithms.backTracking import backTracking
 from algorithms.pDinamica import pDinamica
 
+import numpy as np
+import matplotlib.pyplot as plt
+
 # from algorithms.dinamicAlgoritm import dinamicAlgoritm
 from Result import Result
 import os
@@ -21,8 +24,8 @@ def main():
 	print(os.curdir)
 
 	# Datos
-	listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
-	#listaDeDatos = ["optimistic_instance.json"]
+	#listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
+	listaDeDatos = ["titanium.json"]
 
 	# VALORES DE EXPERIMENTO
 	ms = [6]
@@ -31,7 +34,43 @@ def main():
 
 	# Por cada lista de Datos:
 	result:Result = Result()
-	
+	errors_listFB = []
+	errors_listBT = []
+	errors_listPD = []
+	breakpoints_list = [2,3,4,5]
+ 
+	for dataName in listaDeDatos:
+		path = dataPath + dataName
+
+		# Cargamos los Datos
+		with open(path) as f:
+			instance = json.load(f)
+			
+			for k in breakpoints_list:
+				bestError,solutions,time = fuerzaBrutaV3(6,6,k,instance)
+				errors_listFB.append(time)
+				bestError,solutions,time = backTracking(6,6,k, instance)
+				errors_listBT.append(time)
+				bestError,solutions,time = pDinamica(6, 6, k,instance)
+				errors_listPD.append(time)
+    
+	errors_list = [errors_listFB, errors_listBT, errors_listPD]
+	plt.figure(figsize=(10, 6))
+	algorithm_names = ['FuerzaBruta', 'BackTracking', 'ProgDinamica']
+	breakpoints_lists = [breakpoints_list, breakpoints_list, breakpoints_list]
+    # Plot errors vs breakpoints for each algorithm
+	for errors, breakpoints, algorithm_name in zip(errors_list, breakpoints_lists, algorithm_names):
+		plt.plot(breakpoints, errors, label=algorithm_name)
+
+	plt.xlabel('Breakpoints')
+	plt.ylabel('Time')
+	plt.title('Time vs Breakpoints')
+	plt.legend()
+	plt.grid(True)
+	plt.show()
+       
+       
+ 
 	for dataName in listaDeDatos:
 		path = dataPath + dataName
 
@@ -43,6 +82,7 @@ def main():
 				for j in ns:
 
 					result.setMN(i,j)
+
 
 					# fuerza bruta 
 					result.setNames(dataName,"FuerzaBruta")
