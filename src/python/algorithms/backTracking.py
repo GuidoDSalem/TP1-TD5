@@ -52,10 +52,11 @@ def backTracking(m:int,n:int,k:int, datos):
     totalTime = (end - start) * 1000
 
 
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"FuerzaBruta",bestError,totalTime)
-
-    print(f"\nGridY: {gridY}")
-    print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestRes}\n")
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"BackTracking",bestError,totalTime)
+    print("BACK TRACKING ")
+    print(f"\nGridY: {bestRes}")
+    print(f"\nGridx: {bestSubGridX}")
+    print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestError}\n")
     
 
     return np.round(bestError,decimals=2),bestRes,np.round(totalTime,decimals=2)
