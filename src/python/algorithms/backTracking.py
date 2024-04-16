@@ -2,7 +2,7 @@ import numpy as np
 import time
 from algorithms.Core import *
 
-def backTracking(m:int,n:int,k:int, datos):
+def backTracking(m:int,n:int,k:int, datos): # O(2^n × n^2 × m^2)
    
     start = time.time()
 	
@@ -15,18 +15,18 @@ def backTracking(m:int,n:int,k:int, datos):
 
     # creamos una lista que va a contener todas las combinaciones posibles de como separar las columnas del medio dado k-2
     listas_medio = []
-    listasCombinatorias(conjunto_medio,[],listas_medio,k-2)
+    listasCombinatorias(conjunto_medio,[],listas_medio,k-2) #O(2^n) donde n = len(conjunto_medio) = len(gridx) -2 
 
     #agregamos el primer y ultimo elemento a cada lista 
     listas_medio = [[gridX[0]] + lista + [gridX[-1]] for lista in listas_medio]
 
     bestRes = []
     bestSubGridX =  [] 
-    bestError = 100000000000001
+    bestError = float('inf')
 
     for i in range(k):
         bestRes.append(gridY[-1])
-   
+    
     #con cada subgrilla probamos fuerza bruta recursiva que recursivamente recorre todas las posibles combinaciones y devuelve el mejor error de esa subgrillaa
     for subGridX in listas_medio:
         print(subGridX)
@@ -37,9 +37,9 @@ def backTracking(m:int,n:int,k:int, datos):
         for i in range(len(subGridX)):
             res.append(gridY[0])
         
-        errorActual = 100000000000001
+        errorActual = float('inf')
         
-        errorActual = backTrackingRecursiva(subGridX,gridY,[],[],res, errorActual, datos)
+        errorActual = backTrackingRecursiva(subGridX,gridY,[],[],res, errorActual, datos) # O(n^2×m^2) # n = len(subgridX) m = cantidad máxima de datos entre dos puntos consecutivos en subgridX
         
         #si otra subgrilla tiene un mejor error guarda esa 
         if(errorActual < bestError):
@@ -52,10 +52,10 @@ def backTracking(m:int,n:int,k:int, datos):
     totalTime = (end - start) * 1000
 
 
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"FuerzaBruta",bestError,totalTime)
+   # plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"FuerzaBruta",bestError,totalTime)
 
-    print(f"\nGridY: {gridY}")
-    print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestRes}\n")
+    #print(f"\nGridY: {gridY}")
+    #print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestRes}\n")
     
 
     return np.round(bestError,decimals=2),bestRes,np.round(totalTime,decimals=2)
@@ -79,7 +79,7 @@ def backTrackingRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
             # bestError = errorBP
             res.clear()
             res.extend(ys)
-            print(f"RES: {res},ERROR: {errorBP}")
+            #print(f"RES: {res},ERROR: {errorBP}")
             bestError = errorBP
 
         return bestError
