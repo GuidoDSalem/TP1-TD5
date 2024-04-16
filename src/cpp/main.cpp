@@ -11,7 +11,7 @@ using namespace nlohmann;
 using namespace std;
 
 int main(int argc, char** argv) {
-    std::string instance_name = "../../data/titanium.json";
+    std::string instance_name = "../../data/aspen_simulation.json";
     std::cout << "Reading file " << instance_name << std::endl;
     std::ifstream input(instance_name);
 
