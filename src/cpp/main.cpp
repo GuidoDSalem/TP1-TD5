@@ -8,6 +8,7 @@
 
 // Para libreria de JSON.
 using namespace nlohmann;
+using namespace std;
 
 int main(int argc, char** argv) {
     std::string instance_name = "../../data/optimistic_instance.json";
