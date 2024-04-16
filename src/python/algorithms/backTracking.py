@@ -72,7 +72,7 @@ def backTrackingRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
         
         errorBP = errorBreakPoints(xs,ys,datos)
         
-        errorActual = errorBreakPoints(xs,res,datos) #ESTO LO PUEDO EVITAR PORQUE YA LO CALCULE
+        errorActual = errorBreakPoints(xs,res,datos) 
         
         # print(f"XY: {ys}, Error: {np.round(errorBP,decimals=2)}")
         if(errorBP < errorActual):
