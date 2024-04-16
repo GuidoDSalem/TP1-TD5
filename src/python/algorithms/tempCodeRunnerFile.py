@@ -1,1 +1,1 @@
-from Core import *
+DiccionarioDeErrores

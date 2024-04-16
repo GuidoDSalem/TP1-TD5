@@ -1,15 +1,19 @@
 import json
 import numpy as np
+import os
+
 from algorithms.fuerzaBruta import fuerzaBruta
 from algorithms.fuerzaBruta_v3 import fuerzaBrutaV3
 from algorithms.backTracking_v3 import backTrackingV3
 
 from algorithms.backTracking import backTracking
+
 from algorithms.pDinamica import pDinamica
 
-# from algorithms.dinamicAlgoritm import dinamicAlgoritm
+from algorithms.Core import *
+
 from Result import Result
-import os
+
 
 BIG_NUMBER = 1e10 # Revisar si es necesario.
 
@@ -22,8 +26,8 @@ def main():
 	print(os.curdir)
 
 	# Datos
-	# listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
-	listaDeDatos = ["aspen_simulation.json"]
+	#listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
+	listaDeDatos = ["titanium.json"]
 
 	# VALORES DE EXPERIMENTO
 	ms = [10]
@@ -32,6 +36,10 @@ def main():
 
 	# Por cada lista de Datos:
 	result:Result = Result()
+	
+    
+	breakpoints_list = [2,3,4,5,6]
+
 	
 	for dataName in listaDeDatos:
 		path = dataPath + dataName
@@ -69,11 +77,12 @@ def main():
 					result.setSolutions(bestError,solutions,time)
 					result.saveState()
 
-
-					# result.setNames(dataName,"DinamicAlgorithm")
-					# bestError,solutions,time = dinamicAlgoritm(i, j, instance)
-					# result.setSolutions(bestError,solutions,time)
-					# result.saveState()
+	 			    
+					#backtracking
+					result.setNames(dataName,"BackTracking")
+					bestError,solutions,time = backTracking(i, j,k_breakpoints, instance)
+					result.setSolutions(bestError,solutions,time)
+					result.saveState()
 
 					#programacion dinamica
 					# result.setNames(dataName,"DinamicAlgorithm")
