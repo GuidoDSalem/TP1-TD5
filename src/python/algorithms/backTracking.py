@@ -29,7 +29,6 @@ def backTracking(m:int,n:int,k:int, datos): # O(2^n × n^2 × m^2)
     
     #con cada subgrilla probamos fuerza bruta recursiva que recursivamente recorre todas las posibles combinaciones y devuelve el mejor error de esa subgrillaa
     for subGridX in listas_medio:
-        print(subGridX)
         res = []
        
         #esto lo hice porque la lista estba vacia para darles valores inciales porque 
@@ -53,13 +52,13 @@ def backTracking(m:int,n:int,k:int, datos): # O(2^n × n^2 × m^2)
 
 
     plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"BackTracking",bestError,totalTime)
-    print("BACK TRACKING ")
-    print(f"\nGridY: {bestRes}")
-    print(f"\nGridx: {bestSubGridX}")
-    print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestError}\n")
+    
+    print("----BACK TRACKING----")
+   
+    print(f"\nTIEMPO: {totalTime}, FUNCIONx:{bestSubGridX}, FUNCIONY:{bestRes}, ERROR: {bestError}\n")
     
 
-    return np.round(bestError,decimals=2),bestRes,np.round(totalTime,decimals=2)
+    return np.round(bestError,decimals=2),bestSubGridX, bestRes,np.round(totalTime,decimals=2)
 
 
 

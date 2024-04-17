@@ -3,12 +3,12 @@ import numpy as np
 import os
 
 from algorithms.fuerzaBruta import fuerzaBruta
-from algorithms.fuerzaBruta_v3 import fuerzaBrutaV3
-from algorithms.backTracking_v3 import backTrackingV3
 
+from algorithms.backTracking_v3 import backTrackingV3
 from algorithms.backTracking import backTracking
 
-from algorithms.pDinamica import pDinamica
+#from algorithms.pDinamica import pDinamica
+from algorithms.pDinamica_e import pDinamica
 
 from algorithms.Core import *
 
@@ -32,26 +32,58 @@ def main():
 	# VALORES DE EXPERIMENTO
 	ms = [10]
 	ns = [10]
-	k_breakpoints = 6
+	k_breakpoints = 3
 
 	# Por cada lista de Datos:
 	result:Result = Result()
 	
     
-	breakpoints_list = [2,3,4,5,6]
-
-	
+	breakpoints_list = [2,3,4,5,6,7,8,9,10]
+	timeBT = []
+	timePD = []
+ 
 	for dataName in listaDeDatos:
 		path = dataPath + dataName
 
 		# Cargamos los Datos
 		with open(path) as f:
 			instance = json.load(f)
+			
+			timeBT = [] 
+			timePD = []
+        
+			for k in breakpoints_list:
+				bestError,solutionsx,solutionsY,time1 = backTracking(6, 6,k, instance)
+				timeBT.append(time1)
+				bestError,solutionsx,solutionsY,time2 = pDinamica(6,6, k,instance)
+				timePD.append(time2)
+    		
+		time_list = [timeBT, timePD]
+		print(time_list)
+		algorithm_names = ['BackTracking', 'ProgDinamica']
+		print(algorithm_names)
+		breakpoints_lists  = [breakpoints_list, breakpoints_list]
+		print(breakpoints_lists)
+		comparacion_tiempo(time_list, algorithm_names, breakpoints_lists, instance, dataName, 6, 6)
+			
+    
+	for dataName in listaDeDatos:
+		path = dataPath + dataName
 
+		# Cargamos los Datos
+		with open(path) as f:
+			instance = json.load(f)
+		
 			for i in ms:
 				for j in ns:
 
-					result.setMN(i,j)
+					
+
+					
+						
+
+
+					#result.setMN(i,j)
 
 					# fuerza bruta 
 					# result.setNames(dataName,"FuerzaBruta")
@@ -66,30 +98,33 @@ def main():
 					# result.saveState()
 	 
 	 				# backtracking
-					result.setNames(dataName,"BackTracking")
-					bestError,solutions,time = backTracking(i, j,k_breakpoints, instance)
-					result.setSolutions(bestError,solutions,time)
-					result.saveState()
+					#result.setNames(dataName,"BackTracking")
+					bestError,solutionsx,solutionsY,time = backTracking(i, j,k_breakpoints, instance)
+					#result.setSolutions(bestError,solutions,time)
+					#result.saveState()
 					
 					# backtrackingV3
-					result.setNames(dataName,"BackTrackingV3")
-					bestError,solutions,time = backTrackingV3(i, j,k_breakpoints, instance)
-					result.setSolutions(bestError,solutions,time)
-					result.saveState()
+					#result.setNames(dataName,"BackTrackingV3")
+					#bestError,solutions,time = backTrackingV3(i, j,k_breakpoints, instance)
+					#result.setSolutions(bestError,solutions,time)
+					#result.saveState()
 
 	 			    
 					#backtracking
-					result.setNames(dataName,"BackTracking")
-					bestError,solutions,time = backTracking(i, j,k_breakpoints, instance)
-					result.setSolutions(bestError,solutions,time)
-					result.saveState()
+					#result.setNames(dataName,"BackTracking")
+					#bestError,solutions,time = backTracking(i, j,k_breakpoints, instance)
+					#result.setSolutions(bestError,solutions,time)
+					#result.saveState()
 
 					#programacion dinamica
 					# result.setNames(dataName,"DinamicAlgorithm")
-					# bestError,solutions,time = pDinamica(i, j, k_breakpoints,instance)
+					bestError,solutionsx,solutionsY,time = pDinamica(i, j, k_breakpoints,instance)
+					#ploteamos los puntos
+					#plot_puntos_y_linea(instance,solutionsx,solutionsY,i,j,"ProgramacionDinamica",bestError,time)
+    
 					# result.setSolutions(bestError,solutions,time)
 					# result.saveState()
-
+			
 	result.saveInFile()
 
 

@@ -96,18 +96,18 @@ def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo):
     # Mostrar el gráfico
     plt.show()
     
-def comparacion_errores(errors_list, breakpoints_list, instance, dataName, i, j):
+def comparacion_tiempo(tiempos_list, algorithm_names, breakpoints_lists, instance, dataName, i, j):
    
     plt.figure(figsize=(10, 6))
-    algorithm_names = ['FuerzaBruta', 'BackTracking', 'ProgDinamica']
-    breakpoints_lists = [breakpoints_list, breakpoints_list, breakpoints_list]
+   
+    
     # Plot errors vs breakpoints for each algorithm
-    for errors, breakpoints, algorithm_name in zip(errors_list, breakpoints_lists, algorithm_names):
-        plt.plot(breakpoints, errors, label=algorithm_name)
+    for time, breakpoints, algorithm_name in zip(tiempos_list, breakpoints_lists, algorithm_names):
+        plt.plot(breakpoints, time, label=algorithm_name)
 
     plt.xlabel('Breakpoints')
     plt.ylabel('Time')
-    plt.title(f'Time vs Breakpoints en:{dataName} [{i},{j}]')
+    plt.title(f'Time vs Breakpoints en: {dataName} [{i},{j}]')
     plt.legend()
     plt.grid(True)
     plt.show()
@@ -124,6 +124,12 @@ def listasCombinatorias(lista:list,subconjuntos,lista_subconjuntos,k):
     listasCombinatorias(lista[1:],subconjuntos,lista_subconjuntos,k-1)
     subconjuntos.pop()
     listasCombinatorias(lista[1:],subconjuntos,lista_subconjuntos,k)
+
+def print_dict(dictionary):
+    print("{")
+    for key, value in dictionary.items():
+        print(f"    '{key}': '{value}',")
+    print("}")
     
     
 ####################nose si se usan 
