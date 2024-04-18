@@ -26,8 +26,8 @@ def main():
 	print(os.curdir)
 
 	# Datos
-	#listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
-	listaDeDatos = ["titanium.json"]
+	listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
+	#listaDeDatos = ["titanium.json"]
 
 	# VALORES DE EXPERIMENTO
 	ms = [10]
@@ -38,17 +38,15 @@ def main():
 	result:Result = Result()
 	
     
-	breakpoints_list = [2,3,4,5,6,7,8,9,10]
-	timeBT = []
-	timePD = []
- 
+	breakpoints_list = [2,3,4,5,6]
+	
 	for dataName in listaDeDatos:
 		path = dataPath + dataName
 
 		# Cargamos los Datos
 		with open(path) as f:
 			instance = json.load(f)
-			
+
 			timeBT = [] 
 			timePD = []
         
@@ -57,7 +55,8 @@ def main():
 				timeBT.append(time1)
 				bestError,solutionsx,solutionsY,time2 = pDinamica(6,6, k,instance)
 				timePD.append(time2)
-    		
+		
+		print(timePD)
 		time_list = [timeBT, timePD]
 		print(time_list)
 		algorithm_names = ['BackTracking', 'ProgDinamica']
@@ -65,7 +64,8 @@ def main():
 		breakpoints_lists  = [breakpoints_list, breakpoints_list]
 		print(breakpoints_lists)
 		comparacion_tiempo(time_list, algorithm_names, breakpoints_lists, instance, dataName, 6, 6)
-			
+   
+   			
     
 	for dataName in listaDeDatos:
 		path = dataPath + dataName
@@ -76,12 +76,6 @@ def main():
 		
 			for i in ms:
 				for j in ns:
-
-					
-
-					
-						
-
 
 					#result.setMN(i,j)
 
@@ -99,7 +93,7 @@ def main():
 	 
 	 				# backtracking
 					#result.setNames(dataName,"BackTracking")
-					bestError,solutionsx,solutionsY,time = backTracking(i, j,k_breakpoints, instance)
+					#bestError,solutionsx,solutionsY,time = backTracking(i, j,k_breakpoints, instance)
 					#result.setSolutions(bestError,solutions,time)
 					#result.saveState()
 					
@@ -124,14 +118,13 @@ def main():
     
 					# result.setSolutions(bestError,solutions,time)
 					# result.saveState()
+					# Represetnamos la solucion con un diccionario que indica:
+					# - n: cantidad de breakpoints
+					# - x: lista con las coordenadas de la abscisa para cada breakpoint
+					# - y: lista con las coordenadas de la ordenada para cada breakpoint
+					
 			
-	result.saveInFile()
-
-
-
-
-
-
+	#result.saveInFile()
 
 
 """
@@ -187,6 +180,6 @@ def main():
 	with open('solution_' + instance_name, 'w') as f:
 		json.dump(solution, f)
 """
-	
+
 if __name__ == "__main__":
 	main()

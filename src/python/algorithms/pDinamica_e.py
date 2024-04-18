@@ -51,7 +51,7 @@ def pDinamica(m, n, k, datos):
     print("----Prog Dinamica----")
 
     print(f"\n\nTIEMPO: {totalTime}, FUNCIONx:{bestResX}, FUNCIONY:{bestResY},, ERROR:{bestError}\n")
-    plot_puntos_y_linea(datos,bestResX,bestResY,m,n,"prog dinamica",bestError,totalTime)
+    #plot_puntos_y_linea(datos,bestResX,bestResY,m,n,"prog dinamica",bestError,totalTime)
     
     return np.round(bestError, decimals=2), bestResX, bestResY,np.round(totalTime, decimals=2)
 
@@ -59,7 +59,7 @@ def pDinamicaRecursiva(subGridX, gridY, xs, ys, resY, bestError, datos, Dicciona
        
     #si la respuesta de error ya es mayor que la mejor respuesta (entera) devuelve infinito para que no trate ese camino devueelta
     if errorBreakPoints_dinamico(xs, ys, datos, DiccionarioDeErrores) > errorBreakPoints_dinamico(subGridX, resY, datos, DiccionarioDeErrores):
-        return float('inf')
+        return errorBreakPoints_dinamico(subGridX, resY, datos, DiccionarioDeErrores)
     
     #Caso Base
     if(len(subGridX) == len(xs)):
