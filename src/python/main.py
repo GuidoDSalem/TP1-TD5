@@ -30,8 +30,8 @@ def main():
 	#listaDeDatos = ["titanium.json"]
 
 	# VALORES DE EXPERIMENTO
-	ms = [10]
-	ns = [10]
+	ms = [6]
+	ns = [6]
 	k_breakpoints = 3
 
 	# Por cada lista de Datos:
@@ -51,9 +51,9 @@ def main():
 			timePD = []
         
 			for k in breakpoints_list:
-				bestError,solutionsx,solutionsY,time1 = backTracking(6, 6,k, instance)
+				bestError,solutionsx,solutionsY,time1 = backTracking(10, 10,k, instance)
 				timeBT.append(time1)
-				bestError,solutionsx,solutionsY,time2 = pDinamica(6,6, k,instance)
+				bestError,solutionsx,solutionsY,time2 = pDinamica(10,10, k,instance)
 				timePD.append(time2)
 		
 		print(timePD)
