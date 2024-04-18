@@ -1,12 +1,12 @@
 #include "include/pDinamica.hpp"
-double errorBreakPoints_dinamico(const vector<double>& listaX, const vector<double>& listaY, const Datos& datos) {
-    double errorTotal = 0;
-    unordered_map<pair<pair<double, double>,pair<double, double>>, double> DiccionarioDeErrores;
+float errorBreakPoints_dinamico(const vector<float>& listaX, const vector<float>& listaY, const json& datos) {
+    float errorTotal = 0;
+    unordered_map<pair<pair<float, float>,pair<float, float>>, float> DiccionarioDeErrores;
 
     for (size_t i = 0; i < listaX.size() - 1; ++i) {
         // Elegimos 2 puntos a y b cada uno de estos tiene un punto (x,y)
         // en la clave guardamos estos dos puntos (xa,ya),(xb,yb) con el error como valor de la clave
-        pair<pair<double, double>, pair<double, double>> clave = {
+        pair<pair<float, float>, pair<float, float>> clave = {
             {listaX[i], listaY[i]}, {listaX[i+1], listaY[i+1]}
         };
         
@@ -14,7 +14,7 @@ double errorBreakPoints_dinamico(const vector<double>& listaX, const vector<doub
         if (DiccionarioDeErrores.find(clave) != DiccionarioDeErrores.end()) {
             errorTotal += DiccionarioDeErrores[clave];
         } else {
-            double error_actual = errorAB(listaX[i], listaY[i], listaX[i+1], listaY[i+1], datos);
+            float error_actual = errorAB(listaX[i], listaY[i], listaX[i+1], listaY[i+1], datos);
             DiccionarioDeErrores[clave] = error_actual;
             errorTotal += error_actual;
         }
@@ -34,14 +34,14 @@ float pDinamicaRecursiva(const vector<float> &gridX,
     
     // Poda de optimalidad
     if(resX.size()!= 0){
-        if (errorBreakPoint(resX, resY, datos) > errorBreakPoint(gridX, bestResY, datos)) {
-            return errorBreakPoint(resX, resY, datos);
+        if (errorBreakPoints_dinamico(resX, resY, datos) > errorBreakPoints_dinamico(gridX, bestResY, datos)) {
+            return errorBreakPoints_dinamico(resX, resY, datos);
         }
     }
 
     // Caso Base
     if (gridX.size() == resX.size()) {
-        float errorBP = errorBreakPoint(resX, resY, datos);
+        float errorBP = errorBreakPoints_dinamico(resX, resY, datos);
         
         if (errorBP < bestError) {
             bestResY.clear();
@@ -59,6 +59,7 @@ float pDinamicaRecursiva(const vector<float> &gridX,
     // Caso recursivo
     for (const auto& j : gridY) {
         resY.push_back(j);
+        
         float error = pDinamicaRecursiva(gridX, gridY, resX, resY, bestResY, currentBestError, datos);
         if (error < currentBestError) {
             currentBestError = error;
@@ -108,22 +109,23 @@ Result_bt pDinamica(int m, int n, int k ,const json &data){
     float bestError = 100000000000001.0f; 
     vector<float> bestRes(k, gridY.back()); 
 
-    unordered_map<pair<pair<double, double>, pair<double, double>>, double> DiccionarioDeErrores;
+    // Creo el diccionario vacio
+    unordered_map<pair<pair<float, float>, pair<float, float>>, float> DiccionarioDeErrores;
 
-    //con cada subgrilla probamos backtracking recursiva que recursivamente recorre todas las posibles combinaciones y devuelve el mejor error de esa subgrillaa
+    //con cada subgrilla probamos PDINAMICA recursiva que recursivamente recorre todas las posibles combinaciones y devuelve el mejor error de esa subgrillaa
     for (const auto& subGridX : listas_medio) {
         
-        vector<float> res(subGridX.size(), gridY[0]); 
+        vector<float> temp_res(subGridX.size(), gridY[0]); 
         vector<float> resX;
         vector<float> resY;
 
         float errorActual = 100000000000001.0f;
-        errorActual = pDinamicaRecursiva(subGridX, gridY, resX, resY, res, bestError, data);
+        errorActual = pDinamicaRecursiva(subGridX, gridY, resX, resY, temp_res, bestError, data);
 
         if (errorActual < bestError) {
             bestSubGridX = subGridX;
             bestError = errorActual;
-            bestRes = res;
+            bestRes = temp_res;
         }
     }
 

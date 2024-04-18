@@ -4,6 +4,7 @@
 #include "include/json.hpp"
 #include "include/Core.hpp"
 #include "include/backTracking.hpp"
+#include "include/pDinamica.hpp"
 
 // Para libreria de JSON.
 using namespace nlohmann;
@@ -11,7 +12,7 @@ using namespace nlohmann;
 using namespace std;
 
 int main(int argc, char** argv) {
-    std::string instance_name = "../../data/aspen_simulation.json";
+    std::string instance_name = "../../data/optimistic_instance.json";
     std::cout << "Reading file " << instance_name << std::endl;
     std::ifstream input(instance_name);
 
@@ -65,11 +66,18 @@ int main(int argc, char** argv) {
     std::cout << std::endl<< "________bt____test______" << std::endl;
     int m = 6;
     int n = 6;
-    int k = 6;
+    int k = 4;
 
     Result_bt result_bt = backTracking(m,n,k,instance);
     cout << "BACKTRACKING ASNWER:" << endl;
     printResult(result_bt);
+
+    std::cout << std::endl<< "________pd____test______" << std::endl;
+    
+
+    Result_bt result_pd = pDinamica(m,n,k,instance);
+    cout << "PDINAMICA ASNWER:" << endl;
+    printResult(result_pd);
 
 
     // float pendiente(float x1, float y1, float x2, float y2);
