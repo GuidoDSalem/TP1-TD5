@@ -19,8 +19,10 @@ def backTracking(m:int,n:int,k:int, datos): # O(2^n × n^2 × m^2)
 
     #agregamos el primer y ultimo elemento a cada lista 
     listas_medio = [[gridX[0]] + lista + [gridX[-1]] for lista in listas_medio]
-
+    
+    #solucion en y
     bestRes = []
+    #solucion en x
     bestSubGridX =  [] 
     bestError = float('inf')
 
@@ -51,13 +53,12 @@ def backTracking(m:int,n:int,k:int, datos): # O(2^n × n^2 × m^2)
     totalTime = (end - start) * 1000
 
 
-    #plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"BackTracking",bestError,totalTime)
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"BackTracking",bestError,totalTime)
     
     print("----BACK TRACKING----")
-   
-    print(f"\nTIEMPO: {totalTime}, FUNCIONx:{bestSubGridX}, FUNCIONY:{bestRes}, ERROR: {bestError}\n")
+    print(f"TIEMPO: {totalTime},\nFUNCION x: {bestSubGridX},\nFUNCION y: {bestRes},\nERROR: {bestError}\n\n")
     
-
+    #devolvemos: mejor error, solucion en x, solucion en y y el tiempo total
     return np.round(bestError,decimals=2),bestSubGridX, bestRes,np.round(totalTime,decimals=2)
 
 
@@ -74,12 +75,9 @@ def backTrackingRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
         
         errorActual = errorBreakPoints(xs,res,datos) 
         
-        # print(f"XY: {ys}, Error: {np.round(errorBP,decimals=2)}")
         if(errorBP < errorActual):
-            # bestError = errorBP
             res.clear()
             res.extend(ys)
-            #print(f"RES: {res},ERROR: {errorBP}")
             bestError = errorBP
 
         return bestError

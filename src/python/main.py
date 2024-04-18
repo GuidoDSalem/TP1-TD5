@@ -8,7 +8,7 @@ from algorithms.backTracking_v3 import backTrackingV3
 from algorithms.backTracking import backTracking
 
 #from algorithms.pDinamica import pDinamica
-from algorithms.pDinamica_e import pDinamica
+from algorithms.pDinamica_v3 import pDinamica
 
 from algorithms.Core import *
 
@@ -51,22 +51,31 @@ def main():
 			timePD = []
         
 			for k in breakpoints_list:
-				bestError,solutionsx,solutionsY,time1 = backTracking(10, 10,k, instance)
+				print(f"------------DATASET-----------: {dataName}\n")
+				bestError,solutionsX,solutionsY,time1 = backTracking(6, 6,k, instance)
 				timeBT.append(time1)
-				bestError,solutionsx,solutionsY,time2 = pDinamica(10,10, k,instance)
+				bestError,solutionsX,solutionsY,time2 = pDinamica(6,6, k,instance)
 				timePD.append(time2)
-		
-		print(timePD)
-		time_list = [timeBT, timePD]
-		print(time_list)
-		algorithm_names = ['BackTracking', 'ProgDinamica']
-		print(algorithm_names)
-		breakpoints_lists  = [breakpoints_list, breakpoints_list]
-		print(breakpoints_lists)
-		comparacion_tiempo(time_list, algorithm_names, breakpoints_lists, instance, dataName, 6, 6)
+			#ver la diferencia de tiempo por promedio multiplicado por cien
+			sum_t = 0
+			for i in range(0,len(timeBT)-1):
+				dif_tiempo = abs(timeBT[i] - timePD[i])
+				sum_t += dif_tiempo
+			avg_t = (sum_t/len(timeBT))
+   
+   
+			print(avg_t)
+			
+			time_list = [timeBT, timePD]
+			print(time_list)
+			algorithm_names = ['BackTracking', 'ProgDinamica']
+			
+			breakpoints_lists  = [breakpoints_list, breakpoints_list]
+			
+			comparacion_tiempo(time_list, algorithm_names, breakpoints_lists, round(avg_t,2), instance, dataName, 6, 6)
    
    			
-    
+"""   
 	for dataName in listaDeDatos:
 		path = dataPath + dataName
 
@@ -112,7 +121,7 @@ def main():
 
 					#programacion dinamica
 					# result.setNames(dataName,"DinamicAlgorithm")
-					bestError,solutionsx,solutionsY,time = pDinamica(i, j, k_breakpoints,instance)
+					#bestError,solutionsx,solutionsY,time = pDinamica(i, j, k_breakpoints,instance)
 					#ploteamos los puntos
 					#plot_puntos_y_linea(instance,solutionsx,solutionsY,i,j,"ProgramacionDinamica",bestError,time)
     
@@ -127,7 +136,7 @@ def main():
 	#result.saveInFile()
 
 
-"""
+
 
 ############################  Original  ##########################
 	# Ejemplo para leer una instancia con json

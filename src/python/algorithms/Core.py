@@ -91,12 +91,13 @@ def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo):
     # Añadir leyenda
     plt.legend()
 
-    plt.title(f"{algo} Error: {np.round(error)},Tiempo:{np.round(tiempo,decimals=1)}  M:{m}, N:{n}")
+    plt.title(f"{algo}")
+    plt.text(0.5, -0.10, f"Error: {np.round(error)}     Tiempo: {np.round(tiempo,decimals=1)}     Grilla: [{m},{n}]", ha='center', va='center', transform=plt.gca().transAxes, fontsize=8)
 
     # Mostrar el gráfico
     plt.show()
     
-def comparacion_tiempo(tiempos_list, algorithm_names, breakpoints_lists, instance, dataName, i, j):
+def comparacion_tiempo(tiempos_list, algorithm_names, breakpoints_lists, avg_t, instance, dataName, i, j):
    
     plt.figure(figsize=(10, 6))
    
@@ -107,8 +108,9 @@ def comparacion_tiempo(tiempos_list, algorithm_names, breakpoints_lists, instanc
 
     plt.xlabel('Breakpoints')
     plt.ylabel('Time')
-    plt.title(f'Time vs Breakpoints en: {dataName} [{i},{j}]')
+    plt.title(f'Time vs Breakpoints en: {dataName}')
     plt.legend()
+    plt.text(0.5, -0.13, f"Diferencia de tiempo en promedio: {avg_t}         Grilla: [{i},{j}]", ha='center', va='center', transform=plt.gca().transAxes, fontsize=8)
     plt.grid(True)
     plt.show()
        
@@ -125,15 +127,15 @@ def listasCombinatorias(lista:list,subconjuntos,lista_subconjuntos,k):
     subconjuntos.pop()
     listasCombinatorias(lista[1:],subconjuntos,lista_subconjuntos,k)
 
+
+    
+    
+####################nose si se usan ###############################################3
 def print_dict(dictionary):
     print("{")
     for key, value in dictionary.items():
         print(f"    '{key}': '{value}',")
     print("}")
-    
-    
-####################nose si se usan 
-
 
 def initialize_dictionary(gridX, gridY):
     dictionary = {}
