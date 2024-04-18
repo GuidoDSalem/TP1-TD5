@@ -75,7 +75,7 @@ def pDinamica(m:int,n:int,k:int, datos):
     #borramos el diccionario para que no se transfiera al llamar la funcion varias veces en el main 
     DiccionarioDeErrores.clear()
 
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"Programacion Dinamica",bestError,totalTime)
+    #plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"Programacion Dinamica",bestError,totalTime)
 
     print("----PROG DINAMICA----")
     print(f"TIEMPO: {totalTime},\nFUNCION x: {bestSubGridX},\nFUNCION y: {bestRes},\nERROR: {bestError}\n\n")
@@ -114,7 +114,7 @@ def pDinamicaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
     currentBestError = bestError
     for j in gridY:
         ys.append(j)
-        errorBreakPoints(xs,ys,datos)
+        errorBreakPoints_dinamico(xs,ys,datos)
         error = pDinamicaRecursiva(gridX,gridY,xs,ys,res,currentBestError,datos)
         # m[posicion] = error
         if(error < currentBestError):

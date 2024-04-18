@@ -49,14 +49,21 @@ def main():
 
 			timeBT = [] 
 			timePD = []
+			timeFB = []
         
 			for k in breakpoints_list:
-				print(f"------------DATASET-----------: {dataName}\n")
+				print(f"------------DATASET-----------: {dataName} con {k} breakpoints\n")
+				#if k < 5:
+				#	bestError,solutions,time0 = fuerzaBruta(6, 6,k, instance)
+				#	timeFB.append(time0)
+				#else:
+				#	timeFB.append(timeFB[-1])
 				bestError,solutionsX,solutionsY,time1 = backTracking(6, 6,k, instance)
 				timeBT.append(time1)
 				bestError,solutionsX,solutionsY,time2 = pDinamica(6,6, k,instance)
 				timePD.append(time2)
-			#ver la diferencia de tiempo por promedio multiplicado por cien
+    
+			#ver la diferencia de tiempo por promedio multiplicado 
 			sum_t = 0
 			for i in range(0,len(timeBT)-1):
 				dif_tiempo = abs(timeBT[i] - timePD[i])
@@ -66,11 +73,15 @@ def main():
    
 			print(avg_t)
 			
+			#si comparo solo bt y pd
 			time_list = [timeBT, timePD]
-			print(time_list)
 			algorithm_names = ['BackTracking', 'ProgDinamica']
-			
 			breakpoints_lists  = [breakpoints_list, breakpoints_list]
+   
+			#si comparo solo fb, bt y pd
+			#time_list = [timeFB, timeBT, timePD]
+			#algorithm_names = ['Fuerzaruta','BackTracking', 'ProgDinamica']
+			#breakpoints_lists  = [breakpoints_list, breakpoints_list, breakpoints_list]
 			
 			comparacion_tiempo(time_list, algorithm_names, breakpoints_lists, round(avg_t,2), instance, dataName, 6, 6)
    

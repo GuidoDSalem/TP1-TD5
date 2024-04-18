@@ -53,7 +53,7 @@ def backTracking(m:int,n:int,k:int, datos): # O(2^n × n^2 × m^2)
     totalTime = (end - start) * 1000
 
 
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"BackTracking",bestError,totalTime)
+    #plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"BackTracking",bestError,totalTime)
     
     print("----BACK TRACKING----")
     print(f"TIEMPO: {totalTime},\nFUNCION x: {bestSubGridX},\nFUNCION y: {bestRes},\nERROR: {bestError}\n\n")
