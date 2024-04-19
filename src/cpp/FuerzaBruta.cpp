@@ -5,6 +5,7 @@ float fuerzaBrutaRecursiva(
     vector<float> &gridY,
     vector<float> &xs,
     vector<float> &ys,
+    vector<float> &resX,
     vector<float> &res,
     float bestError_,
     int k,
@@ -33,10 +34,12 @@ float fuerzaBrutaRecursiva(
             /*std::cout<<"ERROR: "<<error;
             printVector(&ys, " - BEST YS: ");
             */
-            res = ys;
+            // res = ys;
             res.clear();
+            resX.clear();
             for(int i=0;i < ys.size();i++){
                 res.push_back(ys[i]);
+                resX.push_back(xs[i]);
             }
             
             
@@ -57,7 +60,7 @@ float fuerzaBrutaRecursiva(
         for(int j=0; j< gridY.size();j++){
             //TODO
             ys.push_back(gridY[j]);
-            error = fuerzaBrutaRecursiva(gridX,gridY,xs,ys,res,bestError,k-1,datos);
+            error = fuerzaBrutaRecursiva(gridX,gridY,xs,ys,resX,res,bestError,k-1,datos);
 
             if(error < bestError){
                 bestError = error;
@@ -73,30 +76,37 @@ float fuerzaBrutaRecursiva(
 
 }
 
-void fuerzaBruta(Resultado &res, int m, int n,int k, const json &data){
+Result_t fuerzaBruta(int m, int n, int k, const json &data)
+{
     auto inicio = high_resolution_clock::now();
 
-    std::vector<float> grillaX;
-    std:vector<float> grillaY;
-
-    linspace(grillaX,minJson(data,"x"),maxJson(data,"x"),m);
-    linspace(grillaY, minJson(data, "y"), maxJson(data, "y"), n);
+    // creamos grilla de datos
+    vector<float> gridX;
+    vector<float> gridY;
+    try
+    {
+        linspace(gridX, minJson(data, "x"), maxJson(data, "x"), m);
+        linspace(gridY, minJson(data, "y"), maxJson(data, "y"), n);
+    }
+    catch (const std::invalid_argument &e)
+    {
+        exit(1);
+    }
 
     vector<float> xs;
+    vector<float> resX;
     vector<float> ys;
-    vector<float> result;
+    vector<float> resY;
 
-    float bestError = fuerzaBrutaRecursiva(grillaX,grillaY,xs,ys,result,10000001,k,data);
+    float bestError = fuerzaBrutaRecursiva(gridX,gridY,xs,ys,resX,resY,10000001,k,data);
 
     // res.bestError = bestError;
     
     auto fin = high_resolution_clock::now();
-    double duracion = (double)duration_cast<duration<double>>(fin - inicio).count();
-    
+    double totalTime = (double)duration_cast<duration<double>>(fin - inicio).count();
 
-    std::cout << "BEST_ERROR: " << bestError << "  TIME: " << duracion << endl;
-    res.time = duracion;
-    res.bestError = bestError;
 
-    printVector(&result);
-}
+    // devolvemos un struct con todas las respuestas
+    Result_t res = {bestError, resX, resY, static_cast<float>(totalTime)};
+    return res;
+    }

@@ -12,11 +12,12 @@
 using namespace nlohmann;
 using namespace std;
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
     std::string instance_name = "../../data/optimistic_instance.json";
     std::cout << "Reading file " << instance_name << std::endl;
     std::ifstream input(instance_name);
-    std::cout<<"START..."<<endl;
+    std::cout << "START..." << endl;
     json data;
     input >> data;
     input.close();
@@ -44,7 +45,7 @@ int main(int argc, char** argv) {
     void pepe();
 
 
-   
+
     std::cout << std::endl<< "________errorbp_____test_____" << std::endl;
     //copiamos los x values del json , al pedo guido puso dos nombres de fucniones iguales pero ahc ebasicamente esto de una
     vector<float> x_values = getJsonValues(instance,"x");
@@ -60,11 +61,11 @@ int main(int argc, char** argv) {
     printVector(&gridY,"gridY");
 
     //depsues que tenemos el grid artificialmente hacemos los breakpoints, que en python nos dieron error 0
-    
+
     vector<float> ys = {0.0 , 0.6, 1.2, 3.0, 3.0, 0.0};
-    
+
     vector<float> xs = {0.0, 0.6, 1.2, 1.8, 2.4, 3.0};
-   
+
     float error = errorBreakPoint(xs,ys,instance);
 
     cout << error <<endl;
@@ -76,58 +77,61 @@ int main(int argc, char** argv) {
         "../../data/optimistic_instance.json",
         "../../data/titanium.json",
         "../../data/toy_instance.json"
-       
+
     };
-    std::vector<int> breakpoints = {3}; 
-    std::vector<int> ms = {6}; 
+    std::vector<int> breakpoints = {3};
+    std::vector<int> ms = {6};
     std::vector<int> ns = {6};
 
-    for (const auto& fileName : fileNames) {
-        
+    for (const auto &fileName : fileNames)
+    {
+
         // Abrir el archivo
         std::ifstream input(fileName);
-        
-        if (!input.is_open()) {
+
+        if (!input.is_open())
+        {
             std::cerr << "No se pudo abrir el archivo " << fileName << std::endl;
-            continue;  // Si no se abrio ir al siguiente archivo
+            continue; // Si no se abrio ir al siguiente archivo
         }
 
-       
         nlohmann::json instance;
         input >> instance;
         input.close();
-    
+
         std::cout << "-----------------------" << fileName << "----------- " << std::endl;
-        
-        for (int m : ms) {
-            for (int n : ns) {
-                for (int k : breakpoints) {
-                    
+
+        for (int m : ms)
+        {
+            for (int n : ns)
+            {
+                for (int k : breakpoints)
+                {
+
                     std::cout << "\nTest con: m=" << m << ", n=" << n << ", k=" << k << std::endl;
+                    
+                    Result_t result_fb = fuerzaBruta(6, 6, 4, data);
                     std::cout << "\nFUERZA BRUTA RESPUESTA:" << std::endl;
-                    Resultado res = Resultado();
-                    fuerzaBruta(res ,6 ,6 ,4,data);
+                    printResult(result_fb);
 
-                    Result_bt result_bt = backTracking(m, n, k, instance);
+                    Result_t result_t = backTracking(m, n, k, instance);
                     std::cout << "\nBACKTRACKING RESPUESTA:" << std::endl;
-                    printResult(result_bt);
+                    printResult(result_t);
 
-                    Result_bt result_pd = pDinamica(m, n, k, instance);
+                    Result_t result_pd = pDinamica(m, n, k, instance);
                     std::cout << "\nPDINAMICA RESPUESTA:" << std::endl;
                     printResult(result_pd);
 
-                    std::cout << "\n_________________________\n" << std::endl;
+                    std::cout << "\n_________________________\n"
+                              << std::endl;
                 }
             }
         }
-        
-
     }
-
 
     /*
     int K = instance["n"];
-    
+
     int N = 5;
 
     std::cout << K << std::endl;

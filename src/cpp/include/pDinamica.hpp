@@ -19,9 +19,8 @@ using namespace nlohmann;
 using namespace std;
 using namespace std::chrono;
 
-
-Result_bt pDinamica(int m, int n, int k, const json &data);
+Result_t pDinamica(int m, int n, int k, const json &data);
 float pDinamicaRecursiva(const vector<float> &gridX, const vector<float> &gridY, vector<float> &resX, vector<float> &resY, vector<float> &bestResY, float &bestError, const json &datos);
-float errorBreakPoints_dinamico(const vector<float>& listaX, const vector<float>& listaY, const json& datos);
+float errorBreakPoints_dinamico(const vector<float> &listaX, const vector<float> &listaY, const json &datos);
 
-#endif//PROGRAMACION_DINAMICA
+#endif // PROGRAMACION_DINAMICA
