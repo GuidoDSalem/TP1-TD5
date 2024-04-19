@@ -109,8 +109,8 @@ int main(int argc, char **argv)
                 {
 
                     std::cout << "\nTest con: m=" << m << ", n=" << n << ", k=" << k << std::endl;
-                    
-                    Result_t result_fb = fuerzaBruta(6, 6, 4, data);
+
+                    Result_t result_fb = fuerzaBruta(m, n, k, instance);
                     std::cout << "\nFUERZA BRUTA RESPUESTA:" << std::endl;
                     printResult(result_fb);
 

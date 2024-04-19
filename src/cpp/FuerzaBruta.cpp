@@ -6,7 +6,7 @@ float fuerzaBrutaRecursiva(
     vector<float> &xs,
     vector<float> &ys,
     vector<float> &resX,
-    vector<float> &res,
+    vector<float> &resY,
     float bestError_,
     int k,
     const json &datos)
@@ -23,7 +23,7 @@ float fuerzaBrutaRecursiva(
         }
 
         for(int i=0; i< xs.size()-2;i++){
-            if(xs[i] > xs[i+1] ){
+            if(xs[i] >= xs[i+1] ){
                 return 100000001;
             }
         }
@@ -35,15 +35,15 @@ float fuerzaBrutaRecursiva(
             printVector(&ys, " - BEST YS: ");
             */
             // res = ys;
-            res.clear();
+            resY.clear();
             resX.clear();
+            
             for(int i=0;i < ys.size();i++){
-                res.push_back(ys[i]);
+                resY.push_back(ys[i]);
                 resX.push_back(xs[i]);
+                // printVector(&xs, "RESULTADO xs: ");
+                // printVector(&resX, "RESULTADO resX: ");
             }
-            
-            
-
 
             return error;
         }
@@ -58,9 +58,8 @@ float fuerzaBrutaRecursiva(
     for(int i=0; i<gridX.size();i++){
         xs.push_back(gridX[i]);
         for(int j=0; j< gridY.size();j++){
-            //TODO
             ys.push_back(gridY[j]);
-            error = fuerzaBrutaRecursiva(gridX,gridY,xs,ys,resX,res,bestError,k-1,datos);
+            error = fuerzaBrutaRecursiva(gridX,gridY,xs,ys,resX,resY,bestError,k-1,datos);
 
             if(error < bestError){
                 bestError = error;
@@ -99,14 +98,12 @@ Result_t fuerzaBruta(int m, int n, int k, const json &data)
     vector<float> resY;
 
     float bestError = fuerzaBrutaRecursiva(gridX,gridY,xs,ys,resX,resY,10000001,k,data);
-
-    // res.bestError = bestError;
     
     auto fin = high_resolution_clock::now();
     double totalTime = (double)duration_cast<duration<double>>(fin - inicio).count();
 
-
+    
     // devolvemos un struct con todas las respuestas
-    Result_t res = {bestError, resX, resY, static_cast<float>(totalTime)};
-    return res;
+    Result_t result = {bestError, resX, resY, static_cast<float>(totalTime)};
+    return result;
     }
