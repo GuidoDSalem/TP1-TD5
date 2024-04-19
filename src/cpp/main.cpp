@@ -78,7 +78,7 @@ int main(int argc, char** argv) {
         "../../data/toy_instance.json"
        
     };
-    std::vector<int> breakpoints = {2,3,4,5,6}; 
+    std::vector<int> breakpoints = {3}; 
     std::vector<int> ms = {6}; 
     std::vector<int> ns = {6};
 
@@ -104,9 +104,10 @@ int main(int argc, char** argv) {
                 for (int k : breakpoints) {
                     
                     std::cout << "\nTest con: m=" << m << ", n=" << n << ", k=" << k << std::endl;
-                    /*Resultado res = Resultado();
-                    fuerzaBruta(res ,6 ,6 ,4,data);*/
-                    
+                    std::cout << "\nFUERZA BRUTA RESPUESTA:" << std::endl;
+                    Resultado res = Resultado();
+                    fuerzaBruta(res ,6 ,6 ,4,data);
+
                     Result_bt result_bt = backTracking(m, n, k, instance);
                     std::cout << "\nBACKTRACKING RESPUESTA:" << std::endl;
                     printResult(result_bt);
@@ -124,13 +125,13 @@ int main(int argc, char** argv) {
     }
 
 
-    
+    /*
     int K = instance["n"];
     
     int N = 5;
 
     std::cout << K << std::endl;
-
+    */
     // Aca empieza la magia.
 
     // Ejemplo para guardar json.

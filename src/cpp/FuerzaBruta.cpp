@@ -30,8 +30,9 @@ float fuerzaBrutaRecursiva(
         float error = errorBreakPoint(xs,ys,datos);
 
         if(error < bestError_){
-            std::cout<<"ERROR: "<<error;
+            /*std::cout<<"ERROR: "<<error;
             printVector(&ys, " - BEST YS: ");
+            */
             res = ys;
             res.clear();
             for(int i=0;i < ys.size();i++){
@@ -78,8 +79,8 @@ void fuerzaBruta(Resultado &res, int m, int n,int k, const json &data){
     std::vector<float> grillaX;
     std:vector<float> grillaY;
 
-    linspace(&grillaX,minJson(data,"x"),maxJson(data,"x"),m);
-    linspace(&grillaY, minJson(data, "y"), maxJson(data, "y"), n);
+    linspace(grillaX,minJson(data,"x"),maxJson(data,"x"),m);
+    linspace(grillaY, minJson(data, "y"), maxJson(data, "y"), n);
 
     vector<float> xs;
     vector<float> ys;
@@ -89,12 +90,6 @@ void fuerzaBruta(Resultado &res, int m, int n,int k, const json &data){
 
     // res.bestError = bestError;
     
-
-
-
-    printVector(&grillaX,"grillaX");
-    printVector(&grillaY, "grillaY");
-
     auto fin = high_resolution_clock::now();
     double duracion = (double)duration_cast<duration<double>>(fin - inicio).count();
     

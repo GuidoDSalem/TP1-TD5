@@ -110,7 +110,7 @@ void linspace(std::vector<float>& v, float min, float max, int m)
     float dif = (max - min) / (m - 1);
     for (int i = 0; i < m; i++)
     {
-        v->push_back(min + dif * i);
+        v.push_back(min + dif * i);
         
     }
 }
