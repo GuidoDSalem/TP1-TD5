@@ -46,9 +46,13 @@ def errorAB(xa,ya,xb,yb,datos):
         return 0
     while  datos["x"][i] < xa:
         i+=1
-    while(datos["x"][i] < xb):
+    while(datos["x"][i] <= xb):
+       
        errorAcumulado += error(m,xa,ya,datos["x"][i],datos["y"][i])
        i+=1 
+       if( i == len(datos["x"])):
+           return errorAcumulado
+            
 
     return errorAcumulado
 

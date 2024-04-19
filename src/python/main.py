@@ -2,7 +2,6 @@ import json
 import numpy as np
 from algorithms.fuerzaBruta import fuerzaBruta
 from algorithms.backTracking import backTracking
-from algorithms.programacionDin import pDinamica
 
 from Result import Result
 import os
@@ -19,15 +18,51 @@ def main():
 
 	# Datos
 	listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
+	#listaDeDatos = ["optimistic_instance.json"]
 
 	# VALORES DE EXPERIMENTO
 	ms = [3] #cantidad de columnas
 	ns = [6] #cantidad de filas
 	k_breakpoints = 3
 
-	# Por cada lista de Datos:
+	# # Por cada lista de Datos:
 	result:Result = Result()
-	
+	# errors_listFB = []
+	# errors_listBT = []
+	# errors_listPD = []
+	# breakpoints_list = [2,3,4,5]
+ 
+	# for dataName in listaDeDatos:
+	# 	path = dataPath + dataName
+
+		# Cargamos los Datos
+		# with open(path) as f:
+		# 	instance = json.load(f)
+			
+		# 	for k in breakpoints_list:
+		# 		bestError,solutions,time = fuerzaBrutaV3(6,6,k,instance)
+		# 		errors_listFB.append(time)
+		# 		bestError,solutions,time = backTracking(6,6,k, instance)
+		# 		errors_listBT.append(time)
+		# 		bestError,solutions,time = pDinamica(6, 6, k,instance)
+		# 		errors_listPD.append(time)
+    
+	# errors_list = [errors_listFB, errors_listBT, errors_listPD]
+	# plt.figure(figsize=(10, 6))
+	# algorithm_names = ['FuerzaBruta', 'BackTracking', 'ProgDinamica']
+	# breakpoints_lists = [breakpoints_list, breakpoints_list, breakpoints_list]
+    # Plot errors vs breakpoints for each algorithm
+	# for errors, breakpoints, algorithm_name in zip(errors_list, breakpoints_lists, algorithm_names):
+	# 	plt.plot(breakpoints, errors, label=algorithm_name)
+
+	# plt.xlabel('Breakpoints')
+	# plt.ylabel('Time')
+	# plt.title('Time vs Breakpoints')
+	# plt.legend()
+	# plt.grid(True)
+	# plt.show()
+
+
 	for dataName in listaDeDatos:
 		path = dataPath + dataName
 
@@ -40,9 +75,16 @@ def main():
 
 					result.setMN(i,j)
 
-	 			    #fuerza bruta 
+
+					# fuerza bruta 
 					result.setNames(dataName,"FuerzaBruta")
 					bestError,solutions,time = fuerzaBruta(i,j,k_breakpoints,instance)
+					result.setSolutions(bestError,solutions,time)
+					result.saveState()
+
+	 			    #fuerza bruta 3
+					result.setNames(dataName,"FuerzaBruta3")
+					bestError,solutions,time = fuerzaBrutaV3(i,j,k_breakpoints,instance)
 					result.setSolutions(bestError,solutions,time)
 					result.saveState()
 					
@@ -51,12 +93,24 @@ def main():
 					# bestError,solutions,time = backTracking(i, j,k_breakpoints, instance)
 					# result.setSolutions(bestError,solutions,time)
 					# result.saveState()
+					
+					#backtracking
+					result.setNames(dataName,"BackTracking")
+					bestError,solutions,time = backTracking(i, j,k_breakpoints, instance)
+					result.setSolutions(bestError,solutions,time)
+					result.saveState()
 
 					#programacion dinamica
 					# result.setNames(dataName,"ProgramacionDinamica")
 					# bestError,solutions,time = pDinamica(i, j, instance)
 					# result.setSolutions(bestError,solutions,time)
 					# result.saveState()
+
+					#programacion dinamica
+					result.setNames(dataName,"DinamicAlgorithm")
+					bestError,solutions,time = pDinamica(i, j, k_breakpoints,instance)
+					result.setSolutions(bestError,solutions,time)
+					result.saveState()
 
 	result.saveInFile()
 
