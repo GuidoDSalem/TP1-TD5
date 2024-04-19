@@ -49,6 +49,18 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "typeinfo": "cpp",
-    "valarray": "cpp"
-  }
+    "valarray": "cpp",
+    "bit": "cpp",
+    "charconv": "cpp",
+    "chrono": "cpp",
+    "compare": "cpp",
+    "concepts": "cpp",
+    "random": "cpp",
+    "ratio": "cpp",
+    "format": "cpp",
+    "numbers": "cpp",
+    "span": "cpp",
+    "variant": "cpp"
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }

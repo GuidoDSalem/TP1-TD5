@@ -78,8 +78,8 @@ void fuerzaBruta(Resultado &res, int m, int n,int k, const json &data){
     std::vector<float> grillaX;
     std:vector<float> grillaY;
 
-    linspace(&grillaX,min(data,"x"),max(data,"x"),m);
-    linspace(&grillaY, min(data, "y"), max(data, "y"), n);
+    linspace(&grillaX,minJson(data,"x"),maxJson(data,"x"),m);
+    linspace(&grillaY, minJson(data, "y"), maxJson(data, "y"), n);
 
     vector<float> xs;
     vector<float> ys;
