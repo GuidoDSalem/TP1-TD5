@@ -9,6 +9,7 @@
 #include <cmath>
 #include <unordered_map>
 #include <map>
+#include <utility>
 
 #include "json.hpp"
 #include "Resultado.hpp"

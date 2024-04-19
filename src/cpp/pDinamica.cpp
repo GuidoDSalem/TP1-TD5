@@ -1,15 +1,18 @@
 #include "include/pDinamica.hpp"
-float errorBreakPoints_dinamico(const vector<float>& listaX, const vector<float>& listaY, const json& datos) {
+float errorBreakPoints_dinamico(const vector<float>& listaX, 
+                                const vector<float>& listaY, 
+                                const json& datos,
+                                unordered_map<pair<pair<float,float>,pair<float,float>>, float, PairHash> &DiccionarioDeErrores) {
     float errorTotal = 0;
-    unordered_map<pair<pair<float, float>,pair<float, float>>, float> DiccionarioDeErrores;
-
+    
     for (size_t i = 0; i < listaX.size() - 1; ++i) {
         // Elegimos 2 puntos a y b cada uno de estos tiene un punto (x,y)
         // en la clave guardamos estos dos puntos (xa,ya),(xb,yb) con el error como valor de la clave
-        pair<pair<float, float>, pair<float, float>> clave = {
-            {listaX[i], listaY[i]}, {listaX[i+1], listaY[i+1]}
-        };
         
+        auto clave = make_pair(make_pair(listaX[i], listaY[i]), make_pair(listaX[i+1], listaY[i+1]));
+
+    
+
         // Si la clave está en el diccionario, la devolvemos, sino se calcula y se guarda en el diccionario
         if (DiccionarioDeErrores.find(clave) != DiccionarioDeErrores.end()) {
             errorTotal += DiccionarioDeErrores[clave];
@@ -30,18 +33,19 @@ float pDinamicaRecursiva(const vector<float> &gridX,
                             vector<float> &resY, 
                             vector<float> &bestResY, 
                             float &bestError, 
-                            const json &datos){    
+                            const json &datos,
+                            unordered_map<pair<pair<float,float>,pair<float,float>>, float, PairHash> &DiccionarioDeErrores){    
     
     // Poda de optimalidad
     if(resX.size()!= 0){
-        if (errorBreakPoints_dinamico(resX, resY, datos) > errorBreakPoints_dinamico(gridX, bestResY, datos)) {
-            return errorBreakPoints_dinamico(resX, resY, datos);
+        if (errorBreakPoints_dinamico(resX, resY, datos, DiccionarioDeErrores) > errorBreakPoints_dinamico(gridX, bestResY, datos, DiccionarioDeErrores)) {
+            return errorBreakPoints_dinamico(resX, resY, datos, DiccionarioDeErrores);
         }
     }
 
     // Caso Base
     if (gridX.size() == resX.size()) {
-        float errorBP = errorBreakPoints_dinamico(resX, resY, datos);
+        float errorBP = errorBreakPoints_dinamico(resX, resY, datos, DiccionarioDeErrores);
         
         if (errorBP < bestError) {
             bestResY.clear();
@@ -59,8 +63,8 @@ float pDinamicaRecursiva(const vector<float> &gridX,
     // Caso recursivo
     for (const auto& j : gridY) {
         resY.push_back(j);
-        
-        float error = pDinamicaRecursiva(gridX, gridY, resX, resY, bestResY, currentBestError, datos);
+        errorBreakPoints_dinamico(resX, resY, datos, DiccionarioDeErrores);
+        float error = pDinamicaRecursiva(gridX, gridY, resX, resY, bestResY, currentBestError, datos, DiccionarioDeErrores);
         if (error < currentBestError) {
             currentBestError = error;
         }
@@ -110,7 +114,7 @@ Result_bt pDinamica(int m, int n, int k ,const json &data){
     vector<float> bestRes(k, gridY.back()); 
 
     // Creo el diccionario vacio
-    unordered_map<pair<pair<float, float>, pair<float, float>>, float> DiccionarioDeErrores;
+    unordered_map<pair<pair<float,float>,pair<float,float>>, float, PairHash> DiccionarioDeErrores;
 
     //con cada subgrilla probamos PDINAMICA recursiva que recursivamente recorre todas las posibles combinaciones y devuelve el mejor error de esa subgrillaa
     for (const auto& subGridX : listas_medio) {
@@ -120,7 +124,7 @@ Result_bt pDinamica(int m, int n, int k ,const json &data){
         vector<float> resY;
 
         float errorActual = 100000000000001.0f;
-        errorActual = pDinamicaRecursiva(subGridX, gridY, resX, resY, temp_res, bestError, data);
+        errorActual = pDinamicaRecursiva(subGridX, gridY, resX, resY, temp_res, bestError, data, DiccionarioDeErrores);
 
         if (errorActual < bestError) {
             bestSubGridX = subGridX;

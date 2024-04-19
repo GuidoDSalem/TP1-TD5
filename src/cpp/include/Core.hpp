@@ -17,6 +17,21 @@ struct Result_bt {
     float TotalTime;
 };
 
+struct PairHash {
+    //función de hash que toma un par constante de pares de floats como argumento y devuelve un valor de hash 
+    std::size_t operator () (const std::pair<std::pair<float, float>, std::pair<float, float>>& p) const {
+        // Agaarra el primer par, punto A
+        std::size_t h1 = std::hash<float>{}(p.first.first);
+        std::size_t h2 = std::hash<float>{}(p.first.second);
+        // Agarra el segundo par, punto B
+        std::size_t h3 = std::hash<float>{}(p.second.first);
+        std::size_t h4 = std::hash<float>{}(p.second.second);
+
+        // Combina los hashes
+        return h1 ^ h2 ^ h3 ^ h4;
+    }
+};
+
 
 void printJson(json &data);
 vector<float> getJsonValues(const json& data, const string& key);
