@@ -21,7 +21,7 @@ def errorBreakPoints_dinamico(listaX,listaY,datos):
 
     return errorTotal
 
-def pDinamica(m:int,n:int,k:int, datos):
+def pDinamica(m:int,n:int,k:int, datos, dataName:str):
    
     start = time.time()
 	
@@ -76,7 +76,7 @@ def pDinamica(m:int,n:int,k:int, datos):
     totalTime = (end - start) * 1000
 
 
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"ProgramacionDinamica",bestError,totalTime)
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"ProgramacionDinamica",bestError,totalTime,dataName)
 
     print(f"\nGridY: {gridY}")
     print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestRes}\n")

@@ -24,13 +24,13 @@ def main():
 	print(os.curdir)
 
 	# Datos
-	# listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
-	listaDeDatos = ["titanium.json"]
+	listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
+	# listaDeDatos = ["titanium.json"]
 	# gmarraffini@fi.uba.ar
 	# VALORES DE EXPERIMENTO
-	ms = [6]
-	ns = [6]
-	k_breakpoints = [4]
+	ms = [5]
+	ns = [5]
+	k_breakpoints = [3,4,5]
 
 	# # Por cada lista de Datos:
 	result:Result = Result()
@@ -85,7 +85,7 @@ def main():
 
 						# fuerza bruta 
 						result.setNames(dataName,"FuerzaBruta")
-						bestError,solutions,time = fuerzaBruta(i,j,k,instance)
+						bestError,solutions,time = fuerzaBruta(i,j,k,instance,dataName)
 						result.setSolutions(bestError,solutions,time)
 						result.saveState()
 
@@ -97,7 +97,7 @@ def main():
 						
 						#backtracking
 						result.setNames(dataName,"BackTracking")
-						bestError,solutions,time = backTracking(i, j,k, instance)
+						bestError,solutions,time = backTracking(i, j,k, instance,dataName)
 						result.setSolutions(bestError,solutions,time)
 						result.saveState()
 
@@ -109,7 +109,7 @@ def main():
 
 						#programacion dinamica
 						result.setNames(dataName,"DinamicAlgorithm")
-						bestError,solutions,time = pDinamica(i, j, k,instance)
+						bestError,solutions,time = pDinamica(i, j, k,instance,dataName)
 						result.setSolutions(bestError,solutions,time)
 						result.saveState()
 

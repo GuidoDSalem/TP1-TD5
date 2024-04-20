@@ -120,7 +120,7 @@ def CrearMatriz(filas, columnas, valor_inicial):
     matrix = np.full((filas, columnas), valor_inicial)
     return matrix
 
-def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo):
+def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo,dataName):
     """
     Grafica puntos y una línea basados en las coordenadas proporcionadas.
 
@@ -128,6 +128,7 @@ def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo):
     :param linea_x: Una lista de coordenadas 'x' para la línea.
     :param linea_y: Una lista de coordenadas 'y' para la línea.
     """
+    # dataName = "firulais"
     # Graficar los puntos
     # Generar grilla de puntos usando numpy.linspace
     x_grilla = np.linspace(min(data['x']), max(data['x']), m)
@@ -154,7 +155,7 @@ def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo):
 
     fileName = f"{algo}_{m}x{n}_{len(linea_x)}"
 
-    plt.savefig("./src/python/graficos/" + fileName)
+    plt.savefig(f"./src/python/graficos/{dataName[:-5]}/" + fileName)
 
     plt.close()
 

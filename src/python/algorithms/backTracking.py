@@ -2,7 +2,7 @@ import numpy as np
 import time
 from algorithms.Core import *
 
-def backTracking(m:int,n:int,k:int, datos):
+def backTracking(m:int,n:int,k:int, datos,dataName:str):
    
     start = time.time()
 	
@@ -52,7 +52,7 @@ def backTracking(m:int,n:int,k:int, datos):
     totalTime = (end - start) * 1000
 
 
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"BackTracking",bestError,totalTime)
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"BackTracking",bestError,totalTime,dataName)
 
     print(f"\nGridY: {gridY}")
     print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestRes}\n")
