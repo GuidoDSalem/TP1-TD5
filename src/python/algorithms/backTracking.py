@@ -3,7 +3,7 @@ import time
 from algorithms.Core import *
 
 def backTracking(m:int,n:int,k:int, datos,dataName:str):
-   
+    # Comenzamos a tomar el tiempo de ejecucion
     start = time.time()
 	
     #creamos la grilla en x y en y para los datos 
@@ -24,6 +24,7 @@ def backTracking(m:int,n:int,k:int, datos,dataName:str):
     bestSubGridX =  [] 
     bestError = 100000000000001
 
+    # Agregamos unos valores por default necesarios para la ejecucion
     for i in range(k):
         bestRes.append(gridY[-1])
    
@@ -47,17 +48,13 @@ def backTracking(m:int,n:int,k:int, datos,dataName:str):
             bestError = errorActual
             bestRes = res.copy()    
     
+    # Cortamos el timepo y guardamos el tiempo de ejecucion
     end = time.time()
-
     totalTime = (end - start) * 1000
 
-
+    # Generamos el Grafico de la Instancia
     plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"BackTracking",bestError,totalTime,dataName)
-
-    print(f"\nGridY: {gridY}")
-    print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestRes}\n")
     
-
     return np.round(bestError,decimals=2),bestRes,np.round(totalTime,decimals=2)
 
 
@@ -71,16 +68,9 @@ def backTrackingRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
     #Caso Base
     if(len(gridX) == len(xs)):
         
-        # errorBP = errorBreakPoints(xs,ys,datos)
-        
-        # errorActual = errorBreakPoints(xs,res,datos) #ESTO LO PUEDO EVITAR PORQUE YA LO CALCULE
-        
-        # print(f"XY: {ys}, Error: {np.round(errorBP,decimals=2)}")
         if(errorActual < bestError):
-            # bestError = errorActual
             res.clear()
             res.extend(ys)
-            print(f"RES: {res},ERROR: {errorActual}")
             bestError = errorActual
 
         return bestError

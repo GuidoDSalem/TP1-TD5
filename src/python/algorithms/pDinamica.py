@@ -22,14 +22,14 @@ def errorBreakPoints_dinamico(listaX,listaY,datos):
     return errorTotal
 
 def pDinamica(m:int,n:int,k:int, datos, dataName:str):
-   
+   # Comenzamos a contar el tiempo de ejecucion
     start = time.time()
 	
     #creamos la grilla en x y en y para los datos 
     gridX:list = np.linspace(min(datos["x"]), max(datos["x"]), num=m, endpoint=True)
     gridY:list = np.linspace(min(datos["y"]), max(datos["y"]), num=n, endpoint=True)
     
-    #sacamos el primer y ultimo elemento de la grilla x para trabajr unicamente con las columnas del medio
+    #Sacamos el primer y ultimo elemento de la grilla x para trabajr unicamente con las columnas del medio
     conjunto_medio:list = gridX[1:-1]
 
     # creamos una lista que va a contener todas las combinaciones posibles de como separar las columnas del medio dado k-2
@@ -71,16 +71,12 @@ def pDinamica(m:int,n:int,k:int, datos, dataName:str):
             bestError = errorActual
             bestRes = res.copy()    
     
+    # Cortamos el tiempo y calculamos el tiempo de ejecucion
     end = time.time()
-
     totalTime = (end - start) * 1000
 
-
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"ProgramacionDinamica",bestError,totalTime,dataName)
-
-    print(f"\nGridY: {gridY}")
-    print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestRes}\n")
-    
+    # Generamos el grafico de la Instancia
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"ProgramacionDinamica",bestError,totalTime,dataName)    
 
     return np.round(bestError,decimals=2),bestRes,np.round(totalTime,decimals=2)
 
@@ -96,16 +92,9 @@ def pDinamicaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
     #Caso Base
     if(len(gridX) == len(xs)):
         
-        # errorBP = errorBreakPoints_dinamico(xs,ys,datos)
-            
-        # errorActual = errorBreakPoints_dinamico(xs,res,datos)
-        
-        # print(f"XY: {ys}, Error: {np.round(errorBP,decimals=2)}")
         if(errorActual < bestError):
-            # bestError = errorBP
             res.clear()
             res.extend(ys)
-
 
         return errorActual 
     
