@@ -152,8 +152,14 @@ def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo):
 
     plt.title(f"{algo} Error: {np.round(error)},Tiempo:{np.round(tiempo,decimals=1)}  M:{m}, N:{n}")
 
+    fileName = f"{algo}_{m}x{n}_{len(linea_x)}"
+
+    plt.savefig("./src/python/graficos/" + fileName)
+
+    plt.close()
+
     # Mostrar el gráfico
-    plt.show()
+    # plt.show()
 
 
 

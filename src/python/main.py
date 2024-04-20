@@ -30,7 +30,7 @@ def main():
 	# VALORES DE EXPERIMENTO
 	ms = [6]
 	ns = [6]
-	k_breakpoints = 4
+	k_breakpoints = [4]
 
 	# # Por cada lista de Datos:
 	result:Result = Result()
@@ -76,42 +76,42 @@ def main():
 		# Cargamos los Datos
 		with open(path) as f:
 			instance = json.load(f)
+			for k in k_breakpoints:
+				for i in ms:
+					for j in ns:
 
-			for i in ms:
-				for j in ns:
-
-					result.setMN(i,j)
-
-
-					# fuerza bruta 
-					# result.setNames(dataName,"FuerzaBruta")
-					# bestError,solutions,time = fuerzaBruta(i,j,k_breakpoints,instance)
-					# result.setSolutions(bestError,solutions,time)
-					# result.saveState()
-
-	 			    #fuerza bruta 3
-					# result.setNames(dataName,"FuerzaBruta3")
-					# bestError,solutions,time = fuerzaBrutaV3(i,j,k_breakpoints,instance)
-					# result.setSolutions(bestError,solutions,time)
-					# result.saveState()
-					
-					#backtracking
-					result.setNames(dataName,"BackTracking")
-					bestError,solutions,time = backTracking(i, j,k_breakpoints, instance)
-					result.setSolutions(bestError,solutions,time)
-					result.saveState()
+						result.setMN(i,j)
 
 
-					# result.setNames(dataName,"DinamicAlgorithm")
-					# bestError,solutions,time = dinamicAlgoritm(i, j, instance)
-					# result.setSolutions(bestError,solutions,time)
-					# result.saveState()
+						# fuerza bruta 
+						result.setNames(dataName,"FuerzaBruta")
+						bestError,solutions,time = fuerzaBruta(i,j,k,instance)
+						result.setSolutions(bestError,solutions,time)
+						result.saveState()
 
-					#programacion dinamica
-					result.setNames(dataName,"DinamicAlgorithm")
-					bestError,solutions,time = pDinamica(i, j, k_breakpoints,instance)
-					result.setSolutions(bestError,solutions,time)
-					result.saveState()
+						#fuerza bruta 3
+						# result.setNames(dataName,"FuerzaBruta3")
+						# bestError,solutions,time = fuerzaBrutaV3(i,j,k,instance)
+						# result.setSolutions(bestError,solutions,time)
+						# result.saveState()
+						
+						#backtracking
+						result.setNames(dataName,"BackTracking")
+						bestError,solutions,time = backTracking(i, j,k, instance)
+						result.setSolutions(bestError,solutions,time)
+						result.saveState()
+
+
+						# result.setNames(dataName,"DinamicAlgorithm")
+						# bestError,solutions,time = dinamicAlgoritm(i, j, instance)
+						# result.setSolutions(bestError,solutions,time)
+						# result.saveState()
+
+						#programacion dinamica
+						result.setNames(dataName,"DinamicAlgorithm")
+						bestError,solutions,time = pDinamica(i, j, k,instance)
+						result.setSolutions(bestError,solutions,time)
+						result.saveState()
 
 	result.saveInFile()
 
