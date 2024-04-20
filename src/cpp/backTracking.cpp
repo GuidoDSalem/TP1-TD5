@@ -73,8 +73,6 @@ Result_t backTracking(int m, int n, int k, const json &data)
         exit(1);
     }
 
-    printVector(&gridX, "GRID X: ");
-    printVector(&gridY, "GRID Y: ");
 
     // sacamos el primer y ultimo elemento de la grilla x para trabajr unicamente con las columnas del medio
     vector<float> conjunto_medio = gridX;

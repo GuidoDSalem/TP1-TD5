@@ -89,26 +89,25 @@ def pDinamica(m:int,n:int,k:int, datos):
 def pDinamicaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
 
     #poda de optamalidad: si la rama que se esta calculando es mas grande que el mejor reusltado hasta ahora, descartala 
-    if(errorBreakPoints(xs,ys,datos) > bestError):
+    errorActual = errorBreakPoints_dinamico(xs,ys,datos)
+    if(errorActual > bestError):
         return bestError
     
     #Caso Base
     if(len(gridX) == len(xs)):
         
-        errorBP = errorBreakPoints_dinamico(xs,ys,datos)
+        # errorBP = errorBreakPoints_dinamico(xs,ys,datos)
             
-        errorActual = errorBreakPoints_dinamico(xs,res,datos)
+        # errorActual = errorBreakPoints_dinamico(xs,res,datos)
         
         # print(f"XY: {ys}, Error: {np.round(errorBP,decimals=2)}")
-        if(errorBP < errorActual):
+        if(errorActual < bestError):
             # bestError = errorBP
             res.clear()
             res.extend(ys)
-            errorActual = errorBP
-            print(f"RES: {res},ERROR: {errorBP}")
-            bestError = errorBP
 
-        return bestError 
+
+        return errorActual 
     
     #Caso recursivo
     i = len(xs)

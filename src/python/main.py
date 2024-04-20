@@ -24,8 +24,8 @@ def main():
 	print(os.curdir)
 
 	# Datos
-	listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
-	# listaDeDatos = ["titanium.json"]
+	# listaDeDatos = ["aspen_simulation.json","ethanol_water_vle.json","optimistic_instance.json","titanium.json","toy_instance.json"]
+	listaDeDatos = ["titanium.json"]
 	# gmarraffini@fi.uba.ar
 	# VALORES DE EXPERIMENTO
 	ms = [6]

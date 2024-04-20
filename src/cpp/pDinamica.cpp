@@ -42,9 +42,10 @@ float pDinamicaRecursiva(const vector<float> &gridX,
     // Poda de optimalidad
     if (resX.size() != 0)
     {
-        if (errorBreakPoints_dinamico(resX, resY, datos, DiccionarioDeErrores) > errorBreakPoints_dinamico(gridX, bestResY, datos, DiccionarioDeErrores))
+        float errorActual = errorBreakPoints_dinamico(resX, resY, datos, DiccionarioDeErrores);
+        if (errorActual > bestError)
         {
-            return errorBreakPoints_dinamico(resX, resY, datos, DiccionarioDeErrores);
+            return errorActual;
         }
     }
 
@@ -71,7 +72,7 @@ float pDinamicaRecursiva(const vector<float> &gridX,
     for (const auto &j : gridY)
     {
         resY.push_back(j);
-        errorBreakPoints_dinamico(resX, resY, datos, DiccionarioDeErrores);
+        //errorBreakPoints_dinamico(resX, resY, datos, DiccionarioDeErrores);
         float error = pDinamicaRecursiva(gridX, gridY, resX, resY, bestResY, currentBestError, datos, DiccionarioDeErrores);
         if (error < currentBestError)
         {

@@ -79,7 +79,7 @@ int main(int argc, char **argv)
         "../../data/toy_instance.json"
 
     };
-    std::vector<int> breakpoints = {3};
+    std::vector<int> breakpoints = {4};
     std::vector<int> ms = {6};
     std::vector<int> ns = {6};
 
