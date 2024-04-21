@@ -4,7 +4,7 @@ import numpy as np
 from algorithms.Core import *
 
 
-def fuerzaBrutaV3(m,n,k,datos):
+def backTrackingV3(m,n,k,datos):
     start = time.time()
     #creamos la grilla en x y en y para los datos 
     gridX:list = np.linspace(min(datos["x"]), max(datos["x"]), num=m, endpoint=True)
@@ -21,8 +21,9 @@ def fuerzaBrutaV3(m,n,k,datos):
     
 
     bestError = 100000000000001
-        
-    bestError = fuerzaBrutaRecursiva3(gridX,gridY,[],[],res,bestError,k,datos)
+    currentError = 100000000000001
+
+    bestError = backTrackingRecursivaV3(gridX,gridY,[],[],res,bestError,currentError,k,datos)
 
 
 
@@ -32,14 +33,23 @@ def fuerzaBrutaV3(m,n,k,datos):
 
 
 
-    plot_puntos_y_linea(datos,res[0],res[1],m,n,"FuerzaBrutaV3",bestError,totalTime)
+    plot_puntos_y_linea(datos,res[0],res[1],m,n,"backTrackingV3",bestError,totalTime)
 
-    print(f"BEST XS: {res[1]},BEST YS: {error}, BEST ERROR: {bestError}")
+    print("BACK TRACKING V3")
+    print(f"BEST XS: {res[0]},BEST YS: {res[1]}, BEST ERROR: {bestError}")
+
+    print(f"\nGridY: {gridY}")
+    print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestError}\n")
 
     return np.round(bestError,decimals=2),res,np.round(totalTime,decimals=2)
 
-def fuerzaBrutaRecursiva3(gridX:list,gridY:list,xs:list,ys:list,res:list,bestError:float,k:int, datos):
+def backTrackingRecursivaV3(gridX:list,gridY:list,xs:list,ys:list,res:list,bestError:float,currentError:float,k:int, datos):
     BIG_NUMBER = 1000000001
+
+    # PODAS
+    currentError = errorBreakPoints(xs,ys,datos)
+    if(currentError > bestError):
+        return BIG_NUMBER
     
     # CASO BASE
     if(k==0):
@@ -69,14 +79,14 @@ def fuerzaBrutaRecursiva3(gridX:list,gridY:list,xs:list,ys:list,res:list,bestErr
 
     # PASO RECURSIVO
 
-    for i in range(len(gridX)):
+    for i in range(len(xs),len(gridX)):
+        xs.append(gridX[i])
         for j in range(len(gridY)):
-            xs.append(gridX[i])
             ys.append(gridY[j])
-            error = fuerzaBrutaRecursiva3(gridX,gridY,xs,ys,res,bestError,k-1,datos)
+            error = backTrackingRecursivaV3(gridX,gridY,xs,ys,res,bestError,100000001,k-1,datos)
             if(error < bestError):
                 bestError = error
-            xs.pop()
             ys.pop()
 
+        xs.pop()
     return bestError

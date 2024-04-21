@@ -1,6 +1,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+
 #include "include/json.hpp"
 #include "include/Core.hpp"
 #include "include/Resultado.hpp"
@@ -140,10 +141,10 @@ int main(int argc, char **argv)
 
     // Ejemplo para guardar json.
     // Probamos guardando el mismo JSON de instance, pero en otro archivo.
-    // std::ofstream output("test_output.out");
+    std::ofstream output("test_output.out");
 
-    // output << instance;
-    // output.close();
+    output << instance;
+    output.close();
 
     return 0;
 }

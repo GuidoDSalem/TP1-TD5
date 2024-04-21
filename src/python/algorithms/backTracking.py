@@ -2,7 +2,7 @@ import numpy as np
 import time
 from algorithms.Core import *
 
-def backTracking(m:int,n:int,k:int, datos,dataName:str):
+def backTracking(m:int,n:int,k:int, datos,dataName:str):  # O(2^n × n^2 × m^2)
     # Comenzamos a tomar el tiempo de ejecucion
     start = time.time()
 	
@@ -15,22 +15,23 @@ def backTracking(m:int,n:int,k:int, datos,dataName:str):
 
     # creamos una lista que va a contener todas las combinaciones posibles de como separar las columnas del medio dado k-2
     listas_medio = []
-    listasCombinatorias(conjunto_medio,[],listas_medio,k-2)
+    listasCombinatorias(conjunto_medio,[],listas_medio,k-2) #O(2^n) donde n = len(conjunto_medio) = len(gridx) -2 
 
     #agregamos el primer y ultimo elemento a cada lista 
     listas_medio = [[gridX[0]] + lista + [gridX[-1]] for lista in listas_medio]
-
+    
+    #solucion en y
     bestRes = []
+    #solucion en x
     bestSubGridX =  [] 
-    bestError = 100000000000001
+    bestError = float('inf')
 
     # Agregamos unos valores por default necesarios para la ejecucion
     for i in range(k):
         bestRes.append(gridY[-1])
-   
+    
     #con cada subgrilla probamos fuerza bruta recursiva que recursivamente recorre todas las posibles combinaciones y devuelve el mejor error de esa subgrillaa
     for subGridX in listas_medio:
-        print(subGridX)
         res = []
        
         #esto lo hice porque la lista estba vacia para darles valores inciales porque 
@@ -38,9 +39,9 @@ def backTracking(m:int,n:int,k:int, datos,dataName:str):
         for i in range(len(subGridX)):
             res.append(gridY[0])
         
-        errorActual = 100000000000001
+        errorActual = float('inf')
         
-        errorActual = backTrackingRecursiva(subGridX,gridY,[],[],res, errorActual, datos)
+        errorActual = backTrackingRecursiva(subGridX,gridY,[],[],res, errorActual, datos) # O(n^2×m^2) # n = len(subgridX) m = cantidad máxima de datos entre dos puntos consecutivos en subgridX
         
         #si otra subgrilla tiene un mejor error guarda esa 
         if(errorActual < bestError):
@@ -52,10 +53,16 @@ def backTracking(m:int,n:int,k:int, datos,dataName:str):
     end = time.time()
     totalTime = (end - start) * 1000
 
+
+    #plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"BackTracking",bestError,totalTime)
     # Generamos el Grafico de la Instancia
     plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"BackTracking",bestError,totalTime,dataName)
     
-    return np.round(bestError,decimals=2),bestRes,np.round(totalTime,decimals=2)
+    print("----BACK TRACKING----")
+    print(f"TIEMPO: {totalTime},\nFUNCION x: {bestSubGridX},\nFUNCION y: {bestRes},\nERROR: {bestError}\n\n")
+    
+    #devolvemos: mejor error, solucion en x, solucion en y y el tiempo total
+    return np.round(bestError,decimals=2),bestSubGridX, bestRes,np.round(totalTime,decimals=2)
 
 
 
