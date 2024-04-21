@@ -4,7 +4,7 @@ import numpy as np
 from algorithms.Core import *
 
 
-def backTrackingV3(m,n,k,datos):
+def backTrackingV3(m,n,k,datos, dataName):
     start = time.time()
     #creamos la grilla en x y en y para los datos 
     gridX:list = np.linspace(min(datos["x"]), max(datos["x"]), num=m, endpoint=True)
@@ -33,7 +33,7 @@ def backTrackingV3(m,n,k,datos):
 
 
 
-    plot_puntos_y_linea(datos,res[0],res[1],m,n,"backTrackingV3",bestError,totalTime)
+    plot_puntos_y_linea(datos,res[0],res[1],m,n,"V3:backTracking",bestError,totalTime, dataName)
 
     print("BACK TRACKING V3")
     print(f"BEST XS: {res[0]},BEST YS: {res[1]}, BEST ERROR: {bestError}")

@@ -19,9 +19,9 @@ def pDinamica(m:int,n:int,k:int, datos, dataName:str):
     bestRes = [gridY[-1]] * k
     bestError = float('inf')
     
-    global DiccionarioDeErrores, memo
+    global DiccionarioDeErrores
     DiccionarioDeErrores = {}
-    memo = {}
+
     
     
     for subGridX in listas_medio:
@@ -40,7 +40,7 @@ def pDinamica(m:int,n:int,k:int, datos, dataName:str):
     totalTime = (end - start) * 1000
 
     # Generamos el grafico de la Instancia
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"ProgramacionDinamica",bestError,totalTime,dataName)    
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"V1: ProgramacionDinamica",bestError,totalTime,dataName)    
 
     return np.round(bestError,decimals=2),bestRes,np.round(totalTime,decimals=2)
 

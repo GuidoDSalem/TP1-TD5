@@ -3,6 +3,7 @@ import numpy as np
 import os
 
 from algorithms.fuerzaBruta import fuerzaBruta
+from algorithms.fuerzaBrutaV2 import fuerzaBrutaV2
 
 from algorithms.backTracking_v3 import backTrackingV3
 from algorithms.backTracking import backTracking
@@ -30,8 +31,8 @@ def main():
 	# listaDeDatos = ["titanium.json"]
 	# gmarraffini@fi.uba.ar
 	# VALORES DE EXPERIMENTO
-	ms = [5]
-	ns = [5]
+	ms = [6]
+	ns = [6]
 	k_breakpoints = [3,4,5]
 
 	# # Por cada lista de Datos:
@@ -66,7 +67,7 @@ def main():
 				bestError,solutions,time1 = pDinamica(6, 6,k, instance, dataName)
 				timeBT.append(time1)
 				errorBT.append(bestError)
-				bestError,solutionsX,solutionsY,time2 = pDinamicaV3(6,6, k,instance)
+				bestError,solutionsX,solutionsY,time2 = pDinamicaV3(6,6, k,instance,dataName)
 				timePD.append(time2)
 				errorPD.append(time2)
     
@@ -113,15 +114,15 @@ def main():
 
 						# fuerza bruta: f-`ython` -guido
 						result.setNames(dataName,"FuerzaBruta")
-						bestError,solutions,time = fuerzaBruta(i,j,k,instance)
+						bestError,solutions,time = fuerzaBruta(i,j,k,instance,dataName)
 						result.setSolutions(bestError,solutions,time)
 						result.saveState()
 
 						#fuerza bruta 2 : esta es f-cpp
-						# result.setNames(dataName,"FuerzaBruta2")
-						# bestError,solutions,time = fuerzaBrutaV3(i,j,k,instance)
-						# result.setSolutions(bestError,solutions,time)
-						# result.saveState()
+						result.setNames(dataName,"FuerzaBruta2")
+						bestError,solutions,time = fuerzaBrutaV2(i,j,k,instance,dataName)
+						result.setSolutions(bestError,solutions,time)
+						result.saveState()
 							
 						#backtracking_ f-python-guido
 						result.setNames(dataName,"BackTracking")
@@ -131,10 +132,10 @@ def main():
 		
 						
 						# backtrackingV3: f-cpp
-						#result.setNames(dataName,"BackTrackingV3")
-						#bestError,solutions,time = backTrackingV3(i, j,k_breakpoints, instance)
-						#result.setSolutions(bestError,solutions,time)
-						#result.saveState()
+						result.setNames(dataName,"BackTrackingV3")
+						bestError,solutions,time = backTrackingV3(i, j,k, instance,dataName)
+						result.setSolutions(bestError,solutions,time)
+						result.saveState()
 
 						#programacion dinamica: del branch f-cpp
 						result.setNames(dataName,"DinamicAlgorithm")
@@ -144,7 +145,7 @@ def main():
 		
 						#programacion dinamica V3: del branch f-python guido
 						result.setNames(dataName,"DinamicAlgorithmv3")
-						bestError,solutionsX,solutionsY,time = pDinamicaV3(i, j, k,instance)
+						bestError,solutionsX,solutionsY,time = pDinamicaV3(i, j, k,instance,dataName)
 						result.setSolutions(bestError,solutions,time)
 						result.saveState()
 

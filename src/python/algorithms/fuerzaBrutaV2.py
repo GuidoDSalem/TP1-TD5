@@ -3,7 +3,7 @@ import time
 import numpy as np
 from algorithms.Core import *
 
-def fuerzaBruta(m,n,k,datos,dataName:str):
+def fuerzaBrutaV2(m,n,k,datos,dataName:str):
     #Comenzamos a tomar el tiempo de ejecuciom
     start = time.time()
 	
@@ -56,7 +56,7 @@ def fuerzaBruta(m,n,k,datos,dataName:str):
     totalTime = (end - start) * 1000
 
     # Generamos el Grafico de esta Instancia
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"FuerzaBruta",bestError,totalTime,dataName)
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"V2: FuerzaBruta",bestError,totalTime,dataName)
 
     return np.round(bestError,decimals=2),bestRes,np.round(totalTime,decimals=2)
 

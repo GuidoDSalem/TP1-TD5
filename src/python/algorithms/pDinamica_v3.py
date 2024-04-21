@@ -20,7 +20,7 @@ def errorBreakPoints_dinamico(listaX,listaY,datos):
     return errorTotal
     
 
-def pDinamicaV3(m:int,n:int,k:int, datos):
+def pDinamicaV3(m:int,n:int,k:int, datos, dataName):
    
     start = time.time()
 	
@@ -38,25 +38,19 @@ def pDinamicaV3(m:int,n:int,k:int, datos):
     #agregamos el primer y ultimo elemento a cada lista 
     listas_medio = [[gridX[0]] + lista + [gridX[-1]] for lista in listas_medio]
 
-    bestRes = []
-    bestSubGridX =  [] 
-    bestError = 100000000000001
-
-    # Creo el diccionario (variable global) vacio
+    bestRes = [gridY[-1]] * k
+    bestError = float('inf')
+    
+     # Creo el diccionario (variable global) vacio
     global DiccionarioDeErrores
-    DiccionarioDeErrores = dict()
-   
-    for i in range(k):
-        bestRes.append(gridY[-1])
+    DiccionarioDeErrores = {}
+
    
     
     #con cada subgrilla probamos pdinamicarecursiva que recursivamente recorre todas las posibles combinaciones y devuelve el mejor error de esa subgrillaa
     for subGridX in listas_medio:
         
-        res = []
-       
-        for i in range(len(subGridX)):
-            res.append(gridY[0])
+        res = [gridY[0]] * len(subGridX)
         
         errorActual = 100000000000001
         
@@ -75,9 +69,9 @@ def pDinamicaV3(m:int,n:int,k:int, datos):
     #borramos el diccionario para que no se transfiera al llamar la funcion varias veces en el main 
     DiccionarioDeErrores.clear()
 
-    #plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"Programacion Dinamica",bestError,totalTime)
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"V3: Programacion Dinamica",bestError,totalTime,dataName)
 
-    print("----PROG DINAMICA----")
+    print("----PROG DINAMICAV3----")
     print(f"TIEMPO: {totalTime},\nFUNCION x: {bestSubGridX},\nFUNCION y: {bestRes},\nERROR: {bestError}\n\n")
     
     #devolvemos: mejor error, solucion en x, solucion en y y el tiempo total
@@ -89,37 +83,27 @@ def pDinamicaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
    
 
     #poda de optamalidad: si la rama que se esta calculando es mas grande que el mejor reusltado hasta ahora, descartala 
-    if(errorBreakPoints_dinamico(xs,ys,datos) > errorBreakPoints_dinamico(gridX,res,datos)):
-        return errorBreakPoints_dinamico(xs,ys,datos)
+    errorActual = errorBreakPoints_dinamico(xs,ys,datos)
+    if(errorActual > bestError):
+        return bestError
     
     #Caso Base
     if(len(gridX) == len(xs)):
         
-        errorBP = errorBreakPoints_dinamico(xs,ys,datos)
-            
-        errorActual = errorBreakPoints_dinamico(xs,res,datos)
-        
-    
-        if(errorBP < errorActual):
+        if(errorActual < bestError):
             res.clear()
             res.extend(ys)
-            errorActual = errorBP
-            bestError = errorBP
 
-        return bestError 
+        return errorActual 
     
-    #Caso recursivo
-    i = len(xs)
-    xs.append(gridX[i])
-    currentBestError = bestError
-    for j in gridY:
-        ys.append(j)
-        errorBreakPoints_dinamico(xs,ys,datos)
-        error = pDinamicaRecursiva(gridX,gridY,xs,ys,res,currentBestError,datos)
-        # m[posicion] = error
-        if(error < currentBestError):
-            currentBestError = error
-        ys.pop()
-    xs.pop()
+    if len(gridX) > len(xs):
+        currentBestError = float('inf')
+        for j in gridY:
+            ys.append(j)
+            error = pDinamicaRecursiva(gridX, gridY, xs + [gridX[len(xs)]], ys, res, bestError, datos)
+            currentBestError = min(currentBestError, error)
+            ys.pop()
+        
+        return currentBestError
     
-    return currentBestError
+    return bestError

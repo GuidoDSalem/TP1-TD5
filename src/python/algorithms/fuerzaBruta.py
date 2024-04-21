@@ -4,7 +4,7 @@ import numpy as np
 from algorithms.Core import *
 
 
-def fuerzaBruta(m,n,k,datos):
+def fuerzaBruta(m,n,k,datos,dataName):
     start = time.time()
     #creamos la grilla en x y en y para los datos 
     gridX:list = np.linspace(min(datos["x"]), max(datos["x"]), num=m, endpoint=True)
@@ -31,7 +31,7 @@ def fuerzaBruta(m,n,k,datos):
 
 
 
-    #plot_puntos_y_linea(datos,res[0],res[1],m,n,"FuerzaBruta",bestError,totalTime)
+    plot_puntos_y_linea(datos,res[0],res[1],m,n,"V1: FuerzaBruta",bestError,totalTime,dataName)
     
     print("----FUERZA BRUTA----")
     print(f"TIEMPO: {totalTime},\nFUNCION x: {res[0]},\nFUNCION y: {res[1]},\nERROR: {bestError}\n\n")
