@@ -42,8 +42,8 @@ def pDinamica(m:int,n:int,k:int, datos, dataName:str):
     # Generamos el grafico de la Instancia
     plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"V1: ProgramacionDinamica",bestError,totalTime,dataName)    
     
-    print("----PROG DINAMICA V1----")
-    print(f"TIEMPO: {totalTime},\nFUNCION x: {bestSubGridX},\nFUNCION y: {bestRes},\nERROR: {bestError}\n\n")
+    # print("----PROG DINAMICA V1----")
+    # print(f"TIEMPO: {totalTime},\nFUNCION x: {bestSubGridX},\nFUNCION y: {bestRes},\nERROR: {bestError}\n\n")
     
 
     return np.round(bestError,decimals=2),bestRes,np.round(totalTime,decimals=2)

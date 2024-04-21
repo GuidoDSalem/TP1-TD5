@@ -71,8 +71,8 @@ def pDinamicaV3(m:int,n:int,k:int, datos, dataName):
 
     plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"V3: Programacion Dinamica",bestError,totalTime,dataName)
 
-    print("----PROG DINAMICA V3----")
-    print(f"TIEMPO: {totalTime},\nFUNCION x: {bestSubGridX},\nFUNCION y: {bestRes},\nERROR: {bestError}\n\n")
+    # print("----PROG DINAMICA V3----")
+    # print(f"TIEMPO: {totalTime},\nFUNCION x: {bestSubGridX},\nFUNCION y: {bestRes},\nERROR: {bestError}\n\n")
     
     #devolvemos: mejor error, solucion en x, solucion en y y el tiempo total
     return np.round(bestError,decimals=2),bestSubGridX, bestRes,np.round(totalTime,decimals=2)

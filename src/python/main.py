@@ -20,8 +20,6 @@ BIG_NUMBER = 1e10 # Revisar si es necesario.
 
 def main():
 
-	# Json: "n" = cantidad de puntos, "x" = Lista de Cordenadas x, "y" = Lista de Coordenadas y
-
 	# Path a los datos json
 	dataPath = "data/"
 	print(os.curdir)
@@ -33,12 +31,12 @@ def main():
 	# VALORES DE EXPERIMENTO
 	ms = [6]
 	ns = [6]
-	k_breakpoints = [3,4,5]
+	k_breakpoints = [6]
 
 	# # Por cada lista de Datos:
 	result:Result = Result()
-	
-    #--------------------------------para caclular diferencia de tiempos o errores -------------------------------------
+	'''
+    #----------------para caclular diferencia de tiempos o errores --------------------
 	breakpoints_list = [2,3,4,5,6]
 	
 	for dataName in listaDeDatos:
@@ -67,9 +65,9 @@ def main():
 				bestError,solutions,time1 = pDinamica(6, 6,k, instance, dataName)
 				timeBT.append(time1)
 				errorBT.append(bestError)
-				bestError,solutionsX,solutionsY,time2 = pDinamicaV3(6,6, k,instance,dataName)
+				bestError2,solutionsX,solutionsY,time2 = pDinamicaV3(6,6, k,instance,dataName)
 				timePD.append(time2)
-				errorPD.append(time2)
+				errorPD.append(bestError2)
     
     
 			#ver la diferencia de tiempo por promedio multiplicado 
@@ -96,8 +94,8 @@ def main():
 			
 			comparacion_tiempo(time_list, algorithm_names, breakpoints_lists, round(avg_t,2), instance, dataName, 6, 6)
 			comparacion_errores(errors_list, algorithm_names, breakpoints_lists, round(avg_t,2), instance, dataName, 6, 6)
-   
-   			
+  
+'''	
 	#--------------------------------para correr los algoritmos en si , graficos individuales-------------------------
 	for dataName in listaDeDatos:
 		path = dataPath + dataName
@@ -109,33 +107,40 @@ def main():
 				for i in ms:
 					for j in ns:
 
+						print(f"DATA: {dataName},K: {k}, M: {i}, N: {j}")
+
 						result.setMN(i,j)
 
 
 						# fuerza bruta: f-python-guido
-						result.setNames(dataName,"FuerzaBruta")
-						bestError,solutions,time = fuerzaBruta(i,j,k,instance,dataName)
-						result.setSolutions(bestError,solutions,time)
-						result.saveState()
+						# result.setNames(dataName,"FuerzaBruta")
+						# bestError,solutions,time = fuerzaBruta(i,j,k,instance,dataName)
+						# result.setSolutions(bestError,solutions,time)
+						# result.saveState()
 
 						#fuerza bruta 2 : esta es f-cpp
 						result.setNames(dataName,"FuerzaBruta2")
 						bestError,solutions,time = fuerzaBrutaV2(i,j,k,instance,dataName)
 						result.setSolutions(bestError,solutions,time)
 						result.saveState()
+
+						print(f"ERROR: {bestError}")
+						print(f"TIEMPO FB: {time}")
 							
-						#backtracking_ f-python-guido
+						#backtracking_ f-cpp
 						result.setNames(dataName,"BackTracking")
 						bestError,solutionsX,solutionsY,time = backTracking(i, j,k, instance,dataName)
 						result.setSolutions(bestError,solutions,time)
 						result.saveState()
 		
 						
-						# backtrackingV3: f-cpp
-						result.setNames(dataName,"BackTrackingV3")
-						bestError,solutions,time = backTrackingV3(i, j,k, instance,dataName)
-						result.setSolutions(bestError,solutions,time)
-						result.saveState()
+						# backtrackingV3: f-python-guido
+						# result.setNames(dataName,"BackTrackingV3")
+						# bestError,solutions,time = backTrackingV3(i, j,k, instance,dataName)
+						# result.setSolutions(bestError,solutions,time)
+						# result.saveState()
+
+						print(f"TIEMPO BT: {time}")
 
 						#programacion dinamica: del branch f-cpp
 						result.setNames(dataName,"DinamicAlgorithm")
@@ -144,19 +149,15 @@ def main():
 						result.saveState()
 		
 						#programacion dinamica V3: del branch f-python guido
-						result.setNames(dataName,"DinamicAlgorithmv3")
-						bestError,solutionsX,solutionsY,time = pDinamicaV3(i, j, k,instance,dataName)
-						result.setSolutions(bestError,solutions,time)
-						result.saveState()
+						# result.setNames(dataName,"DinamicAlgorithmv3")
+						# bestError,solutionsX,solutionsY,time = pDinamicaV3(i, j, k,instance,dataName)
+						# result.setSolutions(bestError,solutions,time)
+						# result.saveState()
 
+						print(f"TIEMPO PD: {time}") 
 						
-		
 
 
-	result.saveInFile()
-
-	 			    
-		
 
 if __name__ == "__main__":
 	main()
