@@ -182,20 +182,20 @@ def comparacion_tiempo(tiempos_list, algorithm_names, breakpoints_lists, avg_t, 
     
     #plt.show()
     
-def comparacion_errores(errores_list, algorithm_names, breakpoints_lists, avg_e, instance, dataName, i, j):
+def comparacion_errores(errores_list, breakpoints_lists, instance, dataName, i, j):
    
     plt.figure(figsize=(10, 6))
    
     
     # Plot errors vs breakpoints for each algorithm
-    for error, breakpoints, algorithm_name in zip(errores_list, breakpoints_lists, algorithm_names):
-        plt.plot(breakpoints, error, label=algorithm_name)
+    
+    plt.plot(breakpoints_lists, errores_list)
 
     plt.xlabel('Breakpoints')
     plt.ylabel('Error')
     plt.title(f'Error vs Breakpoints en: {dataName}')
     plt.legend()
-    plt.text(0.5, -0.13, f"Diferencia de error en promedio: {avg_e}         Grilla: [{i},{j}]", ha='center', va='center', transform=plt.gca().transAxes, fontsize=8)
+    plt.text(0.5, -0.13, f"Grilla: [{i},{j}]     Numero de puntos: {instance["n"]}", ha='center', va='center', transform=plt.gca().transAxes, fontsize=8)
     plt.grid(True)
     
     fileName = f"Error vs Breakpoints {dataName[:-5]}_{i}x{j}"
