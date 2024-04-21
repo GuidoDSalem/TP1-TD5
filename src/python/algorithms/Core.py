@@ -206,6 +206,34 @@ def comparacion_errores(errores_list, breakpoints_lists, instance, dataName, i, 
     
     #plt.show()
        
+def comparacion_tiempos_dataset(tiempos_fuerza_bruta,tiempos_backtracking,tiempos_pdinamic,datasets):
+    n = len(datasets)  # Número de datasets
+    r = np.arange(n)  # Array con la posición de cada dataset
+    width = 0.25       # Ancho de las barras
+
+    # Crear el gráfico de barras
+    plt.figure(figsize=(10, 5))  # Tamaño del gráfico
+
+    # Barras para fuerza bruta
+    plt.bar(r, tiempos_fuerza_bruta, color = 'g', width = width, edgecolor = 'grey', label='Fuerza Bruta')
+
+    # Barras para backtracking
+    plt.bar(r + width, tiempos_backtracking, color = 'b', width = width, edgecolor = 'grey', label='Backtracking')
+
+    # Barras para programación dinámica
+    plt.bar(r + 2 * width, tiempos_pdinamic, color = 'r', width = width, edgecolor = 'grey', label='Programación Dinámica')
+
+    # Añadir títulos y etiquetas
+    plt.xlabel('Datasets', fontweight ='bold', fontsize = 15)
+    plt.ylabel('Tiempo de ejecución', fontweight ='bold', fontsize = 15)
+    plt.xticks(r + width, datasets)
+
+    # Añadir leyenda
+    plt.legend()
+
+    #mostrar grafico 
+    plt.show()
+
 
 
     
