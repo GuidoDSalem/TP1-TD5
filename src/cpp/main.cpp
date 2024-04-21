@@ -136,7 +136,7 @@ int main(int argc, char **argv)
     int N = 5;
 
     std::cout << K << std::endl;
-    */
+   
     // Aca empieza la magia.
 
     // Ejemplo para guardar json.
@@ -145,6 +145,6 @@ int main(int argc, char **argv)
 
     output << instance;
     output.close();
-
+     */
     return 0;
 }

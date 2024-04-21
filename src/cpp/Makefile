@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS = -std=c++17
-SRC = main.cpp
+SRC = $(wildcard *.cpp)
 OBJ = $(SRC:.cpp=.o)
-EXEC = pwl_fit
+EXEC = main.exe
 
 all: $(EXEC)
 
@@ -14,3 +14,5 @@ $(EXEC): $(OBJ)
 
 clean:
 	rm -f $(OBJ) $(EXEC)
+
+
