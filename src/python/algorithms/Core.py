@@ -209,7 +209,7 @@ def comparacion_errores(errores_list, algorithm_names, breakpoints_lists, avg_e,
 
 
     
-####################nose si se usan ###############################################3
+####################nose si se usan ###############################################
 def print_dict(dictionary):
     print("{")
     for key, value in dictionary.items():

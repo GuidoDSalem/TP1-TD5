@@ -112,7 +112,7 @@ def main():
 						result.setMN(i,j)
 
 
-						# fuerza bruta: f-`ython` -guido
+						# fuerza bruta: f-python-guido
 						result.setNames(dataName,"FuerzaBruta")
 						bestError,solutions,time = fuerzaBruta(i,j,k,instance,dataName)
 						result.setSolutions(bestError,solutions,time)
