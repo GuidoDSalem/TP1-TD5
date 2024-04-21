@@ -58,7 +58,7 @@ def backTracking(m:int,n:int,k:int, datos,dataName:str):  # O(2^n × n^2 × m^2)
     # Generamos el Grafico de la Instancia
     plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"V1: BackTracking",bestError,totalTime,dataName)
     
-    print("----BACK TRACKING----")
+    print("----BACK TRACKING V1----")
     print(f"TIEMPO: {totalTime},\nFUNCION x: {bestSubGridX},\nFUNCION y: {bestRes},\nERROR: {bestError}\n\n")
     
     #devolvemos: mejor error, solucion en x, solucion en y y el tiempo total

@@ -33,7 +33,7 @@ def fuerzaBruta(m,n,k,datos,dataName):
 
     plot_puntos_y_linea(datos,res[0],res[1],m,n,"V1: FuerzaBruta",bestError,totalTime,dataName)
     
-    print("----FUERZA BRUTA----")
+    print("----FUERZA BRUTA V1----")
     print(f"TIEMPO: {totalTime},\nFUNCION x: {res[0]},\nFUNCION y: {res[1]},\nERROR: {bestError}\n\n")
     
     #devolvemos: mejor error, solucion en x, solucion en y y el tiempo total

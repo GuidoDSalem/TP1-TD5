@@ -57,6 +57,10 @@ def fuerzaBrutaV2(m,n,k,datos,dataName:str):
 
     # Generamos el Grafico de esta Instancia
     plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"V2: FuerzaBruta",bestError,totalTime,dataName)
+    
+    print("----FUERZA BRUTA V2----")
+    print(f"TIEMPO: {totalTime},\nFUNCION x: {bestSubGridX},\nFUNCION y: {bestRes},\nERROR: {bestError}\n\n")
+    
 
     return np.round(bestError,decimals=2),bestRes,np.round(totalTime,decimals=2)
 

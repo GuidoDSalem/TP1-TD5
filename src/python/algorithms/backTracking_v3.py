@@ -35,11 +35,9 @@ def backTrackingV3(m,n,k,datos, dataName):
 
     plot_puntos_y_linea(datos,res[0],res[1],m,n,"V3:backTracking",bestError,totalTime, dataName)
 
-    print("BACK TRACKING V3")
-    print(f"BEST XS: {res[0]},BEST YS: {res[1]}, BEST ERROR: {bestError}")
-
-    print(f"\nGridY: {gridY}")
-    print(f"\n\nTIEMPO: {totalTime}, FUNCION:{bestError}\n")
+    print("---BACK TRACKING V3----")
+    print(f"TIEMPO: {totalTime},\nFUNCION x: {res[0]},\nFUNCION y: {res},\nERROR: {bestError}\n\n")
+    
 
     return np.round(bestError,decimals=2),res,np.round(totalTime,decimals=2)
 
@@ -72,7 +70,6 @@ def backTrackingRecursivaV3(gridX:list,gridY:list,xs:list,ys:list,res:list,bestE
                 res[1].clear()
                 res[0].extend(xs)
                 res[1].extend(ys)
-                print(f"RES: {res[1]},ERROR: {error}")
                 bestError = error
         
         return bestError
