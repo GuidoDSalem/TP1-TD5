@@ -31,11 +31,8 @@ def fuerzaBruta(m,n,k,datos,dataName):
 
 
 
-    plot_puntos_y_linea(datos,res[0],res[1],m,n,"V1: FuerzaBruta",bestError,totalTime,dataName)
-    
-    print("----FUERZA BRUTA V1----")
-    print(f"TIEMPO: {totalTime},\nFUNCION x: {res[0]},\nFUNCION y: {res[1]},\nERROR: {bestError}\n\n")
-    
+    plot_puntos_y_linea(datos,res[0],res[1],m,n,"FuerzaBruta",bestError,totalTime,dataName)
+  
     #devolvemos: mejor error, solucion en x, solucion en y y el tiempo total
     return np.round(bestError,decimals=2),res,np.round(totalTime,decimals=2)
 
@@ -63,7 +60,6 @@ def fuerzaBrutaRecursiva(gridX:list,gridY:list,xs:list,ys:list,res:list,bestErro
                 res[1].clear()
                 res[0].extend(xs)
                 res[1].extend(ys)
-                #print(f"RES: {res[1]},ERROR: {error}")
                 bestError = error
         
         return bestError

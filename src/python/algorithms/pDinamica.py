@@ -76,9 +76,10 @@ def pDinamica(m:int,n:int,k:int, datos, dataName:str):
     totalTime = (end - start) * 1000
 
     # Generamos el grafico de la Instancia
-    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"ProgramacionDinamica",bestError,totalTime,dataName)    
-
-    return np.round(bestError,decimals=2),bestRes,np.round(totalTime,decimals=2)
+    plot_puntos_y_linea(datos,bestSubGridX,bestRes,m,n,"Programacion Dinamica",bestError,totalTime,dataName)    
+    
+    
+    return np.round(bestError,decimals=2),bestSubGridX, bestRes,np.round(totalTime,decimals=2)
 
 
 
@@ -105,7 +106,6 @@ def pDinamicaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
     for j in gridY:
         ys.append(j)
         error = pDinamicaRecursiva(gridX,gridY,xs,ys,res,currentBestError,datos)
-        # m[posicion] = error
         if(error < currentBestError):
             currentBestError = error
         ys.pop()
