@@ -20,7 +20,7 @@ def errorBreakPoints_dinamico(listaX,listaY,datos):
     return errorTotal
     
 
-def pDinamica(m:int,n:int,k:int, datos):
+def pDinamicaV3(m:int,n:int,k:int, datos):
    
     start = time.time()
 	

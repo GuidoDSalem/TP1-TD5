@@ -26,7 +26,7 @@ def pDinamica(m:int,n:int,k:int, datos, dataName:str):
     
     for subGridX in listas_medio:
         res = [gridY[0]] * len(subGridX)
-        errorActual = pDinamicaRecursiva(subGridX, gridY, [], [], res, bestError, datos, memo)
+        errorActual = pDinamicaRecursiva(subGridX, gridY, [], [], res, bestError, datos)
         
         if errorActual < bestError:
             bestSubGridX = subGridX.copy()
@@ -66,7 +66,7 @@ def pDinamicaRecursiva(gridX,gridY,xs:list,ys:list,res:list,bestError,datos):
         currentBestError = float('inf')
         for j in gridY:
             ys.append(j)
-            error = pDinamicaRecursiva(gridX, gridY, xs + [gridX[len(xs)]], ys, res, bestError, datos, memo)
+            error = pDinamicaRecursiva(gridX, gridY, xs + [gridX[len(xs)]], ys, res, bestError, datos)
             currentBestError = min(currentBestError, error)
             ys.pop()
         
