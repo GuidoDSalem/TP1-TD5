@@ -115,44 +115,6 @@ def plot_puntos_y_linea_sin_save(data, linea_x, linea_y,m,n,algo,error,tiempo):
     plt.show()
 
 
-    """
-    Grafica puntos y una línea basados en las coordenadas proporcionadas.
-
-    :param puntos: Un diccionario con listas de coordenadas 'x' y 'y', y un contador 'n' de puntos.
-    :param linea_x: Una lista de coordenadas 'x' para la línea.
-    :param linea_y: Una lista de coordenadas 'y' para la línea.
-    """
-    
-    # Graficar los puntos
-    # Generar grilla de puntos usando numpy.linspace
-    x_grilla = np.linspace(min(puntos['x']), max(puntos['x']), m)
-    y_grilla = np.linspace(min(puntos['y']), max(puntos['y']), n)
-    X, Y = np.meshgrid(x_grilla, y_grilla)
-    linea_x = [x for x, y in coordenadas]
-    linea_y = [y for x, y in coordenadas]
-
-    # Graficar la grilla de puntos
-    plt.scatter(X, Y, color='gray', s=2, label='Grilla')  # s es el tamaño de los puntos
-
-    # Graficar los puntos
-    plt.scatter(puntos['x'], puntos['y'], color='red', label='Puntos')
-
-    # Graficar la línea
-    plt.plot(linea_x, linea_y, color='blue', label='Línea')
-
-    # Graficar puntos amarillos en los extremos de la línea
-    plt.scatter(linea_x, linea_y, color='yellow',s=10, label='Puntos de Unión', zorder=5)
-
-    # Añadir leyenda
-    plt.legend()
-
-  
-    plt.title(f"{algo}")
-    plt.text(0.5, -0.10, f"Error: {np.round(error)}     Tiempo: {np.round(tiempo,decimals=1)}     Grilla: [{m},{n}]", ha='center', va='center', transform=plt.gca().transAxes, fontsize=8)
-
-    # Mostrar el gráfico
-    plt.show()  
-
 def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo,dataName):
     """
     Grafica puntos y una línea basados en las coordenadas proporcionadas.
@@ -290,3 +252,41 @@ def CrearMatriz(filas, columnas, valor_inicial):
     
     matrix = np.full((filas, columnas), valor_inicial)
     return matrix
+
+def plot_coordenadas(linea_x,linea_y,puntos, coordenadas,m,n):
+    """
+    Grafica puntos y una línea basados en las coordenadas proporcionadas.
+
+    :param puntos: Un diccionario con listas de coordenadas 'x' y 'y', y un contador 'n' de puntos.
+    :param linea_x: Una lista de coordenadas 'x' para la línea.
+    :param linea_y: Una lista de coordenadas 'y' para la línea.
+    """
+    
+    # Graficar los puntos
+    # Generar grilla de puntos usando numpy.linspace
+    x_grilla = np.linspace(min(puntos['x']), max(puntos['x']), m)
+    y_grilla = np.linspace(min(puntos['y']), max(puntos['y']), n)
+    X, Y = np.meshgrid(x_grilla, y_grilla)
+    linea_x = [x for x, y in coordenadas]
+    linea_y = [y for x, y in coordenadas]
+
+    # Graficar la grilla de puntos
+    plt.scatter(X, Y, color='gray', s=2, label='Grilla')  # s es el tamaño de los puntos
+
+    # Graficar los puntos
+    plt.scatter(puntos['x'], puntos['y'], color='red', label='Puntos')
+
+    # Graficar la línea
+    plt.plot(linea_x, linea_y, color='blue', label='Línea')
+
+    # Graficar puntos amarillos en los extremos de la línea
+    plt.scatter(linea_x, linea_y, color='yellow',s=10, label='Puntos de Unión', zorder=5)
+
+    # Añadir leyenda
+    plt.legend()
+
+  
+    plt.text(0.5, -0.10, f"Error: {np.round(error)}      Grilla: [{m},{n}]", ha='center', va='center', transform=plt.gca().transAxes, fontsize=8)
+
+    # Mostrar el gráfico
+    plt.show()  
