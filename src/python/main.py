@@ -28,9 +28,9 @@ def main():
 	
 	
 	# VALORES DE EXPERIMENTO
-	ms = [3]
-	ns = [3]
-	breakpoints_list = [2,3]
+	ms = [5]
+	ns = [5]
+	breakpoints_list = [2,3,4,5]
 
 	# Por cada lista de Datos:
 	result:Result = Result()
@@ -74,19 +74,24 @@ def main():
 							#si queremos correr con fuerza bruta se hace demasiado lento igual y los tiempos de comparacion no lo valen tanto
 							#esta condicion la ponemos porque sino se hace muy largo el tiempo de ejecucion
 							if user_input2 == '1':
+								print("corriendo fuerza bruta....")
 								bestError,solutions,time0 = fuerzaBruta(6, 6,k, instance, dataName)
 								timeFB.append(time0)
 							
-							
+							print("corriendo back tracking....")
 							bestError,solutionsX,solutionsY,time1 = backTracking(i,j,k, instance, dataName)
 							timeBT.append(time1)
 							
+							print("corriendo programacion dinamica....")
 							bestError2,solutionsX,solutionsY,time2 = pDinamica(i,j, k,instance,dataName)
 							timePD.append(time2)
 							errorPD.append(bestError2)
 		
 							if k == valor_comparativo:
-								bestError,solutions,time0 = fuerzaBruta(i, j,k, instance, dataName)
+           
+								if user_input2 != '1':
+									bestError,solutions,time0 = fuerzaBruta(i, j,k, instance, dataName)
+         
 								tiempos_fuerza_bruta.append(time0)
 								tiempos_backtracking.append(time1)
 								tiempos_pdinamic.append(time2)
@@ -111,15 +116,23 @@ def main():
 			
 							#si comparo fb, bt y pd
 							time_list = [timeFB, timeBT, timePD]
-							algorithm_names = ['Fuerza Bruta','back tracking', 'ProgDinamica']
+							algorithm_names = ['Fuerza Bruta','Back Tracking', 'ProgDinamica']
 							breakpoints_lists  = [breakpoints_list, breakpoints_list, breakpoints_list]
+       
+							#ver la diferencia de tiempo por promedio de FB con BT
+							sum_t = 0
+							for i in range(0,len(timeFB)-1):
+								dif_tiempo = abs(timeFB[i] - timeBT[i])
+								sum_t += dif_tiempo
+							avg_t = (sum_t/len(timeFB))
+							
        
        
 						#### estos graficos se encuentran bajo la carpeta de graficos comparaciones
-      
 						#grafico de comparacion de tiempos vs breakpoints
 						comparacion_tiempo(time_list, algorithm_names, breakpoints_lists, round(avg_t,2), instance, dataName, i, j)
 			
+						
 						#grafico los errores con breakpoints
 						comparacion_errores(errorPD, breakpoints_list, instance, dataName, i, j)
 		
