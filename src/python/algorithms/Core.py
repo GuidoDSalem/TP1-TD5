@@ -176,7 +176,7 @@ def comparacion_tiempo(tiempos_list, algorithm_names, breakpoints_lists, avg_t, 
     
     fileName = f"Tiempo vs Breakpoints {dataName[:-5]}_{i}x{j}"
 
-    plt.savefig(f"./src/python/graficos/comparaciones/{dataName[:-5]}" + fileName)
+    plt.savefig(f"./src/python/graficos/tiempos/{dataName[:-5]}" + fileName)
 
     plt.close()
     
@@ -200,7 +200,7 @@ def comparacion_errores(errores_list, algorithm_names, breakpoints_lists, avg_e,
     
     fileName = f"Error vs Breakpoints {dataName[:-5]}_{i}x{j}"
 
-    plt.savefig(f"./src/python/graficos/comparaciones/{dataName[:-5]}" + fileName)
+    plt.savefig(f"./src/python/graficos/errores/{dataName[:-5]}" + fileName)
 
     plt.close()
     
