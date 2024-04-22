@@ -76,7 +76,6 @@ def listasCombinatorias(lista:list,subconjuntos,lista_subconjuntos,k):
 def pepe():
     return 3
 
-
 #######################################################funciones para graficar
 def plot_puntos_y_linea_sin_save(data, linea_x, linea_y,m,n,algo,error,tiempo):
     """
@@ -113,7 +112,6 @@ def plot_puntos_y_linea_sin_save(data, linea_x, linea_y,m,n,algo,error,tiempo):
 
     # Mostrar el gráfico
     plt.show()
-
 
 def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo,dataName):
     """
@@ -182,20 +180,20 @@ def comparacion_tiempo(tiempos_list, algorithm_names, breakpoints_lists, avg_t, 
     
     #plt.show()
     
-def comparacion_errores(errores_list, algorithm_names, breakpoints_lists, avg_e, instance, dataName, i, j):
+def comparacion_errores(errores_list, breakpoints_lists, instance, dataName, i, j):
    
     plt.figure(figsize=(10, 6))
    
     
     # Plot errors vs breakpoints for each algorithm
-    for error, breakpoints, algorithm_name in zip(errores_list, breakpoints_lists, algorithm_names):
-        plt.plot(breakpoints, error, label=algorithm_name)
+    
+    plt.plot(breakpoints_lists, errores_list)
 
     plt.xlabel('Breakpoints')
     plt.ylabel('Error')
     plt.title(f'Error vs Breakpoints en: {dataName}')
     plt.legend()
-    plt.text(0.5, -0.13, f"Diferencia de error en promedio: {avg_e}         Grilla: [{i},{j}]", ha='center', va='center', transform=plt.gca().transAxes, fontsize=8)
+    plt.text(0.5, -0.13, f"Grilla: [{i},{j}]     Numero de puntos: {instance["n"]}", ha='center', va='center', transform=plt.gca().transAxes, fontsize=8)
     plt.grid(True)
     
     fileName = f"Error vs Breakpoints {dataName[:-5]}_{i}x{j}"
@@ -206,6 +204,34 @@ def comparacion_errores(errores_list, algorithm_names, breakpoints_lists, avg_e,
     
     #plt.show()
        
+def comparacion_tiempos_dataset(tiempos_fuerza_bruta,tiempos_backtracking,tiempos_pdinamic,datasets):
+    n = len(datasets)  # Número de datasets
+    r = np.arange(n)  # Array con la posición de cada dataset
+    width = 0.25       # Ancho de las barras
+
+    # Crear el gráfico de barras
+    plt.figure(figsize=(10, 5))  # Tamaño del gráfico
+
+    # Barras para fuerza bruta
+    plt.bar(r, tiempos_fuerza_bruta, color = 'g', width = width, edgecolor = 'grey', label='Fuerza Bruta')
+
+    # Barras para backtracking
+    plt.bar(r + width, tiempos_backtracking, color = 'b', width = width, edgecolor = 'grey', label='Backtracking')
+
+    # Barras para programación dinámica
+    plt.bar(r + 2 * width, tiempos_pdinamic, color = 'r', width = width, edgecolor = 'grey', label='Programación Dinámica')
+
+    # Añadir títulos y etiquetas
+    plt.xlabel('Datasets', fontweight ='bold', fontsize = 15)
+    plt.ylabel('Tiempo de ejecución', fontweight ='bold', fontsize = 15)
+    plt.xticks(r + width, datasets)
+
+    # Añadir leyenda
+    plt.legend()
+
+    #mostrar grafico 
+    plt.show()
+
 
 
     
