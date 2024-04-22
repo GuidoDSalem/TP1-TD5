@@ -76,7 +76,6 @@ def listasCombinatorias(lista:list,subconjuntos,lista_subconjuntos,k):
 def pepe():
     return 3
 
-
 #######################################################funciones para graficar
 def plot_puntos_y_linea_sin_save(data, linea_x, linea_y,m,n,algo,error,tiempo):
     """
@@ -113,7 +112,6 @@ def plot_puntos_y_linea_sin_save(data, linea_x, linea_y,m,n,algo,error,tiempo):
 
     # Mostrar el gráfico
     plt.show()
-
 
 def plot_puntos_y_linea(data, linea_x, linea_y,m,n,algo,error,tiempo,dataName):
     """
